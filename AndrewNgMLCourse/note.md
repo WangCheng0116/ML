@@ -3,6 +3,7 @@
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
+- [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
 
 
 # Linear Regression with one variable
@@ -37,11 +38,12 @@ $x^{(i)}$ means ith data from the training set, for example,
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/4a904451-8f94-4bda-8923-8798c0057112)  
 is the second row in the training set  
 $x_{j}^{i}$ means the jth feature in the ith data row  
+Suppose we have data $x_{1}$, $x_{2}$, $x_{3}$, $x_{4}$, we would add a bias column $x_{0}$ to be 1, so the feature matrix would have a dimension of (m, n + 1)
 
 ## Gradient Descent for Multiple Variables
 $h_θ (x)=θ^T X=θ_0+θ_1 x_1+θ_2 x_2+...+θ_n x_n$  
 taking derivatives, we have  
-<img width="210" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/3c084c79-538f-4103-b964-bafb5865e039">  
+<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/3c084c79-538f-4103-b964-bafb5865e039">  
 
 ## Python Implementation  
 ``` python
@@ -66,6 +68,13 @@ def gradient_descent(X, y, theta, learning_rate, num_iterations):
 
     return theta, J_history
 ```
+
+## Feature Scaling  
+$x_n=(x_n-μ_n)/s_n$ would lead to a rounder contour hence resulting in less iterations.  
+
+# Features and Polynomial Regression
+
+
 
 
 
