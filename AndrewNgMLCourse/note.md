@@ -172,12 +172,14 @@ in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predic
 * Underfit: High bias
 * Just Right
 * Overfit: High variance | We have a very small error but this model is not generalizable
-Solutions:  
+
+Solutions:
 * Reduce the number of features
- * manually select
- * model selection algorithm
+  * manually select
+  * model selection algorithm
 * Regularization
- * keep all features but reduce magnitude of parameters
+  * keep all features but reduce magnitude of parameters
+
 
 
 
