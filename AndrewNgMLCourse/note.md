@@ -1,4 +1,11 @@
-# Linear Regression with one variable  
+# Table of Contents
+
+- [Linear Regression with one variable](#linear-regression-with-one-variable)
+- [Matrix Review](#matrix-review)
+- [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
+
+
+# Linear Regression with one variable
 Our hypothesis model:  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/c71fb25e-86cb-4792-a6f0-41cd991fe4b1)  
 the function to estimate our errors between real data and our model  
@@ -22,5 +29,5 @@ this method would sometimes also be referred as "Batch Gradient Descent", becaus
 # Matrix Review  
 [CS2109S CheatSheet](https://coursemology3.s3.ap-southeast-1.amazonaws.com/uploads/attachments/e3/2d/be/e32dbead0b0c575ef71d120059c1741af17a3085cba0fb5eb6278da9568d8289.pdf?response-content-disposition=inline%3B%20filename%3D%22matrix_calculus_cheatsheet.pdf%22&X-Amz-Expires=600&X-Amz-Date=20230928T083209Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2EQN7A45RM2X7VPX%2F20230928%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=a2bdde670ac0db2119bc0d20f73ffbaa1253b613d99f5c6ec52ee301b0fd9c29)
 
-
+# Linear Regression with multiple variables
 
