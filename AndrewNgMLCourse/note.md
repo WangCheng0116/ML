@@ -4,6 +4,7 @@
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
 - [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
+- [Logistic Regression](#Logistic-Regression)
 
 
 # Linear Regression with one variable
@@ -88,7 +89,7 @@ $h_θ (x)=θ_0+θ_1 (size)+θ_2 (size)^2$, and then we treat it as a normal line
 
   
 # Normal Equation  
-My own interpretation: Instead of thinking it from calculus perspective, let's do it in matrix:  
+My own interpretation: Instead of thinking of it from calculus perspective, let's do it in matrix:  
 We want to find a x_hat where it will lead to minimal error, based on this property, we will know the only possible solution lies in the project of vector y onto column space of X, so we have 
 $X^T (y - Xθ) = 0$  
 therefore $θ=(X^T X)^{(-1)} X^T y$  
@@ -115,7 +116,12 @@ let it equal to 0.
 
 ## What if X^T X is not invertible?
 Reason: 1. redundant features causing it to be linearly dependent  
-2. m < n (sample size is less than amount of features) => delete features or use regularizaion  
+2. m < n (sample size is less than the amount of features) => delete features or use regularization  
+
+# Logistic Regression
+
+## Classification Problems
+
 
 
 
