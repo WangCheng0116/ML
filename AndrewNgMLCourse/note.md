@@ -189,6 +189,16 @@ In general, we will have![image](https://github.com/WangCheng0116/ML/assets/1116
 where λ is called **Regularization Parameter**
 
 
+## Gradient Descent and Normal Equation Using Regularization  
+
+![image](https://github.com/WangCheng0116/ML/assets/111694270/a4a32b91-7e79-4002-a218-e923f3c22d56)  
+* Note that the difference is each time $θ_j$ is multiplied with a number smaller than 1  
+
+<img width="227" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e95e8711-5f8e-4f9e-9ff8-ecf101f99232">
+* if λ ≥ 0, it is guaranteed to be invertible;
+* the 0, 1, 1 ... 1 matrix is of size $(n + 1) x (n + 1)$
+
+
 
 
 
