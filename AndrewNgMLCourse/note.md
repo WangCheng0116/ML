@@ -95,12 +95,9 @@ $X^T (y - Xθ) = 0$
 therefore $θ=(X^T X)^{(-1)} X^T y$  
 
 Rigorous steps:  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/e749d497-1c98-4dbf-b308-af4c0598802b)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/e66dd445-e43f-43f1-99ff-db47a668b6fa)
-<img width="470" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6e9c4333-23d2-462c-a124-c1a0b2e3d049">  
-We know that $dAB/dB=A^T$ and $(dX^T AX)/dX=2AX$, so  
-<img width="470" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/0867dcb7-0c53-489d-a53d-181ceb701b09">  
-let it equal to 0.
+<img src="https://github.com/WangCheng0116/ML/assets/111694270/6e6f5bfb-c4e0-4e4e-a233-5b3c924b3220" alt="Image" width="400" height="500">
+
+
 
 
 
@@ -151,7 +148,8 @@ def cost(theta, X, y):
   return np.sum(first - second) / (len(X))
 ```
 Taking derivative, we found out that 
-![IMG_DBE9C9EEF9F8-1](https://github.com/WangCheng0116/ML/assets/111694270/deebcf4b-ada9-4ca3-8b34-14f4e2bcb9a8)  
+<img src="https://github.com/WangCheng0116/ML/assets/111694270/deebcf4b-ada9-4ca3-8b34-14f4e2bcb9a8" alt="Image" width="500" height="450">
+ 
 it's the same as linear regression!!!  
 we apply the same strategy here  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/01ef33e8-275d-4025-bf57-c3c000001273">  
