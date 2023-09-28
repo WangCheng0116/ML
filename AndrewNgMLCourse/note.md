@@ -6,6 +6,7 @@
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
 - [Neural Networks](#Neural-Networks)
+- [# Neural Networks: Learning](#Neural-Networks:-Learning)
 
 
 # Linear Regression with one variable
@@ -264,6 +265,7 @@ here is one possible way for us to use neurons to achieve **or** function
 ## Multiclass Classification
 The intuition remains the same, just one thing different. The final output is a set of data rather than a single one, for example, [1 0 0], [0 1 0], [0 0 1] mean cars, cats and dogs respectively.
 
+# Neural Networks: Learning
 
 
 
