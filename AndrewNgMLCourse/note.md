@@ -1,4 +1,4 @@
-# Table of Contents
+![image](https://github.com/WangCheng0116/ML/assets/111694270/ba181449-1428-494f-909f-2bbb5d70281a)# Table of Contents
 
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
 - [Matrix Review](#matrix-review)
@@ -155,9 +155,15 @@ Taking derivative, we found out that
 it's the same as linear regression!!!  
 we apply the same strategy here  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/01ef33e8-275d-4025-bf57-c3c000001273">  
-in this case feature scaling is also helpful in reducing the number of iteraitons
+in this case feature scaling is also helpful in reducing the number of iterations
 
+## Multiclass Classification  
+<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/07a1202e-ee1d-4a2c-968b-b3a791486907">  
 
+We would use a method called one v.s. all  
+<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e42adf14-d933-42b1-89c0-229927c8a238">  
+
+in this case we have three classifiers $h_θ^((i) ) (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max┬i h_θ^((i) ) (x)$
 
 
 
