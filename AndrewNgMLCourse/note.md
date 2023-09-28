@@ -87,13 +87,19 @@ $h_θ (x)=θ_0+θ_1 (size)+θ_2 (size)^2$, and then we treat it as a normal line
 * Feature Scaling is often needed to avoid huge numbers.
 
   
+# Normal Equation  
+My own interpretation: Instead of thinking it from calculus perspective, let's do it in matrix:  
+We want to find a x_hat where it will lead to minimal error, based on this property, we will know the only possible solution lies in the project of vector y onto column space of X, so we have 
+$X^T (y - Xθ) = 0$  
+therefore $θ=(X^T X)^{(-1)} X^T y$  
 
-
-
-
-
-
-
+# Comparison  
+| Feature               | Gradient Descent                   | Normal Equation                 |
+|-----------------------|-----------------------------------|----------------------------------|
+| Learning Rate α       | Required                          | Not Required                     |
+| Iterations Required   | Required                          | Computed Once                    |
+| For large sample size | Good                              | Troublesome to calculate inverse , which will cost $O(n^{3})$. if n < 10000 would be acceptable |
+|Applicabilty           | Various Models                    | Only for linear models            |
 
 
 
