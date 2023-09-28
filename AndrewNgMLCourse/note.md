@@ -72,7 +72,25 @@ def gradient_descent(X, y, theta, learning_rate, num_iterations):
 ## Feature Scaling  
 $x_n=(x_n-μ_n)/s_n$ would lead to a rounder contour hence resulting in less iterations.  
 
-# Features and Polynomial Regression
+## Learning Rate  
+small lr -> slow convergence  
+large lr -> J(θ) may not decrease at each iteration; may not converge  
+
+
+# Features and Polynomial Regression  
+Define our own feature:  
+instead of $h_θ (x)=θ_0+θ_1×frontage+θ_2×depth$  
+we can have $h_θ (x)=θ_0+θ_1×frontage+θ_2×depth$ where $x=frontage*depth=area$  
+
+Polynomial Model:  
+$h_θ (x)=θ_0+θ_1 (size)+θ_2 (size)^2$, and then we treat it as a normal linear regression model.  
+* Feature Scaling is often needed to avoid huge numbers.
+
+  
+
+
+
+
 
 
 
