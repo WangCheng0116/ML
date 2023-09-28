@@ -246,8 +246,14 @@ Generally speaking, j layer has m units, j + 1 layer has n units, then $θ^{(j)}
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/50d95b4e-c1ed-41f5-947a-daecaa0e7115)
 
 ## Model Representation II
-Suppose we are at layer j where the data are  
-$(a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$
+Suppose we are at layer j where the data is defined as 
+$a^{(j)}$ = $(a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$  
+we need to first add a bias term 1 to the layer $(a_0^{(j)}, a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$,  
+then the data after weighting ready to be fed to j + 1 layer is defined as (suppose j+1 layer has 3 units)   
+$z^{(j+1)}$ = $(z_1^{(j+1)}, z_2^{(j+1)}, z_3^{(j+1)})^T$  
+using the weighted matrix, we have $z^{(j+1)}$ = $Θ^{(j)} a^{(j)}$  
+but its just the date propagated to j+1 layer, they haven't been digested,  
+after digestion, $a^{(j + 1)} = sigmoid(z^{(j + 1)})$
 
 
 
