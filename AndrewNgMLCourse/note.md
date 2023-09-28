@@ -246,6 +246,8 @@ Generally speaking, j layer has m units, j + 1 layer has n units, then $θ^{(j)}
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/50d95b4e-c1ed-41f5-947a-daecaa0e7115)
 
 ## Model Representation II
+Suppose we are at layer j where the data are  
+[$a_1^{j}$, $a_2^{j}$, $a_3^{j}$]
 
 
 
