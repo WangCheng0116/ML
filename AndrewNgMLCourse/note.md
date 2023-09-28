@@ -116,12 +116,13 @@ let it equal to 0.
 
 ## What if X^T X is not invertible?
 Reason: 1. redundant features causing it to be linearly dependent  
-2. m < n (sample size is less than the amount of features) => delete features or use regularization  
+2. m < n (sample size is less than the number of features) => delete features or use regularization  
 
 # Logistic Regression
 
 ## Classification Problems
-
+Yes or No => y ∈ {0 , 1}  
+Our hypothesis is $h_θ (x)=g(θ^T X)$, where g is sigmoid function, $g(z)=1/(1+e^{(-z)})$
 
 
 
