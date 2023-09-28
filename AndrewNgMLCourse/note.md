@@ -163,7 +163,7 @@ in this case feature scaling is also helpful in reducing the number of iteration
 We would use a method called one v.s. all  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e42adf14-d933-42b1-89c0-229927c8a238">  
 
-in this case we have three classifiers $h_θ^((i) ) (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max┬i h_θ^((i) ) (x)$
+in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max┬i h_θ^{(i)} (x)$
 
 
 
