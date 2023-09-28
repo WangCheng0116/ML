@@ -6,7 +6,7 @@
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
 - [Neural Networks](#Neural-Networks)
-- [# Neural Networks: Learning](#Neural-Networks:Learning)
+- [Neural Networks: Learning](#neural-networks-learning)
 
 
 # Linear Regression with one variable
