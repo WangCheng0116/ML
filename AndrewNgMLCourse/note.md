@@ -1,5 +1,4 @@
-![image](https://github.com/WangCheng0116/ML/assets/111694270/ba181449-1428-494f-909f-2bbb5d70281a)# Table of Contents
-
+# Table of Content
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
