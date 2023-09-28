@@ -274,7 +274,77 @@ $θ_{ji}^{(l)}$ here represents a parameter or weight in a neural network, speci
 A concrete example: $θ_{10}^{(2)}$ is the weight connecting $a_0^{(2)}$ at layer 2 with $a_1^{(3)}$
 
 ## Backpropagation Algorithm
-The idea is to compute the error term of each layer and then use it to update the weights.
+The idea is to compute the error term of each layer and then use it to update the weights.  
+Our goal always remain the same: we have a set of parameters waiting to be optimized, and we also have cost function. The essence of gradient descent is to find the partial derivative of cost function to all the parameters.  
+
+
+Let's start with the notation in the proof:  
+For weights let **wᴸₘₙ** be the weight from the mₜₕ neuron in the (L-1)ₜₕ layer to the nₜₕ neuron in the Lₜₕ layer.  
+activation of the **mₜₕ** neuron in the Lₜₕ layer by aᴸₘ and for the bias we’ll do **bᴸₘ**.  
+So we will have ![image](https://github.com/WangCheng0116/ML/assets/111694270/687fb62c-30b3-45e4-8908-6d43d108941b)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/8924c514-47f5-4093-98f4-0610be5a4444)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/befbe5ce-cfa8-44ff-b5b2-92e9de4c0f90)  
+is same as  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/8c13ccb7-6e96-411b-9c0c-960a1023bb3a)  
+and only when **i=n**, the term would survive in the partial derivative, so we have  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/b821315a-17dd-44cb-b9d1-849ba06e7aab)  
+Let the red part be **δᴸₙ**, we have  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/997698b4-3d3a-4a17-84a2-9ff04c4bd367)  
+For bias term, we use the same method:  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/a489afdd-9578-4875-8c23-b4a689cfc601)  
+plugging in 
+![image](https://github.com/WangCheng0116/ML/assets/111694270/52be6ccd-b600-4fb3-b1ff-3d286d8ddb9c)  
+we will have  
+![formula](https://github.com/WangCheng0116/ML/assets/111694270/2f4506ec-ad95-4e94-820c-3a94c04d3f34)  
+our goal here simplifies to find delta  
+
+Let's start with the last layer H  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/fd3874c4-582c-4877-be6c-ddc56b4a04f2)  
+since we know the cost function, we have  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/9f877d79-57d8-4dc1-9b11-9778577008ad)  
+this is the first part of the last last equation  
+![image](https://github.c. m/WangCheng0116/ML/assets/111694270/7882297c-ae99-4976-b333-ad1422951954) 
+this is the second term of the last last equation, by combining both  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/97674f42-6254-4369-aff6-622de1a40876)  
+By generalizing into the relation between L and L + 1, marked as red here, we still need to find out the second term (notice that only when **i=n** it will be left)   
+![image](https://github.com/WangCheng0116/ML/assets/111694270/ad26a84b-6ec5-4988-92a7-aaf67e04aa39)  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/cbd9cf1f-c8b8-4c81-be4c-527b151b66e8)  
+By combining two terms, the last last last formula would be  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/b0d062fa-96bc-4af4-984a-c0ed5b9ae5a6)  
+in vectorization form, this can be also written as (⊙ means elementwise production)  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/5aa0065a-c3ec-4ea4-a297-d125e8ab2e16)  
+
+To sum up, in two versions, the first is from elementwise perspective  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/8db186f9-46a3-4910-b8bc-5ca16ff5aa91)  
+the other one is from vector perspective (layer by layer)    
+![image](https://github.com/WangCheng0116/ML/assets/111694270/0e67b7a1-445c-484b-a85a-8439e295fdc2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
