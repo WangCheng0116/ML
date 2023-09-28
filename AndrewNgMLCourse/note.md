@@ -5,7 +5,7 @@
 - [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
-- [# Non-Linear Hypothesis](#Non-Linear-Hypothesis)
+- [Non-Linear Hypothesis](#Non-Linear-Hypothesis)
 
 
 # Linear Regression with one variable
