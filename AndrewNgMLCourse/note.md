@@ -268,10 +268,12 @@ The intuition remains the same, just one thing different. The final output is a 
 # Neural Networks: Learning
 ## Cost Function  
  ![image](https://github.com/WangCheng0116/ML/assets/111694270/8e3c6b71-3b5b-4564-8712-2e0fe61fdefe)  
- 
-It looks intimidating, but the idea remains the same, the only difference is that the final output is a vector of dimension **K**, $(h_θ (x))_i=$i^th output in the result vector, the last summation term is just simply the sum of all the parameters (all weights) excluding the term where i = 0, which means it is multiplied with bias, so there's no need to take them into account.
+
+It looks intimidating, but the idea remains the same, the only difference is that the final output is a vector of dimension **K**, $(h_θ (x))_i=$i^th output in the result vector, the last summation term is just simply the sum of all the parameters (all weights) excluding the term where i = 0, which means it is multiplied with bias, so there's no need to take them into account. (If you do nothing would happen)
 
 
+## Backpropagation Algorithm
+The idea is to compute the error term of each layer and then use it to update the weights.
 
 
 
