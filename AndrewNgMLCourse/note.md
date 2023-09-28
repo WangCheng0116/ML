@@ -122,7 +122,19 @@ Reason: 1. redundant features causing it to be linearly dependent
 
 ## Classification Problems
 Yes or No => y ∈ {0 , 1}  
-Our hypothesis is $h_θ (x)=g(θ^T X)$, where g is sigmoid function, $g(z)=1/(1+e^{(-z)})$
+Our hypothesis is $h_θ (x)=g(θ^T X)$, where g is sigmoid function, $g(z)=1/(1+e^{(-z)})$  
+The interpretation of our hypothesis could be $h_θ (x)$ estimates the probability that y = 1 on input x  
+
+## Decision Boundary  
+Suppose when $h_θ (x)$ ≥ 0, we predict y = 1, it is equivalent to say $θ^T X$ ≥ 0 based on graph of sigmoid function  
+For a linear function, let's assume the boundary is $-3+x_1+x_2≥0$  
+<img width="150" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/fc995d40-9379-49df-af50-1e5ad89d2cd9">  
+For non-linear, we could also include polynomials like this  $h_θ (x)=g(θ_0+θ_1 x_1+θ_2 x_2+θ_3 x_1^2+θ_4 x_2^2 )$  
+<img width="181" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6422cc39-2385-4b9d-87f7-f72a38cc0961">
+
+
+
+
 
 
 
