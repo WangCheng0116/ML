@@ -180,6 +180,19 @@ Solutions:
 * Regularization
   * keep all features but reduce magnitude of parameters
 
+## Motivation to have regularization
+$h_θ (x)=θ_0+θ_1 x_1+θ_2 x_2^2+θ_3 x_3^3+θ_4 x_4^4$, the reason why we have overfit is because of those terms with high degree, we want to minimize their impact on our model. So we choose![image](https://github.com/WangCheng0116/ML/assets/111694270/ada44f0f-d354-4b75-a042-afe7719eaeb1)  
+
+to include punishment for high degree terms.  
+
+In general, we will have![image](https://github.com/WangCheng0116/ML/assets/111694270/dd0518a4-c7a0-4fb5-845b-ffd8e021824d)  
+where λ is called **Regularization Parameter**
+
+
+
+
+
+
 
 
 
