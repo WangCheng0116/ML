@@ -5,6 +5,7 @@
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
 - [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
 - [Logistic Regression](#Logistic-Regression)
+- [Regularization](#Regularization)
 
 
 # Linear Regression with one variable
@@ -163,8 +164,20 @@ in this case feature scaling is also helpful in reducing the number of iteration
 We would use a method called one v.s. all  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e42adf14-d933-42b1-89c0-229927c8a238">  
 
-in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max┬i h_θ^{(i)} (x)$
+in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max h_θ^{(i)} (x)$
 
+# Regularization  
+## Underfit and Overfit
+<img width="420" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/135b056f-de7e-439d-a66b-3f07f111e5ac">
+* Underfit: High bias
+* Just Right
+* Overfit: High variance | We have a very small error but this model is not generalizable
+Solutions:  
+* Reduce the number of features
+ * manually select
+ * model selection algorithm
+* Regularization
+ * keep all features but reduce magnitude of parameters
 
 
 
