@@ -247,7 +247,7 @@ Generally speaking, j layer has m units, j + 1 layer has n units, then $θ^{(j)}
 
 ## Model Representation II
 Suppose we are at layer j where the data are  
-[$a_1^{j}$, $a_2^{j}$, $a_3^{j}$]
+$(a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$
 
 
 
