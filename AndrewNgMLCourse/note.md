@@ -266,6 +266,10 @@ here is one possible way for us to use neurons to achieve **or** function
 The intuition remains the same, just one thing different. The final output is a set of data rather than a single one, for example, [1 0 0], [0 1 0], [0 0 1] mean cars, cats and dogs respectively.
 
 # Neural Networks: Learning
+## Cost Function  
+ ![image](https://github.com/WangCheng0116/ML/assets/111694270/8e3c6b71-3b5b-4564-8712-2e0fe61fdefe)
+ It looks intimidating, but the idea remains the same, the only difference is that the final output is a vector of dimension **K**, $(h_θ (x))_i=i^th output in the result vector$
+
 
 
 
