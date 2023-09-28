@@ -167,7 +167,8 @@ in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predic
 
 # Regularization  
 ## Underfit and Overfit
-<img width="420" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/135b056f-de7e-439d-a66b-3f07f111e5ac">
+<img width="420" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/135b056f-de7e-439d-a66b-3f07f111e5ac">  
+
 * Underfit: High bias
 * Just Right
 * Overfit: High variance | We have a very small error but this model is not generalizable
