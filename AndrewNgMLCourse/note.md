@@ -139,7 +139,27 @@ If we still plug our function into Square Error function, the ultimate cost func
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/63734c4a-9d64-41aa-a771-8ecf3fea90e1">  
 
 Simplify it as $Cost(h_θ (x),y)=-y×log(h_θ (x))-(1-y)×log(1-h_θ (x))$  
-Our ultimate cost function is ![image](https://github.com/WangCheng0116/ML/assets/111694270/acceed7b-f4d6-4490-9aa7-3da146ec0d8f)
+Our ultimate cost function is ![image](https://github.com/WangCheng0116/ML/assets/111694270/ecdad8f3-bcb9-4eb4-8b69-3978d91f93b1)  
+``` python
+# code for cost function
+def cost(theta, X, y):
+  theta = np.matrix(theta)
+  X = np.matrix(X)
+  y = np.matrix(y)
+  first = np.multiply(-y, np.log(sigmoid(X* theta.T)))
+  second = np.multiply((1 - y), np.log(1 - sigmoid(X* theta.T)))
+  return np.sum(first - second) / (len(X))
+```
+Taking derivative, we found out that 
+![IMG_DBE9C9EEF9F8-1](https://github.com/WangCheng0116/ML/assets/111694270/deebcf4b-ada9-4ca3-8b34-14f4e2bcb9a8)  
+it's the same as linear regression!!!  
+we apply the same strategy here  
+<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/01ef33e8-275d-4025-bf57-c3c000001273">  
+in this case feature scaling is also helpful in reducing the number of iteraitons
+
+
+
+
 
 
 
