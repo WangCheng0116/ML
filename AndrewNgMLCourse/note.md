@@ -1,4 +1,4 @@
-# Table of Content
+![image](https://github.com/WangCheng0116/ML/assets/111694270/3f556fa8-e156-42c5-97fa-5426c3917d8e)# Table of Content
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
@@ -187,10 +187,15 @@ In general, we will have![image](https://github.com/WangCheng0116/ML/assets/1116
 where λ is called **Regularization Parameter**
 
 
-## Gradient Descent and Normal Equation Using Regularization  
+## Gradient Descent and Normal Equation Using Regularization in Linear Regression
 
+
+> important: $θ_0$ would never be part of regularization, so all index numbers of $θ_j$ start from 1
+
+![image](https://github.com/WangCheng0116/ML/assets/111694270/f5b44dfa-13fd-4744-aaf2-14fca072161b)
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/a4a32b91-7e79-4002-a218-e923f3c22d56)  
-* Note that the difference is each time $θ_j$ is multiplied with a number smaller than 1  
+* Note that the difference is each time $θ_j$ is multiplied with a number smaller than 1
+* For $θ_0$, we take λ as 0
 
 <img width="227" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e95e8711-5f8e-4f9e-9ff8-ecf101f99232">  
 
@@ -199,9 +204,32 @@ Rigorous proof:
 <img src="https://github.com/WangCheng0116/ML/assets/111694270/756b269a-6734-4f3a-964a-d29ef957b81b" alt="Image" width="550" height="400">
 
 
-* if λ > 0, it is guaranteed to be invertible;  
+* If λ > 0, it is guaranteed to be invertible;  
 
-* the 0, 1, 1 ... 1 matrix is of size $(n + 1) * (n + 1)$
+* The 0, 1, 1 ... 1 matrix is of size $(n + 1) * (n + 1)$
+
+
+## Gradient Descent Using Regularization in Logistic Regression
+> important: $θ_0$ would never be part of regularization, so all index numbers of $θ_j$ start from 1
+
+![image](https://github.com/WangCheng0116/ML/assets/111694270/38b8dc08-2df9-481f-8a2e-a7492728d1df)
+``` python
+import numpy as np
+def costReg(theta, X, y, lambda):
+    theta = np.matrix(theta)
+    X = np.matrix(X)
+    y = np.matrix(y)
+    first = np.multiply(-y, np.log(sigmoid(X*theta.T)))
+    second = np.multiply((1 - y), np.log(1 - sigmoid(X*theta.T)))
+    reg = (lambda / (2 * len(X))* np.sum(np.power(theta[:,1:theta.shape[1]],2))
+    return np.sum(first - second) / (len(X)) + reg
+```
+We will have the following update models:  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/44736829-0e51-498c-8f1c-69f4e36b0294)  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/55b31ab3-1584-4f69-a37a-4161449723b3)
+
+
+
 
 
 
