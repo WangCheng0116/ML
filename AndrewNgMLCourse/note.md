@@ -1,10 +1,11 @@
-![image](https://github.com/WangCheng0116/ML/assets/111694270/3f556fa8-e156-42c5-97fa-5426c3917d8e)# Table of Content
+# Table of Content
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
 - [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
+- [# Non-Linear Hypothesis](#Non-Linear-Hypothesis)
 
 
 # Linear Regression with one variable
@@ -227,6 +228,8 @@ def costReg(theta, X, y, lambda):
 We will have the following update models:  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/44736829-0e51-498c-8f1c-69f4e36b0294)  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/55b31ab3-1584-4f69-a37a-4161449723b3)
+
+# Non-Linear Hypothesis
 
 
 
