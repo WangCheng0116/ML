@@ -270,26 +270,11 @@ The intuition remains the same, just one thing different. The final output is a 
  ![image](https://github.com/WangCheng0116/ML/assets/111694270/8e3c6b71-3b5b-4564-8712-2e0fe61fdefe)  
 
 It looks intimidating, but the idea remains the same, the only difference is that the final output is a vector of dimension **K**, $(h_θ(x))_i$ = i^th output in the result vector, the last summation term is just simply the sum of all the parameters (all weights) excluding the term where i = 0, which means it is multiplied with bias, so there's no need to take them into account. (If you do nothing will happen)  
-$θ_{ji}^{l}$ here represenst a parameter or weight in a neural network, specifically for layer "l" connecting the "i-th" neuron in layer "l" to the "j-th" neuron in layer "l+1" mathematically, $θ_{ji}^{(l)}$ is weight connecting $a_i^{l}$ and $a_j^{l+1}$  
-A concrete example: $θ_(10)^{(2)}$ is the weight connecting $a_0^{2}$ at layer 2 with $a_1^{3}$
+$θ_{ji}^{(l)}$ here represents a parameter or weight in a neural network, specifically for layer "l" connecting the "i-th" neuron in layer "l" to the "j-th" neuron in layer "l+1" mathematically, $θ_{ji}^{(l)}$ is weight connecting $a_i^{l}$ and $a_j^{l+1}$  
+A concrete example: $θ_{10}^{(2)}$ is the weight connecting $a_0^{(2)}$ at layer 2 with $a_1^{(3)}$
 
 ## Backpropagation Algorithm
 The idea is to compute the error term of each layer and then use it to update the weights.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
