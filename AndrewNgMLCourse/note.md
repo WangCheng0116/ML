@@ -253,7 +253,18 @@ then the data after weighting ready to be fed to j + 1 layer is defined as (supp
 $z^{(j+1)}$ = $(z_1^{(j+1)}, z_2^{(j+1)}, z_3^{(j+1)})^T$  
 using the weighted matrix, we have $z^{(j+1)}$ = $Θ^{(j)} a^{(j)}$  
 but its just the date propagated to j+1 layer, they haven't been digested,  
-after digestion, $a^{(j + 1)} = sigmoid(z^{(j + 1)})$
+after digestion, $a^{(j + 1)} = sigmoid(z^{(j + 1)})$  
+
+
+## Examples 
+<img width="320" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/dc4cfa59-007c-4174-aa77-908b92708efc">  
+
+here is one possible way for us to use neurons to achieve **or** function
+
+## Multiclass Classification
+The intuition remains the same, just one thing different. The final output is a set of data rather than a single one, for example, [1 0 0], [0 1 0], [0 0 1] mean cars, cats and dogs respectively.
+
+
 
 
 
