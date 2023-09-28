@@ -93,6 +93,18 @@ We want to find a x_hat where it will lead to minimal error, based on this prope
 $X^T (y - Xθ) = 0$  
 therefore $θ=(X^T X)^{(-1)} X^T y$  
 
+Rigorous steps:  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/e749d497-1c98-4dbf-b308-af4c0598802b)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/e66dd445-e43f-43f1-99ff-db47a668b6fa)
+<img width="470" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6e9c4333-23d2-462c-a124-c1a0b2e3d049">  
+We know that $dAB/dB=A^T$ and $(dX^T AX)/dX=2AX$, so  
+<img width="470" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/0867dcb7-0c53-489d-a53d-181ceb701b09">  
+let it equal to 0.
+
+
+
+
+
 # Comparison  
 | Feature               | Gradient Descent                   | Normal Equation                 |
 |-----------------------|-----------------------------------|----------------------------------|
@@ -101,6 +113,9 @@ therefore $θ=(X^T X)^{(-1)} X^T y$
 | For large sample size | Good                              | Troublesome to calculate inverse , which will cost $O(n^{3})$. if n < 10000 would be acceptable |
 |Applicabilty           | Various Models                    | Only for linear models            |
 
+## What if X^T X is not invertible?
+Reason: 1. redundant features causing it to be linearly dependent  
+2. m < n (sample size is less than amount of features) => delete features or use regularizaion  
 
 
 
