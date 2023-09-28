@@ -5,7 +5,7 @@
 - [Features and Polynomial Regression](#Features-and-Polynomial-Regression)
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
-- [Non-Linear Hypothesis](#Non-Linear-Hypothesis)
+- [Neural Networks](#Neural-Networks)
 
 
 # Linear Regression with one variable
@@ -229,7 +229,28 @@ We will have the following update models:
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/44736829-0e51-498c-8f1c-69f4e36b0294)  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/55b31ab3-1584-4f69-a37a-4161449723b3)
 
-# Non-Linear Hypothesis
+# Neural Networks
+
+## Model Representation I
+<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/2da8a328-c40f-4342-806c-37784ae657ff">  
+
+Here we can see **Input Layer**, **Hidden Layer** and **Output Layer**, each layer may also have a **Bias Unit**  
+$a_i^{(j)}$ means the activation of ith unit in jth layer  
+activation means the value computed by it
+$θ^{(j)}$ means the weight matrix from layer j to layer j + 1  
+In this case $θ^{(1)}$ is a matrix of size 3 * 4 (take in 4 parameters (including bias term) and outputs three data in layer 3)  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/1477231b-2e14-496e-ba7b-36583c0232b7)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/49d8abe0-a051-487b-886b-6340681c6326)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/a4a1a214-c641-4b6d-b015-d5d1e3ebdc94)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/50d95b4e-c1ed-41f5-947a-daecaa0e7115)
+
+
+
+
+
+
+
+
 
 
 
