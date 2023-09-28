@@ -33,8 +33,48 @@ this method would sometimes also be referred as "Batch Gradient Descent", becaus
 <img width="237" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/c0b0e60b-18cd-4f48-b66b-83bffe639546">  
 
 ## New notations  
-$$ x^{(i)} $$ means ith data from the training set, for example,  
-$$ x^((2))=[■(1416@ 3@ 2@ 40)]$$ 
+$x^{(i)}$ means ith data from the training set, for example,  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/4a904451-8f94-4bda-8923-8798c0057112)  
+is the second row in the training set  
+$x_{j}^{i}$ means the jth feature in the ith data row  
+
+## Gradient Descent for Multiple Variables
+$h_θ (x)=θ^T X=θ_0+θ_1 x_1+θ_2 x_2+...+θ_n x_n$  
+taking derivatives, we have  
+<img width="210" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/3c084c79-538f-4103-b964-bafb5865e039">  
+
+## Python Implementation  
+``` python
+def cost_function(X, y, theta):
+    m = len(y)
+    predictions = X.dot(theta)
+    squared_errors = (predictions - y) ** 2
+    J = 1 / (2 * m) * np.sum(squared_errors)
+    return J
+
+# Define the gradient descent function
+def gradient_descent(X, y, theta, learning_rate, num_iterations):
+    m = len(y)
+    J_history = []
+
+    for _ in range(num_iterations):
+        predictions = X.dot(theta)
+        errors = predictions - y
+        gradient = (1 / m) * X.T.dot(errors)
+        theta -= learning_rate * gradient
+        J_history.append(cost_function(X, y, theta))
+
+    return theta, J_history
+```
+
+
+
+
+
+
+
+
+
 
 
 
