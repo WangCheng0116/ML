@@ -243,6 +243,13 @@ We will have the following update models:
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/44736829-0e51-498c-8f1c-69f4e36b0294)  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/55b31ab3-1584-4f69-a37a-4161449723b3)
 
+## Gradient Descent Using Regularization in Neural Networks  
+<img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/40ae8cb4-9d36-4afb-bbe1-c75da556a49e">  
+Basically, it means for all $w^{[i]}$, it will sum up the square of each element in $w^{[i]}$, i.e., the sum of the square of all weight parameters. We need to include an extra term when updating.  
+<img width="620" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6f07840e-ddf6-4c28-b1ab-f988811d015e">
+
+
+
 # Neural Networks
 
 ## Model Representation I
