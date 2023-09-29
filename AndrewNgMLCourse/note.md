@@ -246,7 +246,29 @@ We will have the following update models:
 ## Gradient Descent Using Regularization in Neural Networks  
 <img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/40ae8cb4-9d36-4afb-bbe1-c75da556a49e">  
 Basically, it means for all $w^{[i]}$, it will sum up the square of each element in $w^{[i]}$, i.e., the sum of the square of all weight parameters. We need to include an extra term when updating.  
-<img width="620" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6f07840e-ddf6-4c28-b1ab-f988811d015e">
+<img width="620" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6f07840e-ddf6-4c28-b1ab-f988811d015e">  
+
+## Dropout  
+### Implementation
+One way to implement this is called **inverted-dropout**  
+``` python
+keep_prob = 0.8    # Ses a probability threshold to keep a neuron
+dl = np.random.rand(al.shape[0], al.shape[1]) < keep_prob # less than threshold? keep it
+al = np.multiply(al, dl) # some neuron will be multiplied with a false (0), hence being eliminated
+al /= keep_prob # reverse the multiplication to keep expected average value the same
+```
+## Other Methods of Regularization
+
+* Data Augmentation
+
+Data Augmentation is a technique used in deep learning to increase the size of the training and validation datasets by applying various transformations to images. These transformations may include flipping, local zooming followed by cropping, and more. The goal is to generate more diverse data points for training and validation, which can help improve the generalization of the model.
+
+* Early Stopping
+
+Early Stopping is a regularization technique employed during the training of neural networks. It involves monitoring the cost (or loss) on both the training and validation datasets during the gradient descent process. The cost curves for both datasets are plotted on the same axis. The training is halted when the training error continues to decrease, but the validation error starts to increase significantly. This is done to prevent overfitting, as a significant gap between the training and validation errors indicates that the model is becoming too specialized in the training data and may not generalize well to unseen data. However, one limitation of this approach is that it cannot simultaneously achieve the optimal balance between bias and variance, as it primarily focuses on avoiding overfitting.
+
+Using a combination of *Data Augmentation* and *Early Stopping* can help in training deep learning models that are better at generalizing to new, unseen data while avoiding overfitting.
+
 
 
 
