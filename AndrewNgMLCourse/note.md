@@ -6,7 +6,8 @@
 - [Logistic Regression](#Logistic-Regression)
 - [Regularization](#Regularization)
 - [Neural Networks](#Neural-Networks)
-- [Neural Networks: Learning](#neural-networks-learning)
+- [Deep Neural Network](#Deep-Neural-Network)
+
 
 
 # Linear Regression with one variable
@@ -270,33 +271,9 @@ After vectorization, we will only need to change x to X and a to A,
   * Derivative: $Sigmoid'(z) = Sigmoid(z) \cdot (1 - Sigmoid(z))$
   * Explanation: The sigmoid function maps its input to values in the range (0, 1). While it was commonly used in the past, especially in the output layer for binary classification, it has some drawbacks, including the vanishing gradient problem. It's not used as frequently as ReLU in modern deep learning architectures but can still be useful in certain cases.
 
-
-
-
-
-
-
-
-## Model Representation II
-Suppose we are at layer j where the data is defined as 
-$a^{(j)}$ = $(a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$  
-we need to first add a bias term 1 to the layer $(a_0^{(j)}, a_1^{(j)}, a_2^{(j)}, a_3^{(j)})^T$,  
-then the data after weighting ready to be fed to j + 1 layer is defined as (suppose j+1 layer has 3 units)   
-$z^{(j+1)}$ = $(z_1^{(j+1)}, z_2^{(j+1)}, z_3^{(j+1)})^T$  
-using the weighted matrix, we have $z^{(j+1)}$ = $Θ^{(j)} a^{(j)}$  
-but its just the date propagated to j+1 layer, they haven't been digested,  
-after digestion, $a^{(j + 1)} = sigmoid(z^{(j + 1)})$  
-
-
-## Examples 
-<img width="320" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/dc4cfa59-007c-4174-aa77-908b92708efc">  
-
-here is one possible way for us to use neurons to achieve **or** function
-
 ## Multiclass Classification
 The intuition remains the same, just one thing different. The final output is a set of data rather than a single one, for example, [1 0 0], [0 1 0], [0 0 1] mean cars, cats and dogs respectively.
 
-# Neural Networks: Learning
 ## Cost Function  
  ![image](https://github.com/WangCheng0116/ML/assets/111694270/8e3c6b71-3b5b-4564-8712-2e0fe61fdefe)  
 
@@ -377,3 +354,8 @@ An example:
 If we still use 0 to initialize, it is easy to prove the whole updating procedure will be completely symmetric.  
 so what we will do is initialize $w^{[i]}$ with a random number from [0, 1] * 0.01, the reason is we want it to have values close to 0 where the slope will be relatively large.  
 for $b^{[i]}$, it won't affect symmetry so we could initialize it to be 0
+
+
+# Deep Neural Network
+
+
