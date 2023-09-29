@@ -434,4 +434,27 @@ W = np.random.randn(W.shape[0], W.shape[1]) * np.sqrt(1/n)
 * KaiMing He Initialization
 The only difference is Var(wi)=2/n, suitable when choosing ReLU.
 
+## Gradient Checking (Grad Check)  
+take $W^{[1]}$，$b^{[1]}$，...，$W^{[L]}$，$b^{[L]}$ them all out and form a giant vector θ, like  
 
+$$J(W^{[1]}, b^{[1]}, ..., W^{[L]}，b^{[L]}) = J(\theta)$$
+
+Same technique applies to $dW^{[1]}$，$db^{[1]}$，...，$dW^{[L]}$，$db^{[L]}$ to form dθ,  
+
+$$d\theta_{approx}[i] ＝ \frac{J(θ_{1}, θ_{2}, ..., θ_i+\varepsilon, ...) - J(θ_1, θ_2, ..., θ_i-\varepsilon, ...)}{2\varepsilon}$$
+
+it should satisfy
+
+$$\approx{d\theta[i]} = \frac{\partial J}{\partial \theta_{i}}$$
+
+so we could calculate the difference between them, and if the difference is small enough, we could say our gradient is correct. (denominator is for scaling)
+
+$$\frac{{||dθ_{approx} - d\theta||}_2}{{||dθ_{approx}||}_2+{||d\theta||}_2}$$
+
+where
+
+$${||x||}_2 = \sum^N_{i=1}{|x_i|}^2$$  
+
+* if it is smaller than $10^{-7}$, we could say our gradient is correct.  
+* if it is between $10^{-7}$ and $10^{-4}$, we could say it is suspicious.  
+* if it is larger than $10^{-4}$, we could say our gradient is probably wrong.
