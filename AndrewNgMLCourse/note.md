@@ -370,48 +370,10 @@ The final procedure would be
 
 4- Repeat for more examples until the weights and biases of the network can be updated through gradient descent (depends on your batch size):
 
+An example:  
+![IMG_218B24DAAD11-1](https://github.com/WangCheng0116/ML/assets/111694270/25b2ebda-b6f9-4a45-b471-9dddc12a252c)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Randomize Initialization  
+If we still use 0 to initialize, it is easy to prove the whole updating procedure will be completely symmetric.  
+so what we will do is initialize $w^{[i]}$ with a random number from [0, 1] * 0.01, the reason is we want it to have values close to 0 where the slope will be relatively large.  
+for $b^{[i]}$, it won't affect symmetry so we could initialize it to be 0
