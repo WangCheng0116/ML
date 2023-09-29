@@ -244,18 +244,21 @@ We will have the following update models:
 # Neural Networks
 
 ## Model Representation I
-<img width="700" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/2da8a328-c40f-4342-806c-37784ae657ff">  
+<img width="1131" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e7a58359-6a69-4131-a5b5-62b14556ea6f">  
 
-Here we can see **Input Layer**, **Hidden Layer** and **Output Layer**, each layer may also have a **Bias Unit**  
-$a_i^{(j)}$ means the activation of ith unit in jth layer  
-activation means the value computed by it
-$Θ^{(j)}$ means the weight matrix from layer j to layer j + 1  
-In this case $θ^{(1)}$ is a matrix of size 3 * 4 (take in 4 parameters (including bias term) and outputs three data in layer 3)  
-Generally speaking, j layer has m units, j + 1 layer has n units, then $θ^{(j)}$ would be of dimension n x (m + 1)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/1477231b-2e14-496e-ba7b-36583c0232b7)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/49d8abe0-a051-487b-886b-6340681c6326)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/a4a1a214-c641-4b6d-b015-d5d1e3ebdc94)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/50d95b4e-c1ed-41f5-947a-daecaa0e7115)
+**z** is pre-activation value, **a** is after activation, $w^{[i]}$ means the weight matrix from layer **i-1** to to layer **i**, the and size of matrix $w^{[i]}$ is (# of nodes in layer **i**, # of nodes in layer **i-1**)  
+In vectorization form, we will have  
+<img width="688" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/f42be892-8d4c-46e6-bb1a-1a0db0c045fe">  
+<img width="390" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d354d725-3558-4169-9a07-af35e0ede829">  
+After vectorization, we will only need to change x to X and a to A,  
+<img width="346" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/912d21de-b4a7-446d-b351-afe5e7e47d27">
+
+
+
+
+
+
+
 
 ## Model Representation II
 Suppose we are at layer j where the data is defined as 
