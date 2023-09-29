@@ -155,7 +155,18 @@ Taking derivative, we found out that
 it's the same as linear regression!!!  
 we apply the same strategy here  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/01ef33e8-275d-4025-bf57-c3c000001273">  
-in this case feature scaling is also helpful in reducing the number of iterations
+in this case feature scaling is also helpful in reducing the number of iterations  
+
+## Vectorization of Logistic Regression  
+``` python
+Z = np.dot(X, w) + bias
+A = sigmoid(Z)
+error = A - y
+dw = np.dot(X.T, error) / m
+db = np.sum(error)/ m
+w = w - α * dw
+bias = b - α * db
+```
 
 ## Multiclass Classification  
 <img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/07a1202e-ee1d-4a2c-968b-b3a791486907">  
