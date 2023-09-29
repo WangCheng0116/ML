@@ -251,8 +251,21 @@ In vectorization form, we will have
 <img width="688" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/f42be892-8d4c-46e6-bb1a-1a0db0c045fe">  
 <img width="390" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d354d725-3558-4169-9a07-af35e0ede829">  
 After vectorization, we will only need to change x to X and a to A,  
-<img width="346" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/912d21de-b4a7-446d-b351-afe5e7e47d27">
+<img width="920" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/205eff58-ff7e-476c-b6d7-7c015d84e83f">
 
+## Other activation functions  
+
+* **tanh (Hyperbolic Tangent):** 
+  * Formula: $tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}$
+  * Explanation: The tanh function maps its input to values in the range [-1, 1]. Like the sigmoid function, it's also used in neural networks, particularly in the hidden layers. One problem with tanh and sigmoid is the vanishing gradient problem, which can occur when values are too small or too large, leading to slow convergence during training.
+
+* **ReLU (Rectified Linear Unit):** 
+  * Formula: $ReLU(z) = \max(0, z)$
+  * Explanation: ReLU is a widely used activation function that replaces negative values with zero and leaves positive values unchanged. It helps mitigate the vanishing gradient problem and accelerates training. It's commonly used in the hidden layers of neural networks. For binary classification, sigmoid is often used in the output layer in combination with ReLU in the hidden layers.
+
+* **Sigmoid (Logistic):** 
+  * Formula: $Sigmoid(z) = \frac{1}{1 + e^{-z}}$
+  * Explanation: The sigmoid function maps its input to values in the range (0, 1). While it was commonly used in the past, especially in the output layer for binary classification, it has some drawbacks, including the vanishing gradient problem. It's not used as frequently as ReLU in modern deep-learning architectures but can still be useful in certain cases.
 
 
 
