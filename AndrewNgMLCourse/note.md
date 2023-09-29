@@ -7,6 +7,7 @@
 - [Regularization](#Regularization)
 - [Neural Networks](#Neural-Networks)
 - [Deep Neural Network](#Deep-Neural-Network)
+- [Setting Up ML Application](#Setting-Up-ML-Application)
 
 
 
@@ -347,8 +348,7 @@ The final procedure would be
 
 4- Repeat for more examples until the weights and biases of the network can be updated through gradient descent (depends on your batch size):
 
-An example:  
-![IMG_218B24DAAD11-1](https://github.com/WangCheng0116/ML/assets/111694270/25b2ebda-b6f9-4a45-b471-9dddc12a252c)
+<img width="1313" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/84f3af48-c6f5-4258-8913-6f3c0e2706ea">
 
 ## Randomize Initialization  
 If we still use 0 to initialize, it is easy to prove the whole updating procedure will be completely symmetric.  
@@ -357,5 +357,35 @@ for $b^{[i]}$, it won't affect symmetry so we could initialize it to be 0
 
 
 # Deep Neural Network
+## Working Flow Chart  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/b7a21d78-fbeb-40e3-bc89-61f6dbaf5c68)  
+By caching the value of $z^{[i]}$, we could make bp easier.  
+<img width="1313" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/300facb2-a4df-463e-b31d-4c8923edea1b">
+<img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/7b569246-bebd-407f-b50f-66745f2ae7e8"><img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/a1d3c3bc-fcba-42de-9abe-d74bb9ee3570">  
+in these two detailed slides, LHS refers to single training data, while the other one is after vectorization.  
+
+# Setting Up ML Application  
+
+## Data Split: Training / Validation / Test Sets
+
+Applying deep learning is a typical iterative process.
+
+In the process of building a model for a problem with sample data, the data is divided into the following parts:
+
+* **Training set**: Used to **train** the algorithm or model.
+
+* **Validation set (development set)**: Utilized for **cross-validation** to **select the best model**.
+
+* **Test set**: Finally used to test the model and obtain an **unbiased estimate** of the model's performance.
+
+In the **era of small data**, with dataset sizes like 100, 1000, or 10000, data can be split according to the following ratios:
+
+* Without a validation set: 70% / 30%.
+
+* With a validation set (also known as simple cross-validation set): 60% / 20% / 20%.
+
+However, in today's **big data era**, datasets for a problem can be on the scale of millions. Therefore, the proportion of the validation and test sets tends to become smaller.
+
+
 
 
