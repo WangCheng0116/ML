@@ -257,15 +257,19 @@ After vectorization, we will only need to change x to X and a to A,
 
 * **tanh (Hyperbolic Tangent):** 
   * Formula: $tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}$
+  * Derivative: $tanh'(z) = 1 - tanh^2(z)$
   * Explanation: The tanh function maps its input to values in the range [-1, 1]. Like the sigmoid function, it's also used in neural networks, particularly in the hidden layers. One problem with tanh and sigmoid is the vanishing gradient problem, which can occur when values are too small or too large, leading to slow convergence during training.
 
 * **ReLU (Rectified Linear Unit):** 
   * Formula: $ReLU(z) = \max(0, z)$
+  * Derivative: $ReLU'(z) = 1$ if $z > 0$, $ReLU'(z) = 0$ if $z \leq 0$
   * Explanation: ReLU is a widely used activation function that replaces negative values with zero and leaves positive values unchanged. It helps mitigate the vanishing gradient problem and accelerates training. It's commonly used in the hidden layers of neural networks. For binary classification, sigmoid is often used in the output layer in combination with ReLU in the hidden layers.
 
 * **Sigmoid (Logistic):** 
   * Formula: $Sigmoid(z) = \frac{1}{1 + e^{-z}}$
-  * Explanation: The sigmoid function maps its input to values in the range (0, 1). While it was commonly used in the past, especially in the output layer for binary classification, it has some drawbacks, including the vanishing gradient problem. It's not used as frequently as ReLU in modern deep-learning architectures but can still be useful in certain cases.
+  * Derivative: $Sigmoid'(z) = Sigmoid(z) \cdot (1 - Sigmoid(z))$
+  * Explanation: The sigmoid function maps its input to values in the range (0, 1). While it was commonly used in the past, especially in the output layer for binary classification, it has some drawbacks, including the vanishing gradient problem. It's not used as frequently as ReLU in modern deep learning architectures but can still be useful in certain cases.
+
 
 
 
