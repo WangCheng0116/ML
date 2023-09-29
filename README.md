@@ -18,7 +18,7 @@ I have watched at least five different videos and none of them explain this thor
 Today what I have learned:
 * Regularization
 * Neural Networks
-* Neural Networks: Learning
+* Deep Neural Networks
 
 [Notes can be found here](https://github.com/WangCheng0116/ML/blob/main/AndrewNgMLCourse/note.md)
 
