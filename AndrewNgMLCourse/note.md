@@ -321,12 +321,18 @@ and only when **i=n**, the term would survive in the partial derivative, so we h
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/b821315a-17dd-44cb-b9d1-849ba06e7aab)  
 Let the red part be **δᴸₙ**, we have  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/997698b4-3d3a-4a17-84a2-9ff04c4bd367)  
-For bias term, we use the same method:  
+In vectorization form, we have  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/35b77c72-8cda-40bc-8bb6-351679756089)  
+
+For bias terms, we use the same method:  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/a489afdd-9578-4875-8c23-b4a689cfc601)  
 plugging in 
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/52be6ccd-b600-4fb3-b1ff-3d286d8ddb9c)  
 we will have  
 ![formula](https://github.com/WangCheng0116/ML/assets/111694270/2f4506ec-ad95-4e94-820c-3a94c04d3f34)  
+in vectorization form  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/24eaf15e-c671-4430-a3c1-5b35c9cfc8b6)
+
 our goal here simplifies to find delta  
 
 Let's start with the last layer H  
@@ -334,10 +340,15 @@ Let's start with the last layer H
 since we know the cost function, we have  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/9f877d79-57d8-4dc1-9b11-9778577008ad)  
 this is the first part of the last last equation  
-![image](https://github.c. m/WangCheng0116/ML/assets/111694270/7882297c-ae99-4976-b333-ad1422951954) 
+![image](https://github.com/WangCheng0116/ML/assets/111694270/7882297c-ae99-4976-b333-ad1422951954) 
 this is the second term of the last last equation, by combining both  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/97674f42-6254-4369-aff6-622de1a40876)  
-By generalizing into the relation between L and L + 1, marked as red here, we still need to find out the second term (notice that only when **i=n** it will be left)   
+in vectorization form  
+![image](https://github.com/WangCheng0116/ML/assets/111694270/9fb3cae8-5ad1-419a-94eb-8531463610d3)  
+
+By generalizing into the relation between L and L + 1, marked as red here,     
+![image](https://github.com/WangCheng0116/ML/assets/111694270/9ca6e8ad-d8bb-4c7f-a931-835a7d19f603)  
+we still need to find out the second term (notice that only when **i=n** it will be left),  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/ad26a84b-6ec5-4988-92a7-aaf67e04aa39)  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/cbd9cf1f-c8b8-4c81-be4c-527b151b66e8)  
 By combining two terms, the last last last formula would be  
