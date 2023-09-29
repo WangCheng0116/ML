@@ -359,7 +359,16 @@ in vectorization form, this can be also written as (⊙ means elementwise produc
 To sum up, in two versions, the first is from elementwise perspective  
 ![image](https://github.com/WangCheng0116/ML/assets/111694270/8db186f9-46a3-4910-b8bc-5ca16ff5aa91)  
 the other one is from vector perspective (layer by layer)    
-![image](https://github.com/WangCheng0116/ML/assets/111694270/0e67b7a1-445c-484b-a85a-8439e295fdc2)
+![image](https://github.com/WangCheng0116/ML/assets/111694270/0e67b7a1-445c-484b-a85a-8439e295fdc2)  
+
+The final procedure would be  
+1- Find aᴸ and zᴸ for layers 0 through H by feeding an example into the network. (Use the first two equations.) This is known as the “forward pass”.
+
+2- Compute δᴸ for layers H through 0 using the formulae for δᴴ, δᴸ respectively. (Use the third equation.)
+
+3- Simultaneously compute ∂J/∂Wᴸ and ∂J/∂bᴸ for layers H through 0 as once we have δᴸ we can find both of these. (Use the last two equations.) This is known as the “backward pass”.
+
+4- Repeat for more examples until the weights and biases of the network can be updated through gradient descent (depends on your batch size):
 
 
 
