@@ -416,5 +416,22 @@ In the **era of small data**, with dataset sizes like 100, 1000, or 10000, data 
 However, in today's **big data era**, datasets for a problem can be on the scale of millions. Therefore, the proportion of the validation and test sets tends to become smaller.
 
 
+## Vanishing and Exploding Gradients  
+[A pretty nice introduction](https://zhuanlan.zhihu.com/p/72589432), sigmoid actually sucks because its derivative is always less than 0.25, very likely to cause Vanishing Gradients. On the other hand, the derivative of ReLU always 1 when x > 0, NIICE!!  
+
+
+How can we solve the issue?  
+
+*  Xavier initialization
+In the Xavier Initialization, the goal is to keep the values of weights $w_i$ relatively small when the number of inputs (n) is large. This helps ensure that the weighted sum (z) remains reasonably small.
+
+To achieve smaller weights $w_i$, the variance of each weight is set to 1/n. Here's the formula for Xavier Initialization:
+
+```python
+W = np.random.randn(W.shape[0], W.shape[1]) * np.sqrt(1/n)
+```
+
+* KaiMing He Initialization
+The only difference is Var(wi)=2/n, suitable when choosing ReLU.
 
 
