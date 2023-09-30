@@ -377,7 +377,7 @@ The final procedure would be
 
 4- Repeat for more examples until the weights and biases of the network can be updated through gradient descent (depends on your batch size):
 
-<img width="1313" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/84f3af48-c6f5-4258-8913-6f3c0e2706ea">
+<img width="801" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/b21ef5e0-3b1b-4780-8e2a-bd5069012506">
 
 ## Randomize Initialization  
 If we still use 0 to initialize, it is easy to prove the whole updating procedure will be completely symmetric.  
