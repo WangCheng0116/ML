@@ -494,10 +494,10 @@ Therefore, choosing an appropriate size `1 < size < m` for Mini-Batch Gradient D
 ## Exponentially Weighted Averages
 
 $$
-S_t = 
+v_t = 
 \begin{cases} 
-Y_1, &t = 1 \\\\ 
-\beta S_{t-1} + (1-\beta)Y_t, &t > 1 
+\theta_1, &t = 1 \\\\ 
+\beta v_{t-1} + (1-\beta)\theta_t, &t > 1 
 \end{cases}
 $$
 where $\beta$ is the weight, $S_t$ is the exponentially weighted average (from day $1$ till day $t$), $Y_t$ is the current true value.
@@ -516,3 +516,89 @@ A larger β corresponds to considering a greater number of days in calculating t
 yellow: β = 0.5
 red: β = 0.9
 green: β = 0.98
+
+``` python
+v = 0
+for t in range(1, len(Y)):
+  v = beta * v + (1 - beta) * Y[t]
+```
+
+## Bias Correction in Exponentially Weighted Averages
+The problem with the exponentially weighted average is that it starts from 0, so the first few values are not very accurate. They tend to be very smaller.
+
+To solve this problem, we can use bias correction. The idea is to divide the value by $1 - \beta^t$ to make the average value more accurate.
+
+The math formula is as follows:
+$$v_t = \frac{\beta v_{t-1} + (1 - \beta)\theta_t}{{1-\beta^t}}$$
+
+One thing good about this is that when t is large, the denominator will be close to 1, so it won't affect the value too much. But when t is small, the denominator will be a large number, so it will amplify the value.
+
+## Gradient Descent with Momentum
+$$v_{dW} = \beta v_{dW} + (1 - \beta) dW$$
+$$v_{db} = \beta v_{db} + (1 - \beta) db$$
+$$W := W - \alpha * v_{dW}$$
+$$b := b - \alpha * v_{db}$$
+initial value of $v_{dW}$ and $v_{db}$ is 0  
+$\alpha$ and $\beta$ are hyperparameters here, usually $\beta$ is set to 0.9
+
+## RMSprop(Root Mean Square Propagation)
+
+$$s_{dw} = \beta s_{dw} + (1 - \beta)(dw)^2$$
+$$s_{db} = \beta s_{db} + (1 - \beta)(db)^2$$
+$$w := w - \alpha \frac{dw}{\sqrt{s_{dw} + \epsilon}}$$
+$$b := b - \alpha \frac{db}{\sqrt{s_{db} + \epsilon}}$$
+$\epsilon$ is a small number to avoid division by zero, usually set to $10^{-8}$, and square and square root are element-wise operations.
+
+The intuition is that if the derivative ($s_{dw}$ and $s_{db}$) is large, the denominator in $w$ or $b$ will be small, so the update will be small. If the derivative is small, the denominator will be large, so the update will be large. This will make the update more stable.
+
+In English: If ont direction of gradient is pretty large, it will take small steps in this direction. And vice versa.
+![Alt text](image-2.png)
+
+## Adam Optimization Algorithm(Adaptive Moment Estimation)
+The Adam algorithm combines the ideas of Momentum and RMSprop. It is the most commonly used optimization algorithm in deep learning.  
+
+This is how it works, in the first iteration, initialize:
+$$v_{dW} = 0, s_{dW} = 0, v_{db} = 0, s_{db} = 0$$
+
+For each mini-batch, compute dW and db. At the t-th iteration:
+
+$$v_{dW} = \beta_1 v_{dW} + (1 - \beta_1) dW$$
+$$v_{db} = \beta_1 v_{db} + (1 - \beta_1) db$$
+$$s_{dW} = \beta_2 s_{dW} + (1 - \beta_2) (dW)^2$$
+$$s_{db} = \beta_2 s_{db} + (1 - \beta_2) (db)^2$$
+
+Usually, when using the Adam algorithm, bias correction is applied:
+
+$$v^{corrected}_{dW} = \frac{v_{dW}}{1-\beta_1^t}$$
+$$v^{corrected}_{db} = \frac{v_{db}}{1-\beta_1^t}$$
+$$s^{corrected}_{dW} = \frac{s_{dW}}{1-\beta_2^t}$$
+$$s^{corrected}_{db} = \frac{s_{db}}{1-\beta_2^t}$$
+
+So, when updating W and b, you have:
+
+$$W := W - \alpha \frac{v^{corrected}_{dW}}{{\sqrt{s^{corrected}_{dW}} + \epsilon}}$$
+
+$$b := b - \alpha \frac{v^{corrected}_{db}}{{\sqrt{s^{corrected}_{db}} + \epsilon}}$$
+
+$\epsilon$ is a small number to avoid division by zero, usually set to $10^{-8}$, and square and square root are element-wise operations.  
+
+$\alpha$ is the learning rate, $\beta_1$ and $\beta_2$ are hyperparameters, usually set to 0.9 and 0.999 respectively.
+
+## Learning Rate Decay
+If you set a fixed learning rate α, near the minimum point, due to the presence of some noise in different batches, the convergence won't be precise. Instead, it will always fluctuate within a relatively large range around the minimum.
+
+However, if you gradually decrease the learning rate α over time, in the early stages when α is large, the descent steps are significant, allowing for faster gradient descent. As time progresses, α is gradually reduced, decreasing the step size, which helps with algorithm convergence and getting closer to the optimal solution.
+
+The most commonly used learning rate decay methods:
+
+- $$\alpha = \frac{1}{1 + decay\\\_rate * epoch\_num} * \alpha_0$$
+
+- $$\alpha = 0.95^{epoch\\\_num} * \alpha_0$$
+- $$\alpha = \frac{k}{\sqrt{epoch\\\_num}} * \alpha_0$$
+
+## Local Optima
+
+- When training large neural networks with a large number of parameters, and the cost function is defined in a high-dimensional space, **getting stuck in a bad local optimum is unlikely**. Because in high dimensional space, it a point is a local optimum, it needs to increse or decrease in all directions, which is very unlikely to happen.
+- The presence of plateaus near saddle points can result in very slow learning. This is why momentum gradient descent, RMSProp, and Adam optimization algorithms can accelerate learning. They help to escape from plateaus early.
+
+
