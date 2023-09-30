@@ -469,10 +469,50 @@ And the algorithm is called **Mini-Batch Gradient Descent**.
 
 If the mini-batch size is 1, then it is called **Stochastic Gradient Descent**.
 If the mini-batch size is m, then it is called **Batch Gradient Descent**.
-**Mini-Batch Gradient Descent** performance lies in between.
 
 Here is a picture to illustrate the difference between the three algorithms:
 <img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/5d97c96a-ba73-4dcf-9286-662e6cd7a015">
 <img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d30945a7-05a6-4e09-b6dd-3e28ac72fef5">
 
 
+### Batch Gradient Descent:
+- Performs one gradient descent update using all m training samples.
+- Each iteration takes a long time, making the training process slow.
+- Relatively lower noise but larger magnitude.
+- The cost function always decreases in the decreasing direction.
+
+### Stochastic Gradient Descent:
+- Performs one gradient descent update for each training sample.
+- Training is faster but loses the computational acceleration from vectorization. (Since we have to process each sample one by one)
+- Contains a lot of noise; reducing the learning rate can be appropriate.
+- The overall trend of the cost function moves closer to the global minimum but never converges and keeps fluctuating around the minimum.
+
+Therefore, choosing an appropriate size `1 < size < m` for Mini-Batch Gradient Descent enables fast learning while also benefiting from vectorization. The cost function's descent lies between the characteristics of Batch and Stochastic Gradient Descent. Hence, we can have two benifits at the same time:
+- By using vectorization, we can speed up the training process.
+- We don't have to use the whole training set, which will also reduce the time.
+
+## Exponentially Weighted Averages
+
+$$
+S_t = 
+\begin{cases} 
+Y_1, &t = 1 \\\\ 
+\beta S_{t-1} + (1-\beta)Y_t, &t > 1 
+\end{cases}
+$$
+where $\beta$ is the weight, $S_t$ is the exponentially weighted average (from day $1$ till day $t$), $Y_t$ is the current true value.
+
+Suppose $\beta = 0.9$, 
+![Alt text](image.png)  
+
+> The essence is an exponentially weighted moving average. Values are weighted and exponentially decay over time, with more weight given to recent data, but older data is also assigned some weight.
+
+We can see that the process of calculating the exponential weighted average is actually a recursive process, which has a significant advantage. When I need to calculate the average from $1$ to a certain moment $n$, I don't need to keep all the values at each moment, sum them up, and then divide by n, as in a typical average calculation.
+
+Instead, I only need to retain the average value from $1$ to $n-1$ moments and the value at the nth moment. In other words, I only need to keep a constant number of values and perform calculations. This is a good practice for reducing memory and space requirements, especially when dealing with massive data in deep learning.
+
+![Alt text](image-1.png)  
+A larger β corresponds to considering a greater number of days in calculating the average, which naturally results in a smoother and more lagged curve.  
+yellow: β = 0.5
+red: β = 0.9
+green: β = 0.98
