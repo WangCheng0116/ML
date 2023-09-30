@@ -8,6 +8,7 @@
 - [Neural Networks](#Neural-Networks)
 - [Deep Neural Network](#Deep-Neural-Network)
 - [Setting Up ML Application](#Setting-Up-ML-Application)
+- [Optimization Algorithms](#Optimization-Algorithms)
 
 
 
@@ -458,3 +459,20 @@ $${||x||}_2 = \sum^N_{i=1}{|x_i|}^2$$
 * if it is smaller than $10^{-7}$, we could say our gradient is correct.  
 * if it is between $10^{-7}$ and $10^{-4}$, we could say it is suspicious.  
 * if it is larger than $10^{-4}$, we could say our gradient is probably wrong.
+
+
+# Optimization Algorithms
+
+## Mini-Batch Gradient Descent
+if we process a subset of the training data each time, using gradient descent, our algorithm will execute faster. These small subsets of training data that are processed at a time are called **mini-batches**.
+And the algorithm is called **Mini-Batch Gradient Descent**.
+
+If the mini-batch size is 1, then it is called **Stochastic Gradient Descent**.
+If the mini-batch size is m, then it is called **Batch Gradient Descent**.
+**Mini-Batch Gradient Descent** performance lies in between.
+
+Here is a picture to illustrate the difference between the three algorithms:
+<img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/5d97c96a-ba73-4dcf-9286-662e6cd7a015">
+<img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d30945a7-05a6-4e09-b6dd-3e28ac72fef5">
+
+
