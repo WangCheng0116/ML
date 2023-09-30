@@ -9,6 +9,7 @@
 - [Deep Neural Network](#Deep-Neural-Network)
 - [Setting Up ML Application](#Setting-Up-ML-Application)
 - [Optimization Algorithms](#Optimization-Algorithms)
+- [Hyperparameter Tuning Batch Normalization and Programming Frameworks](#Hyperparameter-Tuning-Batch-Normalization-and-Programming-Frameworks)
 
 
 
@@ -602,3 +603,105 @@ The most commonly used learning rate decay methods:
 - The presence of plateaus near saddle points can result in very slow learning. This is why momentum gradient descent, RMSProp, and Adam optimization algorithms can accelerate learning. They help to escape from plateaus early.
 
 
+# Hyperparameter Tuning Batch Normalization and Programming Frameworks
+
+## Tuning Process
+**Most Important**:
+- Learning rate (α)
+
+**Next in Importance**:
+- β: Momentum decay parameter, often set to 0.9
+- #hidden units: Number of neurons in each hidden layer
+- Mini-batch size
+
+**Less Important, but Still Significant**:
+- β1, β2, ϵ: Hyperparameters for the Adam optimization algorithm, commonly set to 0.9, 0.999, and $10^{-8}$ respectively
+- #layers: Number of layers in the neural network
+- decay_rate: Learning rate decay rate
+
+## Using an Appropriate Scale to Pick Hyperparameters
+
+When we are trying to find the best hyperparameters, we can't just randomly pick a value. Instead, we should use an appropriate scale to pick the value.
+
+For example, for learning rate α, we can't just randomly pick a value between 0 and 1. Instead, we can use a scale like 0.1, 0.01, 0.001, 0.0001, etc. to pick the value.
+``` python
+r = -4 * np.random.rand() - 1# [-5, -1]
+alpha = 10 ** r # [0.00001, 1]
+```
+Same for β, let's say we want to pick value between 0.9 and 0.999, what we can do is take 1 - β, which will fall into the range of 0.001 to 0.1, then we can use the same scale to pick the value.
+``` python
+temp = -3 * np.random.rand() # [-4, -1]
+beta = 1 - 10 ** temp # [0.9, 0.9999]
+```
+
+## Hyperparameters Tuning in Practice: Pandas vs. Caviar
+
+**Panda Approach**:
+babysitting one model, and tuning the hyperparameters to get the best performance.
+
+**Caviar Approach**:
+train many models in parallel, and choose the one that works best.
+
+## Normalizing Activations in a Network
+## Batch Normalization (BN)
+
+**Batch Normalization (often abbreviated as BN)** makes parameter search problems easier, stabilizes the neural network's selection of hyperparameters, expands the range of hyperparameters, works effectively, and makes training easier.
+
+Previously, we applied standardization to input features X. Similarly, we can process the activation values $a^{[l]}$ of **hidden layers** to accelerate the training of $W^{[l+1]}$ and $b^{[l+1]}$. In **practice**, it is common to normalize $Z^{[l]}$:
+
+$$\mu = \frac{1}{m} \sum_i z^{(i)}$$
+$$\sigma^2 = \frac{1}{m} \sum_i {(z_i - \mu)}^2$$
+$$z_{norm}^{(i)} = \frac{z^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}}$$
+
+Here, m is the number of samples in a single mini-batch, and ϵ is added to prevent division by zero, typically set to $10^{-8}$.
+
+This way, we ensure that all input $z^{(i)}$ have a mean of 0 and a variance of 1. However, we don't want hidden units to always have a mean of 0 and variance of 1. It might be more meaningful for hidden units to have different distributions. Therefore, we calculate:
+
+$$\tilde z^{(i)} = \gamma z_{norm}^{(i)} + \beta$$
+
+Here, γ and β are both learning parameters of the model. They can be updated using various gradient descent algorithms, just like updating the weights of the neural network.
+
+By appropriately setting γ and β, we can set the mean and variance of $\tilde z^{(i)}$ to any desired values. This way, we normalize the hidden layer's $z^{(i)}$ and use the obtained $\tilde z^{(i)}$ instead of $z^{(i)}$.
+
+The reason for **setting γ and β** is that if the mean values of the inputs to each hidden layer are close to 0, i.e., in the linear region of the activation function, it is not conducive to training a nonlinear neural network, resulting in a poorer model. Therefore, we need to further process the normalized results using γ and β.
+
+## Fitting Batch Norm into a Neural Network
+![Alt text](image-4.png)
+## Batch Normalization and Its Usage
+
+In practice, **Batch Normalization** is often used on mini-batches, which is why it gets its name.
+
+When using Batch Normalization, because the normalization process involves subtracting the mean, the bias term (b) essentially becomes ineffective, and its numerical effect is achieved through β. Therefore, in Batch Normalization, you can omit b or temporarily set it to 0.
+
+During the use of gradient descent algorithms, iterative updates are applied to $W^{[l]}$, $β^{[l]}$, and $γ^{[l]}$. In addition to traditional gradient descent algorithms, you can also use previously learned optimization algorithms like Momentum Gradient Descent, RMSProp, or Adam.
+
+Batch Normalization plays a crucial role in stabilizing and accelerating the training of deep neural networks.
+
+## Why Does Batch Norm Work?
+## Benefits of Batch Normalization
+
+Batch Normalization offers several advantages in neural network training:
+
+- **Flattening Gradients**: It helps in making the gradients smoother, preventing the vanishing gradient problem.
+
+- **Optimizing Activation Functions**: Batch Normalization optimizes the activation functions within the network, aiding faster and more effective training.
+
+- **Addressing Gradient Vanishing**: It helps in mitigating the gradient vanishing problem, allowing for training of deep networks.
+
+- **Regularization Effect**: Batch Normalization acts as a form of regularization, promoting better model generalization. Reason: This adds some noise to the values $Z^{[l]}$ within that minibatch. So similar to dropout, it adds some noise to each hidden layer's activations.
+
+## Batch Norm at Test Time
+
+In theory, we could incorporate all training data into the final neural network model and directly use the computed $μ^{[l]}$ and $σ^{2[l]}$ for each hidden layer in the testing process. However, in practical applications, this method is not commonly used. Instead, we apply the previously learned exponential weighted average method to predict the μ and $σ^2$ for individual samples during the testing process.
+
+For the l-th hidden layer, we consider all mini-batches under that hidden layer, and then predict the current individual sample's $μ^{[l]}$ and $σ^{2[l]}$ using exponential weighted averaging. This approach allows us to estimate the mean and variance for individual samples during the testing process.
+
+## Softmax Regression
+For **multiclass problems**, let's denote the number of classes as C. In the neural network's output layer, which is the L-th layer, the number of units $n^{[L]} = C$. Each neuron's output corresponds to the probability of belonging to a specific class, i.e., $P(y = c|x), c = 0, 1, .., C-1$. There is a generalized form of logistic regression called **Softmax Regression**, which is used to handle multiclass classification problems.
+
+Softmax Regression is particularly suitable for solving multiclass classification tasks.
+
+A pretty straightforward example:  
+![Alt text](image-6.png)
+
+## Deep Learning Frameworks
