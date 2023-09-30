@@ -23,5 +23,23 @@ Today what I have learned:
 [Notes can be found here](https://github.com/WangCheng0116/ML/blob/main/AndrewNgMLCourse/note.md)
 
 ## 30 Sept
-Today I did something different: [digit-recognition](https://www.kaggle.com/wangchengsg/digit-recognition/edit)  
-Some takeaway
+Today I did something different, something real!   
+This is my first neutral network for recognizing digits. Details can be found [here](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition), I also include my takeaway there.  
+
+Other topics that I have learned:  
+- Mini-Batch Gradient Descent
+
+- Exponentially Weighted Averages
+
+- Bias Correction in Exponentially Weighted Averages
+
+- Gradient Descent with Momentum
+
+- RMSprop
+
+- Adam Optimization Algorithm
+
+- Learning Rate Decay
+
+- Local Optima Issues
+
