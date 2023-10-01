@@ -24,7 +24,7 @@ Today what I have learned:
 
 ## 30 Sept
 Today I did something different, something real!   
-This is my first neutral network for recognizing digits. Details can be found [here](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition), I also include my takeaway there.  
+This is my first neural network for recognizing digits. Details can be found [here](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition), I also include my takeaway there.  
 
 Other topics that I have learned:  
 - Mini-Batch Gradient Descent
@@ -44,5 +44,22 @@ Other topics that I have learned:
 - Local Optima Issues
 
 ## 1 Oct
+Today is the last day of recess week. From tomorrow on I think I will shift my focus to midterms again. Anyway, this is what I have learned, and it was the first time to have been exposed to CNN, the thing only existed in legend before. But it turned out to be quite easy to understand due to its high resemblance with NN.
+- Orthogonalization in Machine Learning
+- Training / Validation / Test Set Split
+- Distribution of Validation and Test Sets
+- Partitioning Data
+- Comparing to Human Performance
+- Convolutional Neural Networks
+- Padding in Convolution
+- Strided Convolution
+- Convolution in High Dimensions
+- Single-Layer Convolutional Network
+- Simple Convolutional Network Example
+- Pooling Layer
+- Fully Connected Layer
+- Example of a Convolutional Neural Network (CNN)
+- Why Convolutions?
+
 
 
