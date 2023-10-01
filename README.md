@@ -43,3 +43,6 @@ Other topics that I have learned:
 
 - Local Optima Issues
 
+## 1 Oct
+
+
