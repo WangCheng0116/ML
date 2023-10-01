@@ -10,6 +10,8 @@
 - [Setting Up ML Application](#Setting-Up-ML-Application)
 - [Optimization Algorithms](#Optimization-Algorithms)
 - [Hyperparameter Tuning Batch Normalization and Programming Frameworks](#Hyperparameter-Tuning-Batch-Normalization-and-Programming-Frameworks)
+- [Introduction to ML Strategy I](#Introduction-to-ML-Strategy-I)
+- [Introduction to ML Strategy II](#Introduction-to-ML-Strategy-II)
 
 
 
@@ -704,4 +706,159 @@ Softmax Regression is particularly suitable for solving multiclass classificatio
 A pretty straightforward example:  
 ![Alt text](image-6.png)
 
-## Deep Learning Frameworks
+# Introduction to ML Strategy I
+
+## Orthogonalization in Machine Learning
+
+The core principle of **orthogonalization** is that each adjustment only affects one aspect of the model's performance without impacting other functionalities. This approach aids in faster and more effective debugging and optimization of machine learning models.
+
+In a machine learning (supervised learning) system, you can distinguish four "functionalities":
+
+1. Building a model that performs well on the training set.
+2. Building a model that performs well on the validation set.
+3. Building a model that performs well on the test set.
+4. Building a model that performs well in practical applications.
+
+Among them:
+
+- For the first point, if the model performs poorly on the training set, you can try training a larger neural network or switching to a better optimization algorithm (such as Adam).
+  
+- For the second point, if the model performs poorly on the validation set, you can apply regularization techniques or introduce more training data.
+
+- For the third point, if the model performs poorly on the test set, you can try using a larger validation set for validation.
+
+- For the fourth point, if the model performs poorly in practical applications, it might be due to incorrect test set configuration or incorrect cost function evaluation metrics, which require adjustments to the test set or cost function.
+
+Orthogonalization helps us address various issues more precisely and effectively as we encounter them.
+
+## Training / Validation / Test Set Split
+
+In machine learning, we typically divide the dataset into training, validation, and test sets. When constructing a machine learning system, we employ various learning methods to train different models on the **training set**. Subsequently, we evaluate the quality of these models using the **validation set** and only select a model when we are confident in its performance. Finally, we use the **test set** to perform the ultimate testing of the chosen model.
+
+Therefore, the allocation of training, validation, and test sets is crucial in machine learning model development. Properly setting these datasets can significantly improve training efficiency and model quality.
+
+## Distribution of Validation and Test Sets
+
+The data sources for the validation and test sets should be the same (coming from the same distribution) and consistent with the data the machine learning system will encounter in real-world applications. They must also be randomly sampled from all available data to ensure that the system remains as unbiased as possible.
+
+## Partitioning Data
+
+In the past, when the data volume was relatively small (less than 10,000 examples), data sets were typically divided according to the following ratios:
+
+* Without a validation set: 70% / 30%;
+* With a validation set: 60% / 20% / 20%;
+
+This was done to ensure that both the validation and test sets had an adequate amount of data. In the current era of machine learning, data sets are generally much larger, for example, with one million examples. In such cases, setting the corresponding ratios to 98% / 1% / 1% or 99% / 1% is sufficient to ensure that the validation and test sets have a substantial amount of data.
+
+## Comparing to Human Performance
+
+The birth of many machine learning models is aimed at replacing human work, so their performance is often compared to human performance levels.
+
+![Bayes-Error](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Structuring_Machine_Learning_Projects/Bayes-Optimal-Error.png)
+
+The graph above shows the evolution of machine learning systems' performance compared to human performance over time. Generally, when machine learning surpasses human performance, its rate of improvement gradually slows down, and its performance eventually cannot exceed a theoretical limit called the **Bayes Optimal Error**.
+
+The Bayes Optimal Error is considered the theoretically achievable optimal error. In other words, it represents the theoretically optimal function, and no function mapping from x to accuracy y can surpass this value. For example, in speech recognition, some audio segments are so noisy that it's practically impossible to determine what is being said, so perfect recognition accuracy cannot reach 100%.
+
+Since human performance is very close to the Bayes Optimal Error for some natural perception tasks, once a machine learning system's performance surpasses human performance, there is not much room for further improvement.
+
+## Summary
+
+To make a supervised learning algorithm reach a level of usability, two key aspects should be achieved:
+
+1. The algorithm fits well to the training set, indicating low bias.
+2. It generalizes effectively to the validation and test sets, meaning low variance.
+
+![Human-level](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Structuring_Machine_Learning_Projects/Human-level.png)
+
+# Introduction to ML Strategy II
+(skip for now)
+
+# Convolutional Neural Networks
+
+Some very good resources that introduce CNN: [A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
+Also this [Chinese Article](https://www.zhihu.com/question/34681168/answer/2359313510)
+
+## Padding in Convolution
+
+Assuming the input image size is $n \times n$, and the filter size is $f \times f$, the size of the output image after convolution is $(n-f+1) \times (n-f+1)$.
+
+This leads to two issues:
+
+* After each convolution operation, the size of the output image reduces.
+* The pixels in the corners and edge regions of the original image contribute less to the output, causing the output image to lose a lot of edge information.
+
+To address these problems, padding can be applied to the original image at the boundaries before performing the convolution operation, effectively increasing the matrix size. Typically, 0 is used as the padding value.
+
+![Padding](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Padding.jpg)
+
+Let the number of pixels to extend in each direction be $p$. Then, after padding, the size of the original image becomes $(n+2p) \times (n+2p)$, while the filter size remains $f \times f$. Consequently, the size of the output image becomes $(n+2p-f+1) \times (n+2p-f+1)$.
+
+Therefore, during convolutional operations, we have two options:
+
+* **Valid Convolution**: No padding, direct convolution. The result size is $(n-f+1) \times (n-f+1)$.
+* **Same Convolution**: Padding is applied to make the output size the same as the input, ensuring $p = \frac{f-1}{2}$.
+
+In the field of computer vision, $f$ is usually chosen as an odd number. The reasons include that in Same Convolution, $p = \frac{f-1}{2}$ yields a natural number result, and using an odd-sized filter has a center point that conveniently represents its position.
+
+## Strided Convolution 
+
+During the convolution process, sometimes we need to avoid information loss through padding, and sometimes we need to compress some information by setting the **Stride**.
+
+Stride represents the distance the filter moves in the horizontal and vertical directions of the original image during convolution. Previously, the stride was often set to 1 by default. If we set the stride to 2, the convolution process looks like the image below:
+
+![Stride](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Stride.jpg)
+
+Let the stride be $s$, the padding length be $p$, the input image size be $n \times n$, and the filter size be $f \times f$. The size of the output image after convolution is calculated as:
+
+$$\biggl\lfloor \frac{n+2p-f}{s}+1   \biggr\rfloor \times \biggl\lfloor \frac{n+2p-f}{s}+1 \biggr\rfloor$$
+
+Note that there is a floor function in the formula, used to handle cases where the quotient is not an integer. Flooring reflects the condition that the blue frame, when taken over the original matrix, must be completely included within the image for computation.
+
+So far, what we have learned as "convolution" is actually called **cross-correlation** and is not the mathematical convolution. In a true convolution operation, before performing element-wise multiplication and summation, the filter needs to be flipped along the horizontal and vertical axes (equivalent to a 180-degree rotation). However, this flip has little effect on filters that are generally horizontally or vertically symmetrical. Following the convention in machine learning, we typically do not perform this flip to simplify the code while ensuring the neural network works correctly.
+
+## Convolution in High Dimensions
+
+When performing convolution on RGB images with three channels, the corresponding set of filters is also three channels. The process involves convolving each individual channel (R, G, B) with its respective filter, summing the results, and then adding the sums of the three channels to get a single pixel value for the output image. This results in a total of 27 multiplications and summations to compute one pixel value.
+
+![Convolutions-on-RGB-image](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Convolutions-on-RGB-image.png)
+
+Different channels can have different filters. For example, if you want to detect vertical edges in the R channel only, and no edge detection in the G and B channels, you would set all the filters for the G and B channels to zero. When dealing with inputs of specific height, width, and channel dimensions, filters can have different heights and widths, but the number of channels must match the input.
+
+If you want to simultaneously detect vertical and horizontal edges, or perform more complex edge detection, you can add more filter sets. For instance, you can set the first filter set to perform vertical edge detection and the second filter set to perform horizontal edge detection. If the input image has dimensions of $n \times n \times n\_c$ (where $n\_c$ is the number of channels) and the filter dimensions are $f \times f \times n\_c$, the resulting output image will have dimensions of $(n-f+1) \times (n-f+1) \times n'\_c$, where $n'\_c$ is the number of filter sets.
+
+![More-Filters](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/More-Filters.jpg)
+
+## Single-Layer Convolutional Network
+
+![One-Layer-of-a-Convolutional-Network](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/One-Layer-of-a-Convolutional-Network.jpg)
+
+Compared to previous convolution processes, a single layer in a convolutional neural network (CNN) introduces activation functions and biases. In contrast to the standard neural network equations:
+
+$$Z^{[l]} = W^{[l]}A^{[l-1]}+b$$
+$$A^{[l]} = g^{[l]}(Z^{[l]})$$
+
+In CNNs, the role of the filter is analogous to the weights $W^{[l]}$, and the convolution operation replaces the matrix multiplication between $W^{[l]}$ and $A^{[l-1]}$. The activation function is typically ReLU.
+
+For a 3x3x3 filter, including the bias $b$, there are a total of 28 parameters. Regardless of the input image's size, when using this single filter for feature extraction, the number of parameters remains fixed at 28. This means that the number of parameters in a CNN is much smaller compared to a standard neural network, which is one of the advantages of CNNs.
+
+### Summary of Notation
+
+Let layer $l$ be a convolutional layer:
+
+* $f^{[l]}$: **Filter height (or width)**
+* $p^{[l]}$: **Padding length**
+* $s^{[l]}$: **Stride**
+* $n^{[l]}_c$: **Number of filter groups**
+
+* **Input dimensions**: $n^{[l-1]}_H \times n^{[l-1]}_W \times n^{[l-1]}_c$. Here, $n^{[l-1]}_H$ represents the height of the input image, and $n^{[l-1]}_W$ represents its width. In previous examples, the input images had the same height and width, but in practice, they might differ, so subscripts are used to differentiate them.
+
+* **Output dimensions**: $n^{[l]}_H \times n^{[l]}_W \times n^{[l]}_c$. Where:
+
+$$n^{[l]}_H = \biggl\lfloor \frac{n^{[l-1]}_H+2p^{[l]}-f^{[l]}}{s^{[l]}}+1   \biggr\rfloor$$
+
+$$n^{[l]}_W = \biggl\lfloor \frac{n^{[l-1]}_W+2p^{[l]}-f^{[l]}}{s^{[l]}}+1   \biggr\rfloor$$
+
+* **Dimensions of each filter group**: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c$. Here, $n^{[l-1]}_c$ represents the number of channels (depth) in the input image.
+* **Dimensions of weights**: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c \times n^{[l]}_c$
+* **Dimensions of biases**: $1 \times 1 \times 1 \times n^{[l]}_c$
