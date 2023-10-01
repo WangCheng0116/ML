@@ -776,8 +776,10 @@ To make a supervised learning algorithm reach a level of usability, two key aspe
 
 # Convolutional Neural Networks
 
-Some very good resources that introduce CNN: [A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
-Also this [Chinese Article](https://www.zhihu.com/question/34681168/answer/2359313510)
+Some very good resources that introduce CNN:  
+[A Zhihu Article](https://www.zhihu.com/question/34681168/answer/2359313510), with detailed illustration. Can read this instead of the following notes.   
+[A Comprehensive Guide to Convolutional Neural Networks — the ELI5 way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53)
+
 
 ## Padding in Convolution
 
@@ -862,3 +864,55 @@ $$n^{[l]}_W = \biggl\lfloor \frac{n^{[l-1]}_W+2p^{[l]}-f^{[l]}}{s^{[l]}}+1   \bi
 * **Dimensions of each filter group**: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c$. Here, $n^{[l-1]}_c$ represents the number of channels (depth) in the input image.
 * **Dimensions of weights**: $f^{[l]} \times f^{[l]} \times n^{[l-1]}_c \times n^{[l]}_c$
 * **Dimensions of biases**: $1 \times 1 \times 1 \times n^{[l]}_c$
+
+## Simple Convolutional Network Example
+
+A simple CNN model is depicted in the following diagram:
+
+![Simple-Convolutional-Network-Example](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Simple-Convolutional-Network-Example.jpg)
+
+In this model, $a^{[3]}$ has dimensions 7x7x40. It flattens the 1960 features into a column vector of 1960 units, which is then connected to the output layer. The output layer can consist of a single neuron for binary classification (logistic) or multiple neurons for multi-class classification (softmax). Finally, it produces the predicted output $\hat y$.
+
+As the depth of the neural network increases, the height and width of the images ($n^{[l]}_H$ and $n^{[l]}_W$) generally decrease, while $n^{[l]}_c$ increases.
+
+A typical convolutional neural network usually consists of three types of layers: **Convolutional Layer**, **Pooling Layer**, and **Fully Connected Layer(FC)**. While it's possible to build a good neural network with just convolutional layers, most networks also incorporate pooling and fully connected layers, as they are easier to design.
+
+## Pooling Layer
+
+The **pooling layer** serves to reduce the size of the model, increase computational speed, and enhance the robustness of extracted features by downsampling the input.
+
+* One common pooling technique is called **Max Pooling**, where the input is divided into different regions, and each element in the output is the maximum value within the corresponding region, as shown below:
+![Max-Pooling](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Max-Pooling.png)
+The pooling process is similar to the convolution process. In the example above, a filter with a size of $f=2$ and a stride of $s=2$ is applied, which means it moves in steps of 2. 
+
+* Another pooling technique is **Average Pooling**, which computes the average value of elements within a region instead of taking the maximum.  
+  
+Pooling layers have a set of hyperparameters, including filter size $f$, stride $s$, and the choice of max or average pooling. Unlike convolution layers, pooling layers do not have parameters that need to be learned or modified during training. Once the hyperparameters are set, we do not need to adjust them.
+
+The input dimensions for pooling are:
+
+$$n_H \times n_W \times n_c$$
+
+The output dimensions are calculated as:
+
+$$\biggl\lfloor \frac{n_H-f}{s}+1 \biggr\rfloor \times \biggl\lfloor \frac{n_W-f}{s}+1 \biggr\rfloor \times n_c$$
+Notice: pooling layer does not change the number of channels.
+
+## Fully Connected Layer
+A fully connected layer in a Convolutional Neural Network (CNN), also known as a dense layer or fully connected neural network, is a traditional neural network layer in which every neuron is connected to every neuron in the previous and subsequent layers. This type of layer is commonly used in the latter part of a CNN for high-level reasoning. It also has the same parameters as a standard neural network layer, like weights and biases.
+
+## Example of a Convolutional Neural Network (CNN)
+
+![CNN-Example](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/CNN-Example.jpg)
+
+When counting the number of layers in a neural network, it's common to consider layers with weights and parameters. Therefore, pooling layers are typically counted as one layer along with the preceding convolutional layers.
+
+The diagram shows an example of a CNN architecture, including convolutional layers (CONV), pooling layers (POOL), and fully connected layers (FC). The dimensions and parameters of each layer are summarized in the table below:
+
+![Alt text](image-7.png)
+
+## Why Convolutions?
+* Parameter sharing: A feature detector (such as a vertical edge detector) that is useful in one part of the image is probably useful in another part of the image.
+* Sparsity of connections: In each layer, each output value depends only on a small number of inputs.  
+  
+Can refer to this section's title area to find recommended resources to further understand the above two points.
