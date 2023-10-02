@@ -21,9 +21,9 @@
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
 
- ## Calendar 
+## Calendar 
 
- ### September 2023  
+### September 2023  
 |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | [ ] 1     | [ ] 2     | [ ] 3       | [ ] 4     | [ ] 5   | [ ] 6     |
@@ -32,8 +32,8 @@
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [✅ 28](##28-Sept) | [✅ 29](##29-Sept) | [✅ 30](##30-Sept) |           |         |           |
 
- ### October 2023  
- |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
+### October 2023  
+|   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  [ ] 3       | [ ] 4     | [ ] 5   | [ ] 6     |
 | [ ] 7     | [ ] 8     | [ ] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
