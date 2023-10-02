@@ -5,7 +5,7 @@ X_flatten = X.reshape(X.shape[0], -1).T
 # -1 means "unspecified value" and it lets numpy figure out the unspecified value by itself.
 ```
 
-## Input data stack horizontally or vertically
+## Input data stack <u>horizontally</u> or vertically
 train_X's shape is (pixel * pixel * 3, number of examples)  
 so it means that each column is a example.  
 Correspondingly, train_Y's shape is (1, number of examples) 
