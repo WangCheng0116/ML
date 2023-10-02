@@ -20,6 +20,8 @@
 - Highlights and challenges
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
+- Tools
+  - numpy
 
 ## Calendar 
 
