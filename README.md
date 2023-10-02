@@ -120,8 +120,8 @@ Conception wise:
 - Reasons Why Residual Networks Work
 
 Projects wise:
-[NN Binary Classification]https://github.com/WangCheng0116/ML/tree/main/Projects/Neural%20Network%20-%20Binary%20Classification%20on%202D%20plane
-[]
+[NN Binary Classification](https://github.com/WangCheng0116/ML/tree/main/Projects/Neural%20Network%20-%20Binary%20Classification%20on%202D%20plane)
+
 
 ## 3 Oct
 [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
