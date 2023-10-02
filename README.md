@@ -106,4 +106,24 @@ Today is the last day of recess week. From tomorrow on I think I will shift my f
 - Why Convolutions?
 
 
+## 2 Oct
+Conception wise:
+- Padding in Convolution
+- Strided Convolution
+- Convolution in High Dimensions
+- Single-Layer Convolutional Network
+- Pooling Layer
+- Fully Connected Layer (FC)
+- Example of a CNN
+- Why Convolutions?
+- CNN Architectures
+- Reasons Why Residual Networks Work
 
+Projects wise:
+[NN Binary Classification]https://github.com/WangCheng0116/ML/tree/main/Projects/Neural%20Network%20-%20Binary%20Classification%20on%202D%20plane
+[]
+
+## 3 Oct
+[Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
+## 4 Oct
+[DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
