@@ -14,7 +14,8 @@
   - Introduction to ML Strategy I
   - Introduction to ML Strategy II
 - Projects (code implementation for model)
-  - Triple layers NN for digit recognition (without frameworks)
+  - [Triple layers NN for digit recognition (without frameworks)](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition)
+  - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Linear%20Regression)
   - Decision Tree
 - Highlights and challenges
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
