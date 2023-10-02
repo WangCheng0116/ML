@@ -21,6 +21,16 @@
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
 
+ ## Calendar 
+ |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
+|:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
+|           | [x] 1     | [x] 2     | [ ] 3       | [ ] 4     | [ ] 5   | [ ] 6     |
+| [ ] 7     | [ ] 8     | [ ] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
+| [ ] 14    | [ ] 15    | [ ] 16    | [ ] 17      | [ ] 18    | [ ] 19  | [ ] 20    |
+| [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
+| [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
+
+
 ## 28 Sept  
 Today is officially the first day of my journey in Machine Learning. During the conversation with Prof Soh, he recommended I first learn the concept of random forest and gradient boosted, but I feel like I might start from the whole picture of ML and then dive into those two topics meticulously. The material that I opted for is from Andrew Ng, a pretty well-known course. And today I managed to finish the following chapters. I took special notice of math formulas, so I wrote all the steps in a rigorous mathematical manner. 
 
