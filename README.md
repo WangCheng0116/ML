@@ -1,6 +1,6 @@
 # Machine Learning Daily Blog  
 ## Overview  
-- Basic Concepts
+- Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/AndrewNgMLCourse/note.md))
   - Linear Regression with one variable
   - Linear Regression with multiple variables
   - Features and Polynomial Regression
