@@ -1,4 +1,12 @@
 # Machine Learning Daily Blog  
+## Overview  
+- Basic Concepts
+  - Decision Tree
+  - 
+- Projects (code implementation for model)
+  - Triple layers NN for digit recognition
+- Highlights and challenges
+  - Gradient Descent in Back Propagation (Why? Both rigorous deduction and intuitive understanding)  
 
 ## 28 Sept  
 Today is officially the first day of my journey in Machine Learning. During the conversation with Prof Soh, he recommended I first learn the concept of random forest and gradient boosted, but I feel like I might start from the whole picture of ML and then dive into those two topics meticulously. The material that I opted for is from Andrew Ng, a pretty well-known course. And today I managed to finish the following chapters. I took special notice of math formulas, so I wrote all the steps in a rigorous mathematical manner. 
