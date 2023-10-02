@@ -21,7 +21,7 @@
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
 - Tools
-  - numpy
+  - [numpy](https://numpy.org/doc/stable/reference/) Notice: axis = 0, do things vertically; axis = 1, do things horizontally (even '1' is vertical)
 
 ## Calendar 
 
