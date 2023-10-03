@@ -148,6 +148,7 @@ Projects wise:
 
 ## 4 Oct
 [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
+[Gradient Checking](https://github.com/WangCheng0116/ML/tree/main/Projects/GradientChecking)
 
 ## 5 Oct
 Project:  
