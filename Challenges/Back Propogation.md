@@ -4,3 +4,4 @@ The key points are how to find the recursive relation bewtween $\frac{\partial C
 It is good to revise this source from time to time in case I get confused in the future.
 
 ![Alt text](IMG_C04A1ACDA7E9-1.jpeg)
+![Alt text](IMG_DB11AE717A55-1.jpeg)
