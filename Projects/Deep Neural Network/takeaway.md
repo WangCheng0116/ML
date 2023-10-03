@@ -193,3 +193,38 @@ def update_parameters(parameters, grads, learning_rate):
         parameters["b" + str(l+1)] = parameters["b" + str(l+1)] - learning_rate * grads["db" + str(l + 1)]     
     return parameters
 ```
+If we pull all things together
+```python
+def L_layer_model(X, Y, layers_dims, learning_rate = 0.0075, num_iterations = 3000, print_cost=False):#
+    np.random.seed(1)
+    costs = []            # keep track of cost
+    parameters = initialize_parameters_deep(layers_dims)
+    for i in range(0, num_iterations):
+        AL, caches = L_model_forward(X, parameters) 
+        cost = compute_cost(AL, Y)
+        grads = L_model_backward(AL, Y, caches)
+        parameters = update_parameters(parameters, grads, learning_rate)
+        if print_cost and i % 100 == 0:
+            print ("Cost after iteration %i: %f" %(i, cost))
+        if print_cost and i % 100 == 0:
+            costs.append(cost)
+    return parameters
+```
+> For reference, this is how all helper functions look like
+```python
+def initialize_parameters_deep(layers_dims):
+    ...
+    return parameters 
+def L_model_forward(X, parameters):
+    ...
+    return AL, caches
+def compute_cost(AL, Y):
+    ...
+    return cost
+def L_model_backward(AL, Y, caches):
+    ...
+    return grads
+def update_parameters(parameters, grads, learning_rate):
+    ...
+    return parameters
+```
