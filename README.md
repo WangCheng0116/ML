@@ -124,6 +124,22 @@ Projects wise:
 
 
 ## 3 Oct
+
+The online tutorial became more and more theoretical, so I decided to include more code implementation in my learning process.  
+Still, conceptwise:
+- Object Detection
+  - Bounding Boxes
+  - Target Labels
+  - Loss Functions
+  - Sliding Windows Detection Algorithm
+  - Convolutional Implementation of Sliding Windows
+  - YOLO Algorithm
+  - Intersection Over Union (IoU)
+  - Non-Maximum Suppression (NMS)
+  - R-CNN
+  - Anchor Boxes
+  
+Projects wise:  
 [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
 ## 4 Oct
 [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
