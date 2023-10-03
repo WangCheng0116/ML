@@ -124,7 +124,6 @@ Projects wise:
 
 
 ## 3 Oct
-
 The online tutorial became more and more theoretical, so I decided to include more code implementation in my learning process.  
 Still, conceptwise:
 - Object Detection
@@ -141,5 +140,11 @@ Still, conceptwise:
   
 Projects wise:  
 [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
+[Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)  
+
 ## 4 Oct
 [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
+
+## 5 Oct
+Project:  
+[Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
