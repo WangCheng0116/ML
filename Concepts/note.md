@@ -1012,3 +1012,146 @@ $$a^{[l+2]} = g(a^{[l]}) = ReLU(a^{[l]}) = a^{[l]}$$
 
 Thus, these two additional residual block layers do not degrade the network's performance. However, when gradient vanishing does not occur, the learned non-linear relationships further enhance the performance.
 
+
+# Object Detection
+## Object Localization
+
+In classification tasks, it is not only necessary to identify the category of objects in an image but also to precisely locate them by drawing **Bounding Boxes** around them. Typically, in classification tasks, there is usually a single large object located in the center of the image. In contrast, in object detection tasks, an image can contain multiple objects, possibly of different classes, in a single frame.
+
+To determine the location of a car in an image, a neural network can output four numbers denoted as $b_x$, $b_y$, $b_h$, and $b_w$. If we consider the top-left corner of the image as (0, 0) and the bottom-right corner as (1, 1), then the following relationships apply:
+
+* Center of the red bounding box: ($b_x$, $b_y$)
+* Height of the bounding box: $b_h$
+* Width of the bounding box: $b_w$
+
+Therefore, the training dataset should not only include object classification labels but also four numbers representing the bounding box. The target label $Y$ can be defined as follows:
+
+$$
+Y = \begin{bmatrix}
+P_c \\
+b_x \\
+b_y \\
+b_h \\
+b_w \\
+c_1 \\
+c_2 \\
+c_3
+\end{bmatrix}
+$$
+
+Where:
+
+- $P_c=1$ indicates the presence of an object.
+- $c_n$ represents the probability of the object belonging to class $n$.
+- If $P_c=0$, it means no object is detected, and the values of the remaining 7 parameters are irrelevant and can be ignored (denoted as "?").
+
+$$
+P_c=0, Y = \begin{bmatrix}
+0 \\
+? \\
+? \\
+? \\
+? \\
+? \\
+? \\
+?
+\end{bmatrix}
+$$
+
+The loss function can be defined as $L(\hat y, y)$. If the squared error form is used, different loss functions apply to different values of $P\_c$ (Note: the subscript $i$ denotes the $i$-th value in the label):
+
+1. When $P\_c=1$, i.e., $y\_1=1$:
+
+    $L(\hat y, y) = (\hat y_1 - y_1)^2 + (\hat y_2 - y_2)^2 + \cdots + (\hat y_8 - y_8)^2$
+
+2. When $P\_c=0$, i.e., $y\_1=0$:
+
+    $L(\hat y, y) = (\hat y_1 - y_1)^2$
+
+Besides using squared error, logistic regression loss can also be employed, and class labels $c_1$, $c_2$, $c_3$ can be output using softmax. However, squared error is usually sufficient to achieve good results.
+
+## Object Detection
+
+To achieve object detection, we can use the **Sliding Windows Detection** algorithm. The steps of this algorithm are as follows:
+
+1. Gather various target and non-target images from the training dataset. Sample images should be relatively small in size, with the corresponding target object located at the center and occupying a substantial portion of the entire image.
+
+2. Build a CNN model using the training dataset to ensure the model has a high recognition rate.
+
+3. Choose an appropriately sized window and an appropriate fixed stride for sliding from left to right and top to bottom of the test image. Use the pre-trained CNN model to make recognition judgments for each window region.
+
+4. Optionally, you can select larger windows and repeat the operation from the third step.
+
+![Sliding-windows-detection](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Sliding-windows-detection.png)
+
+The **advantage** of sliding windows detection is its simplicity in principle and the fact that it doesn't require manually selecting target areas. However, the **disadvantages** include the need to manually set the window size and stride intuitively. Choosing windows or strides that are too small or too large can reduce the accuracy of object detection. Additionally, performing CNN computations for each sliding operation can be computationally expensive, especially with small windows and strides.
+
+Therefore, while sliding windows object detection is straightforward, its performance is suboptimal, and it can be less efficient.
+
+## Convolutional Implementation of Sliding Windows (Do partition all at once, no need to feed in sliding windows sequentially)
+![Convolution-implementation-of-sliding-windows](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Convolution-implementation-of-sliding-windows.png)
+
+As shown in the image, for a 16x16x3 image with a stride of 2, the CNN network produces an output layer of 2x2x4. Here, 2x2 represents a total of 4 window results. For a more complex 28x28x3 image, the output layer becomes 8x8x4, resulting in a total of 64 window results. The max-pooling layer has equal width and height as well as equal strides.
+
+The principle behind the speed improvement is that during the sliding window process, CNN forward computations need to be repeated. Instead of dividing the input image into multiple subsets and performing forward propagation separately, the entire image is input to the convolutional network for a single CNN forward computation. This allows for the sharing of calculations in common regions, reducing computational costs.
+
+Related Paper: [Sermanet et al., 2014. OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks](https://arxiv.org/pdf/1312.6229.pdf)
+
+## Bounding Box Predictions
+
+In the previous algorithm, the position of bounding boxes may not perfectly cover the target, or their size may not be suitable, or the most accurate bounding box might not be a square but a rectangle.
+
+The **YOLO (You Only Look Once) algorithm** can be used to obtain more accurate bounding boxes. The YOLO algorithm divides the original image into an n×n grid and applies the image classification and object localization algorithms mentioned in the Object Localization (aforementioned chapter) section to each grid individually. Each grid has labels like:
+
+$$\left[\begin{matrix}P_c\\\ b_x\\\ b_y\\\ b_h\\\ b_w\\\ c_1\\\ c_2\\\ c_3\end{matrix}\right]$$
+
+If the center of a certain target falls within a grid, that grid is responsible for detecting that object.
+
+![Bounding-Box-Predictions](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/Bounding-Box-Predictions.png)
+
+As shown in the example above, if the input image is divided into a 3×3 grid and there are 3 classes of objects to detect, the label for each part of the image within the grid will be an 8-dimensional column matrix. The final output will be of size 3×3×8. To obtain this result, a CNN with an input size of 100×100×3 and an output size of 3×3×8 needs to be trained. In practice, a finer 19×19 grid may be used, making it less likely for the centers of two targets to fall in the same grid.
+
+Advantages of the YOLO algorithm:
+
+1. Similar to image classification and object localization algorithms, it explicitly outputs bounding box coordinates and sizes, not limited by the stride size of the sliding window classifier.
+2. It still performs only one CNN forward computation, making it highly efficient and even capable of real-time recognition.
+
+How are bounding boxes $b_x$, $b_y$, $b_h$, and $b_w$ encoded? The YOLO algorithm sets the values of $b_x$, $b_y$, $b_h$, and $b_w$ as proportions relative to the grid length. Therefore, $b_x$ and $b_y$ are between 0 and 1, while $b_h$ and $b_w$ can be greater than 1. Of course, there are other parameterization forms, and they may work even better. This is just a general representation.
+
+Related Paper: [Redmon et al., 2015. You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/pdf/1506.02640.pdf). Ng considers this paper somewhat difficult to understand.
+
+## Intersection Over Union (IoU)
+
+The **Intersection Over Union (IoU)** function is used to evaluate object detection algorithms. It calculates the ratio of the intersection (I) of the predicted bounding box and the actual bounding box to their union (U):
+
+$$IoU = \frac{I}{U}$$
+
+The IoU value ranges from 0 to 1, with values closer to 1 indicating more accurate object localization. When IoU is greater than or equal to 0.5, it is generally considered that the predicted bounding box is correct, although a higher threshold can be chosen for stricter criteria.
+
+
+## Non-Maximum Suppression
+
+In the YOLO algorithm, it's possible that multiple grids detect the same object. **Non-Maximum Suppression (NMS)** is used to clean up detection results and find the grid where the center of each object is located, ensuring that the algorithm detects each object only once.
+
+The steps for performing non-maximum suppression are as follows:
+
+1. Discard grids with confidence $P_c$ (which contains the center of the object) less than a threshold (e.g., 0.6).
+2. Select the grid with the highest $P_c$.
+3. Calculate the Intersection over Union (IoU) between this grid and all other grids and discard grids with IoU exceeding a predetermined threshold.
+4. Repeat steps 2-3 until there are no unprocessed grids left.
+
+The above steps are suitable for single-class object detection. For multi-class object detection, non-maximum suppression should be performed separately for each class.
+
+## R-CNN
+
+The sliding window object detection algorithm introduced earlier scans regions even in areas where there are clearly no objects, which reduces the efficiency of the algorithm. To address this issue, **R-CNN (Region CNN, Region-based Convolutional Neural Network)** was proposed. It uses an **image segmentation algorithm** to identify **candidate regions (Region Proposals)** on different colored blocks within the input image. The classification is then performed only on these regions.
+
+![R-CNN](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Convolutional_Neural_Networks/R-CNN.png)
+
+The drawback of R-CNN is that it is slow in terms of processing speed. Therefore, a series of subsequent research efforts aimed to improve it. For example, Fast R-CNN (which is similar to convolution-based sliding window implementations but still has a slow region proposal step) and Faster R-CNN (which uses convolution to segment the image). However, in most cases, they are still slower than the YOLO algorithm.
+
+Related research papers:
+
+- R-CNN: [Girshik et al., 2013. Rich feature hierarchies for accurate object detection and semantic segmentation](https://arxiv.org/pdf/1311.2524.pdf)
+- Fast R-CNN: [Girshik, 2015. Fast R-CNN](https://arxiv.org/pdf/1504.08083.pdf)
+- Faster R-CNN: [Ren et al., 2016. Faster R-CNN: Towards real-time object detection with region proposal networks](https://arxiv.org/pdf/1506.01497v3.pdf)
