@@ -17,6 +17,10 @@
   - [Triple layers NN for digit recognition (without frameworks)](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition)
   - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Linear%20Regression)
   - Decision Tree
+  - [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
+  - [Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)
+  - [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
+  - [Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
 - Highlights and challenges
   - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
@@ -124,7 +128,6 @@ Projects wise:
 
 
 ## 3 Oct
-
 The online tutorial became more and more theoretical, so I decided to include more code implementation in my learning process.  
 Still, conceptwise:
 - Object Detection
@@ -141,5 +144,11 @@ Still, conceptwise:
   
 Projects wise:  
 [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
+[Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)  
+
 ## 4 Oct
 [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
+
+## 5 Oct
+Project:  
+[Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
