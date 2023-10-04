@@ -41,7 +41,7 @@
 ### October 2023  
 |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
-|           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  [ ] 3       | [ ] 4     | [ ] 5   | [ ] 6     |
+|           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [ ] 5   | [ ] 6     |
 | [ ] 7     | [ ] 8     | [ ] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
 | [ ] 14    | [ ] 15    | [ ] 16    | [ ] 17      | [ ] 18    | [ ] 19  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
@@ -147,9 +147,27 @@ Projects wise:
 [Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)  
 
 ## 4 Oct
+Conceptwise:
+- Difference Between Face Verification and Face Recognition
+- One-Shot Learning
+- Siamese Network
+- Triplet Loss
+- As Binary Classification
+- Neural Style Transfer
+- What Deep Convolutional Networks Learn
+- Cost Function For Neural Style Transfer
+- Content Cost Function
+- Style Cost Function
+
+Projects wise:
 [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
 [Gradient Checking](https://github.com/WangCheng0116/ML/tree/main/Projects/GradientChecking)
 
 ## 5 Oct
 Project:  
 [Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
+
+
+## 6 Oct
+Project:
+[Optimization Method: Mini-batches,Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Projects/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)

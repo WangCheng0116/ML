@@ -13,6 +13,7 @@
 - [Introduction to ML Strategy I](#Introduction-to-ML-Strategy-I)
 - [Introduction to ML Strategy II](#Introduction-to-ML-Strategy-II)
 - [Convolutional Neural Networks (CNN) Architectures](#Convolutional-Neural-Networks-CNN-Architectures)
+- [Face Recognition and Neural Style Transfer](#Face-Recognition-and-Neural-Style-Transfer)
 
 
 
@@ -1156,7 +1157,7 @@ Related research papers:
 - Fast R-CNN: [Girshik, 2015. Fast R-CNN](https://arxiv.org/pdf/1504.08083.pdf)
 - Faster R-CNN: [Ren et al., 2016. Faster R-CNN: Towards real-time object detection with region proposal networks](https://arxiv.org/pdf/1506.01497v3.pdf)
 
-# Face Recognition
+# Face Recognition and Neural Style Transfer
 
 ## Difference Between Face Verification and Face Recognition
 
