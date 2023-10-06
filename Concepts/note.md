@@ -14,6 +14,7 @@
 - [Introduction to ML Strategy II](#Introduction-to-ML-Strategy-II)
 - [Convolutional Neural Networks (CNN) Architectures](#Convolutional-Neural-Networks-CNN-Architectures)
 - [Face Recognition and Neural Style Transfer](#Face-Recognition-and-Neural-Style-Transfer)
+- [Sequence Models](#Sequence-Models)
 
 
 
@@ -1283,3 +1284,107 @@ The smaller the difference between $a^{(C)[l]}$ and $a^{(G)[l]}$, the smaller th
 > So now we can conclude the Cost Function For Neural Style Transfer.
 
 
+# Sequence Models
+## Notations
+For a sequence of data $x$, we use the symbol $x^{⟨t⟩}$ to represent the $t$-th element in the data, and we use $y^{⟨t⟩}$ to represent the $t$-th label. $T_x$ and $T_y$ denote the lengths of the input and output, respectively. For audio data, the elements may correspond to frames, while for a sentence, the elements may represent one or more words.
+
+The $t$-th element of the $i$-th sequence data is denoted as $x^{(i)⟨t⟩}$, and the $t$-th label is $y^{(i)⟨t⟩}$. Therefore, we have $T^{(i)}_x$ and $T^{(i)}_y$.
+
+To represent a word, we first need to create a Vocabulary or Dictionary. All the words to be represented are transformed into a column vector, which can be arranged alphabetically. Then, based on the position of the word in the vector, we use a one-hot vector to represent the label for that word. Each word is encoded as an $R^{|V| \times 1}$ vector, where $|V|$ is the number of words in the vocabulary. The index of a word in the vocabulary corresponds to a '1' in the vector, while all other elements are '0'.
+
+For example, 'zebra' is at the last position in the vocabulary, so its word vector representation is:
+
+$$w^{zebra} = \left [ 0, 0, 0, ..., 1\right ]^T$$
+
+## Recurrent Neural Network (RNN) Model
+
+
+When dealing with sequential data, standard neural networks face the following challenges:
+
+1. For different examples, input and output sequences may have varying lengths, making it impossible to fix the number of neurons in the input and output layers.
+2. Features learned from different positions in the input sequence cannot be shared.
+3. The model has too many parameters, leading to high computational complexity.
+
+To address these issues, we introduce the **Recurrent Neural Network (RNN)**. The structure of a typical RNN is illustrated in the following diagram:
+
+![Recurrent-Neural-Network](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/Recurrent-Neural-Network.png)
+
+
+### Forward Propagation
+
+In an RNN, at each time step, the element $x^{⟨t⟩}$ is fed into the hidden layer corresponding to that time step, and the hidden layer also receives activations $a^{⟨t-1⟩}$ from the previous time step. Typically, $a^{⟨0⟩}$ is initialized as a zero vector. Each time step produces a corresponding prediction $\hat y^{⟨t⟩}$.
+
+RNNs process data from left to right, and the parameters are shared across time steps. The parameters for input, activation, and output are denoted as $W\_{ax}$, $W\_{aa}$, and $W\_{ya}$, respectively.
+
+The structure of a single RNN cell is shown below:
+
+![RNN-cell](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/RNN-cell.png)
+
+The forward propagation equations are as follows:
+
+$$a^{⟨0⟩} = \vec{0}$$
+
+$$a^{⟨t⟩} = g_1(W_{aa}a^{⟨t-1⟩} + W_{ax}x^{⟨t⟩} + b_a)$$
+
+$$\hat y^{⟨t⟩} = g_2(W_{ya}a^{⟨t⟩} + b_y)$$
+
+Here, $g_1$ is typically the tanh activation function (or sometimes ReLU), and $g_2$ can be either sigmoid or softmax, depending on the desired output type.
+
+To simplify the equations further for efficient computation, you can concatenate $W_{aa}$ and $W_{ax}$ **horizontally** into a matrix $W_a$, and stack $a^{⟨t-1⟩}$ and $x^{⟨t⟩}$ into a single matrix. This results in:
+
+$$W_a = [W\_{aa}, W\_{ax}]$$
+
+$$a^{⟨t⟩} = g_1(W_a[a^{⟨t-1⟩}; x^{⟨t⟩}] + b_a)$$
+
+$$\hat y^{⟨t⟩} = g_2(W_{ya}a^{⟨t⟩} + b_y)$$
+
+### Backpropagation Through Time (BPTT)
+![formula-of-RNN](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/formula-of-RNN.png)
+
+## Different Types of RNNs
+![Examples-of-RNN-architectures](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/Examples-of-RNN-architectures.png)
+
+## Language Model
+
+A **Language Model** is a mathematical abstraction that models language based on objective linguistic facts, allowing it to estimate the likelihood of elements appearing in a sequence. For instance, in a speech recognition system, a language model can calculate the probability of two phonetically similar sentences and use this information to make accurate decisions.
+
+The construction of a language model relies on a large **corpus**, which is a collection of numerous sentences forming a text. The first step in building a language model is **tokenization**, where a dictionary is established. Then, each word in the corpus is represented by a corresponding one-hot vector. Additionally, an extra token "EOS" (End of Sentence) is added to denote the end of a sentence. Punctuation can be ignored or included in the dictionary and represented by one-hot vectors.
+
+For special words in the corpus, such as names of people or places that may not be included in the dictionary, you can represent them with a UNK (Unique Token) tag instead of explicitly modeling each specific word.
+
+The tokenized training dataset is used to train a Recurrent Neural Network (RNN), as illustrated in the following diagram:
+
+![language-model-RNN-example](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/language-model-RNN-example.png)
+
+In the first time step, both the input $a^{⟨0⟩}$ and $x^{⟨1⟩}$ are zero vectors, and $\hat y^{⟨1⟩}$ is the probability distribution over the dictionary for the first word. In the second time step, the input $x^{⟨2⟩}$ consists of the first word $y^{⟨1⟩}$ (i.e., "cats") from the training sample's label and the previous layer's activation $a^{⟨1⟩}$. The output $y^{⟨2⟩}$ represents the conditional probabilities, calculated via softmax, of the next word in the dictionary given the word "cats." This process continues, and eventually, the model computes the probability of the entire sentence.
+
+The loss function is defined as:
+
+$$L(\hat y^{⟨t⟩}, y^{⟨t⟩}) = -\sum\_t y\_i^{⟨t⟩} \log \hat y^{⟨t⟩}$$
+
+And the cost function is:
+
+$$J = \sum\_t L^{⟨t⟩}(\hat y^{⟨t⟩}, y^{⟨t⟩})$$
+
+## Sampling
+
+After training a language model, you can gain insights into what the model has learned by **sampling** new sequences from it.
+
+![Sampling](https://raw.githubusercontent.com/bighuang624/Andrew-Ng-Deep-Learning-notes/master/docs/Sequence_Models/Sampling.png)
+
+In the first time step, the input $a^{⟨0⟩}$ and $x^{⟨1⟩}$ are both zero vectors. The model outputs the probabilities of each word in the dictionary as the first word. To generate the next word, we perform random sampling based on the softmax distribution (`np.random.choice`) using the probabilities obtained from the model. The sampled $\hat y^{⟨1⟩}$ is then used as the input $x^{⟨2⟩}$ for the next time step. This process continues until the EOS token is sampled. Ultimately, the model generates sentences, allowing you to discover the knowledge it has learned from the corpus.
+
+The language model described here is based on building vocabulary. Alternatively, you can construct a character-based language model, which has the advantage of not worrying about unknown tokens (UNK). However, it can result in longer and more numerous sequences, and training costs can be high. Therefore, vocabulary-based language models are more commonly used.
+
+## The Gradient Vanishing Problem in RNNs
+
+In the sentences:
+
+* "The cat, which already ate a bunch of food, was full."
+* "The cats, which already ate a bunch of food, were full."
+
+The singular or plural form of the verb in the latter part of the sentence depends on the singular or plural form of the noun in the earlier part. However, **basic RNNs struggle to capture these long-term dependencies**. The main reason behind this is the issue of gradient vanishing. During backpropagation, the error in the later layers can have a hard time affecting the computations in the earlier layers, making it difficult for the network to adjust the earlier calculations accordingly.
+
+During backpropagation, as the number of layers increases, the gradients can not only exponentially decrease (vanishing gradient) but also exponentially increase (exploding gradient). Exploding gradients are usually easier to detect because the parameters may grow to the point of numerical overflow (leading to NaN values). In such cases, **gradient clipping** can be used to address the issue by scaling the gradient vector to ensure it doesn't become too large.
+
+On the other hand, the problem of gradient vanishing is more challenging to tackle. Solutions like **GRUs and LSTMs** have been developed to mitigate the gradient vanishing problem in RNNs.
