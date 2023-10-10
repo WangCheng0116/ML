@@ -177,4 +177,5 @@ Project:
 
 ## 10 Oct  
 Finally, the midterm week has ended. It's time to get back on track.  
-I did a project on Kaggle about [fruit recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)
+I did a project on Kaggle about [fruit recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)  
+In terms of new topics, I opted for a relatively easier one -- KNN, my own implementation from scratch and application on Iris dataset can be found [here](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)

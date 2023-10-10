@@ -1388,3 +1388,10 @@ The singular or plural form of the verb in the latter part of the sentence depen
 During backpropagation, as the number of layers increases, the gradients can not only exponentially decrease (vanishing gradient) but also exponentially increase (exploding gradient). Exploding gradients are usually easier to detect because the parameters may grow to the point of numerical overflow (leading to NaN values). In such cases, **gradient clipping** can be used to address the issue by scaling the gradient vector to ensure it doesn't become too large.
 
 On the other hand, the problem of gradient vanishing is more challenging to tackle. Solutions like **GRUs and LSTMs** have been developed to mitigate the gradient vanishing problem in RNNs.
+
+# K Nearest Neighbors (KNN) Algorithm
+At its core, KNN classifies or predicts the target value of a new data point by examining the k-nearest data points from the training dataset. The "k" in KNN represents the number of nearest neighbors considered for making predictions. When classifying a data point, KNN counts the number of neighbors belonging to each class and assigns the class label that is most common among the k-nearest neighbors.
+
+KNN is particularly useful when dealing with datasets where data points exhibit clustering or local patterns. It is straightforward to understand and implement, making it a valuable tool for both beginners and experienced practitioners in the field of machine learning.
+
+
