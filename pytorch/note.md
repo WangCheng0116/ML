@@ -1,4 +1,13 @@
 # Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Tensor](#tensor)
+  - [Tensor Attributes](#tensor-attributes)
+- [Workflow](#workflow)
+  - [1. Data Preparation](#1-data-preparation)
+  - [2. Build Model](#2-build-model)
+  - [3. Train Model](#3-train-model)
+  - [4. Saving and Loading Models](#4-saving-and-loading-models)
+- [Neural Network for binary classification](#neural-network-for-binary-classification)
 # Tensor
 ## Tensor Attributes
 Tensor is a multi-dimensional matrix containing elements of a single data type.  
@@ -203,4 +212,31 @@ torch.save(obj=model_0.state_dict(), # only saving the state_dict() only saves t
 ```python
 loaded_model_0 = LinearRegressionModel()
 loaded_model_0.load_state_dict(torch.load(f=MODEL_SAVE_PATH))
+```
+
+# Neural Network for binary classification
+![Alt text](image-5.png)
+```python
+# Model Building
+from torch import nn
+class CircleModelV2(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layer_1 = nn.Linear(in_features=2, out_features=10)
+        self.layer_2 = nn.Linear(in_features=10, out_features=10)
+        self.layer_3 = nn.Linear(in_features=10, out_features=1)
+        self.relu = nn.ReLU()
+
+    def forward(self, x):
+      # Intersperse the ReLU activation function between layers
+       return self.layer_3(self.relu(self.layer_2(self.relu(self.layer_1(x)))))
+
+model_3 = CircleModelV2().to(device)
+```
+
+```python
+# Create a loss function
+loss_fn = nn.BCEWithLogitsLoss() 
+# Create an optimizer
+optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.1)
 ```
