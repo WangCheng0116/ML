@@ -41,8 +41,8 @@
 ### October 2023  
 |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
-|           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   | [ ] 6     |
-| [ ] 7     | [ ] 8     | [ ] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
+|           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
+|  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
 | [ ] 14    | [ ] 15    | [ ] 16    | [ ] 17      | [ ] 18    | [ ] 19  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
@@ -174,3 +174,6 @@ Project:
 ## 7 Oct
 Project:
 [Optimization Method: Mini-batches, Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Projects/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)
+
+## 10 Oct  
+Finally, the midterm week has ended. It's time to get back on track.
