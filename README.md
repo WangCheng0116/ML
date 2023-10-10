@@ -176,4 +176,5 @@ Project:
 [Optimization Method: Mini-batches, Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Projects/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)
 
 ## 10 Oct  
-Finally, the midterm week has ended. It's time to get back on track.
+Finally, the midterm week has ended. It's time to get back on track.  
+I did a project on Kaggle about [fruit recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)
