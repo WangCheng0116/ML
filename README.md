@@ -1,4 +1,6 @@
 # Machine Learning Daily Blog
+![image](https://github.com/WangCheng0116/ML/assets/111694270/df7c767e-f08d-4ed1-a189-3c623519b105)
+
 ## Overview  
 - Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
   - Linear Regression with one variable
