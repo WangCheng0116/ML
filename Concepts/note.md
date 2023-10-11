@@ -1505,5 +1505,5 @@ KNN is particularly useful when dealing with datasets where data points exhibit 
 ![Wiki](image-8.png)  
 (extracted from wikipedia)  
 
-A very great [resource](https://carbonati.github.io/posts/random-forests-from-scratch/) that I found online. I followed through the instruction and did this
+A very great [resource](https://carbonati.github.io/posts/random-forests-from-scratch/) that I found online. I followed through the instruction and did [this](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/Random%20Forest/random-forest-from-stratch-adapted.ipynb)
 
