@@ -27,22 +27,22 @@
   - Random Forest
 
 - Projects (code implementation for model)
-  - [Triple layers NN for digit recognition (without frameworks)](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition)
-  - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Linear%20Regression)
+  - CNN
+  - KNN-Iris
+  - Optimization Method - Mini-batches, Momentum and Adam
+  - CNN - Fruit Recognition
+  - Linear Regression
+  - Random Forest
   - Decision Tree
-  - [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
-  - [Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)
-  - [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
-  - [Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
-- Highlights and challenges
-  - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
-  - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
-- Tools
-  - [numpy](https://numpy.org/doc/stable/reference/) Notice: axis = 0, do things vertically; axis = 1, do things horizontally (even '1' is vertical)
-- Interesting Resources
-  - [Machine Learning Cheatsheet](https://ml-cheatsheet.readthedocs.io/en/latest/index.html) 
-  - [Neural Network Playground](https://playground.tensorflow.org/)
-  - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
+  - Logistic Regression
+  - Regularization - L2 and dropout
+  - Deep Neural Network
+  - Neural Network - Binary Classification on 2D plane
+  - ResNets
+  - GradientChecking
+  - Neural Network - Digit Recognition
+  - choose good Initialization
+
   
 
 ## Calendar 
