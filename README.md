@@ -1,4 +1,4 @@
-# Machine Learning Daily Blog  
+# Machine Learning Daily Blog
 ## Overview  
 - Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
   - Linear Regression with one variable
@@ -47,7 +47,7 @@
 |   Sunday   |   Monday   |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
-|  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | [ ] 10      | [ ] 11    | [ ] 12  | [ ] 13    |
+|  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | [ ] 12  | [ ] 13    |
 | [ ] 14    | [ ] 15    | [ ] 16    | [ ] 17      | [ ] 18    | [ ] 19  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
@@ -190,4 +190,5 @@ Plan for going through new concepts has been put aside, because I saw the syllab
 
 Instead, I will focus more on using ML framework, more specifically, Pytorch. Notes can be found [here](https://github.com/WangCheng0116/ML/blob/main/pytorch/note.md)  
 Projects done:  
-* [CNN-Multi-classification](
+* [CNN-Multi-classification](https://github.com/WangCheng0116/ML/blob/main/pytorch/code/PyTorch_NN_MultiClassification.ipynb)
+* [Fashion MNIST](https://github.com/WangCheng0116/ML/blob/main/pytorch/code/Pytorch_FashionMnist.ipynb)

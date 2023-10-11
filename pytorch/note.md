@@ -248,10 +248,11 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.1)
 Code implementation can be found [here](https://github.com/WangCheng0116/ML/blob/main/pytorch/code/PyTorch_NN_MultiClassification.ipynb)
 
 # CNN
-For data that have larger size, we can use data loader to load data in batches.  
+For data that have larger size, we can use data loader to load data in batches. Example usage can be found [here](https://github.com/WangCheng0116/ML/blob/main/pytorch/code/Pytorch_FashionMnist.ipynb)  
 ```python
 train_dataloader = DataLoader(train_data, # dataset to turn into iterable
     batch_size=BATCH_SIZE, # how many samples per batch? 
     shuffle=True # shuffle data every epoch?
 )
 ```
+
