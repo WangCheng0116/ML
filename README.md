@@ -4,9 +4,12 @@
 ## Overview  
 - Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
   - Linear Regression with one variable
+  - Matrix Review
   - Linear Regression with multiple variables
   - Features and Polynomial Regression
-  - Logistic Regression 
+  - Normal Equation
+  - Comparison
+  - Logistic Regression
   - Regularization
   - Neural Networks
   - Deep Neural Network
@@ -15,6 +18,14 @@
   - Hyperparameter Tuning Batch Normalization and Programming Frameworks
   - Introduction to ML Strategy I
   - Introduction to ML Strategy II
+  - Convolutional Neural Networks
+  - Convolutional Neural Networks (CNN) Architectures
+  - Object Detection
+  - Face Recognition and Neural Style Transfer
+  - Sequence Models
+  - K Nearest Neighbors (KNN) Algorithm
+  - Random Forest
+
 - Projects (code implementation for model)
   - [Triple layers NN for digit recognition (without frameworks)](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition)
   - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Linear%20Regression)
