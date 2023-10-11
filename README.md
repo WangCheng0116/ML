@@ -26,23 +26,22 @@
   - K Nearest Neighbors (KNN) Algorithm
   - Random Forest
 
-- Code Implementation for Model
-  - CNN
-  - KNN-Iris
-  - Optimization Method - Mini-batches, Momentum and Adam
-  - CNN - Fruit Recognition
-  - Linear Regression
-  - Random Forest
-  - Decision Tree
-  - Logistic Regression
-  - Regularization - L2 and dropout
-  - Deep Neural Network
-  - Neural Network - Binary Classification on 2D plane
-  - ResNets
-  - GradientChecking
-  - Neural Network - Digit Recognition
-  - choose good Initialization
-
+- Code (code implementation for model)
+  - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
+  - [KNN-Iris](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)
+  - [Optimization Method - Mini-batches, Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)
+  - [CNN - Fruit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)
+  - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Linear%20Regression)
+  - [Random Forest](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Random%20Forest)
+  - [Decision Tree](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Decision%20Tree)
+  - [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Logistic%20Regression)
+  - [Regularization - L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Regularization%20-%20L2%20and%20dropout)
+  - [Deep Neural Network](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Deep%20Neural%20Network)
+  - [Neural Network - Binary Classification on 2D plane](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Binary%20Classification%20on%202D%20plane)
+  - [ResNets](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/ResNets)
+  - [GradientChecking](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/GradientChecking)
+  - [Neural Network - Digit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Digit%20Recognition)
+  - [choose good Initialization](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/choose%20good%20Initialization)
   
 
 ## Calendar 
