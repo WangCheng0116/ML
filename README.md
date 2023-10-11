@@ -26,6 +26,11 @@
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
 - Tools
   - [numpy](https://numpy.org/doc/stable/reference/) Notice: axis = 0, do things vertically; axis = 1, do things horizontally (even '1' is vertical)
+- Interesting Resources
+  - [Machine Learning Cheatsheet](https://ml-cheatsheet.readthedocs.io/en/latest/index.html) 
+  - [Neural Network Playground](https://playground.tensorflow.org/)
+  - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
+  
 
 ## Calendar 
 
@@ -179,3 +184,10 @@ Project:
 Finally, the midterm week has ended. It's time to get back on track.  
 I did a project on Kaggle about [fruit recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)  
 In terms of new topics, I opted for a relatively easier one -- KNN, my own implementation from scratch and application on Iris dataset can be found [here](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)
+
+## 11 Oct
+Plan for going through new concepts has been put aside, because I saw the syllabus that I will focus on NLP, which I think is not that relevant to my current job. So..., see you later NLP.  
+
+Instead, I will focus more on using ML framework, more specifically, Pytorch. Notes can be found [here](https://github.com/WangCheng0116/ML/blob/main/pytorch/note.md)  
+Projects done:  
+* [CNN-Multi-classification](

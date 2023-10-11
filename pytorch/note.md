@@ -9,6 +9,8 @@
   - [4. Saving and Loading Models](#4-saving-and-loading-models)
 - [Neural Network for binary classification](#neural-network-for-binary-classification)
 - [Neural Network for multiple classification](#neural-network-for-multiple-classification)
+- [CNN](#cnn)
+> Can refer to CNN to find how to use data loader and what are necessary steps to take to train a model
 # Tensor
 ## Tensor Attributes
 Tensor is a multi-dimensional matrix containing elements of a single data type.  
@@ -243,3 +245,13 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.1)
 ```
 
 # Neural Network for multiple classification
+Code implementation can be found [here](https://github.com/WangCheng0116/ML/blob/main/pytorch/code/PyTorch_NN_MultiClassification.ipynb)
+
+# CNN
+For data that have larger size, we can use data loader to load data in batches.  
+```python
+train_dataloader = DataLoader(train_data, # dataset to turn into iterable
+    batch_size=BATCH_SIZE, # how many samples per batch? 
+    shuffle=True # shuffle data every epoch?
+)
+```
