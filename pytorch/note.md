@@ -8,6 +8,7 @@
   - [3. Train Model](#3-train-model)
   - [4. Saving and Loading Models](#4-saving-and-loading-models)
 - [Neural Network for binary classification](#neural-network-for-binary-classification)
+- [Neural Network for multiple classification](#neural-network-for-multiple-classification)
 # Tensor
 ## Tensor Attributes
 Tensor is a multi-dimensional matrix containing elements of a single data type.  
@@ -240,3 +241,5 @@ loss_fn = nn.BCEWithLogitsLoss()
 # Create an optimizer
 optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.1)
 ```
+
+# Neural Network for multiple classification
