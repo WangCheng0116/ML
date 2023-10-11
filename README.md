@@ -26,7 +26,7 @@
   - K Nearest Neighbors (KNN) Algorithm
   - Random Forest
 
-- Projects (code implementation for model)
+- Code Implementation for Model
   - CNN
   - KNN-Iris
   - Optimization Method - Mini-batches, Momentum and Adam
