@@ -10,6 +10,10 @@
 - [Neural Network for binary classification](#neural-network-for-binary-classification)
 - [Neural Network for multiple classification](#neural-network-for-multiple-classification)
 - [CNN](#cnn)
+- [TensorBoard](#tensorboard)
+- [Transform](#transform)
+- [Transfer Learning](#transfer-learning)
+  - [Where to find to find pre-trained models](#where-to-find-to-find-pre-trained-models)
 > Can refer to CNN to find how to use data loader and what are necessary steps to take to train a model
 # Tensor
 ## Tensor Attributes
@@ -256,3 +260,56 @@ train_dataloader = DataLoader(train_data, # dataset to turn into iterable
 )
 ```
 
+# TensorBoard
+```
+$ tensorboard --logdir=runs --port=6006
+```
+--logdir: the directory where the logs are saved  
+--port: the port where the TensorBoard will be served
+
+![Alt text](image-6.png) 
+```
+writer = SummaryWriter(dir), takes a directory name as an argument and creates a SummaryWriter instance that will write out to that directory.
+```
+ 
+```
+We need to specify the shape of the array by adding dataformats='XXX' to the add_image() method
+```
+
+# Transform 
+``` python
+# defining the transformations
+data_transforms = transforms.Compose([
+    transforms.Resize((256, 256)),
+    transforms.RandomHorizontalFlip(),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+```
+``` python
+# Apply the transformations to an image
+# Load an image using PIL
+image = Image.open("image.jpg")
+
+# Apply the defined transformations
+transformed_image = data_transforms(image)
+```
+``` python
+# Apply the transformations to a dataset
+# Load a dataset (e.g., ImageFolder dataset)
+dataset = torchvision.datasets.ImageFolder(root="path/to/dataset", transform=data_transforms)
+
+# Create a data loader for the dataset
+data_loader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
+
+```
+Now, the data_loader will yield batches of data, where each sample in the batch has undergone the specified transformations.
+# Transfer Learning
+
+## Where to find to find pre-trained models
+| **Location** | **What's there?** | **Link(s)** | 
+| ----- | ----- | ----- |
+| **PyTorch domain libraries** | Each of the PyTorch domain libraries (`torchvision`, `torchtext`) come with pretrained models of some form. The models there work right within PyTorch. | [`torchvision.models`](https://pytorch.org/vision/stable/models.html), [`torchtext.models`](https://pytorch.org/text/main/models.html), [`torchaudio.models`](https://pytorch.org/audio/stable/models.html), [`torchrec.models`](https://pytorch.org/torchrec/torchrec.models.html) |
+| **HuggingFace Hub** | A series of pretrained models on many different domains (vision, text, audio and more) from organizations around the world. There's plenty of different datasets too. | https://huggingface.co/models, https://huggingface.co/datasets | 
+| **`timm` (PyTorch Image Models) library** | Almost all of the latest and greatest computer vision models in PyTorch code as well as plenty of other helpful computer vision features. | https://github.com/rwightman/pytorch-image-models|
+| **Paperswithcode** | A collection of the latest state-of-the-art machine learning papers with code implementations attached. You can also find benchmarks here of model performance on different tasks. | https://paperswithcode.com/ | 
