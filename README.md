@@ -1,10 +1,15 @@
 # Machine Learning Daily Blog
+![image](https://github.com/WangCheng0116/ML/assets/111694270/df7c767e-f08d-4ed1-a189-3c623519b105)
+
 ## Overview  
 - Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
   - Linear Regression with one variable
+  - Matrix Review
   - Linear Regression with multiple variables
   - Features and Polynomial Regression
-  - Logistic Regression 
+  - Normal Equation
+  - Comparison
+  - Logistic Regression
   - Regularization
   - Neural Networks
   - Deep Neural Network
@@ -13,23 +18,30 @@
   - Hyperparameter Tuning Batch Normalization and Programming Frameworks
   - Introduction to ML Strategy I
   - Introduction to ML Strategy II
-- Projects (code implementation for model)
-  - [Triple layers NN for digit recognition (without frameworks)](https://github.com/WangCheng0116/ML/tree/main/Projects/Digit%20Recognition)
-  - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Linear%20Regression)
-  - Decision Tree
-  - [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Projects/Logistic%20Regression)
-  - [Multiple Methods for initialization](https://github.com/WangCheng0116/ML/tree/main/Projects/choose%20good%20Initialization)
-  - [DNN](https://github.com/WangCheng0116/ML/tree/main/Projects/Deep%20Neural%20Network)
-  - [Regularization-L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Projects/Regularization%20-%20L2%20and%20dropout)
-- Highlights and challenges
-  - [Gradient Descent in Back Propagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md) (Why? Both rigorous deduction and intuitive understanding)
-  - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
-- Tools
-  - [numpy](https://numpy.org/doc/stable/reference/) Notice: axis = 0, do things vertically; axis = 1, do things horizontally (even '1' is vertical)
-- Interesting Resources
-  - [Machine Learning Cheatsheet](https://ml-cheatsheet.readthedocs.io/en/latest/index.html) 
-  - [Neural Network Playground](https://playground.tensorflow.org/)
-  - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
+  - Convolutional Neural Networks
+  - Convolutional Neural Networks (CNN) Architectures
+  - Object Detection
+  - Face Recognition and Neural Style Transfer
+  - Sequence Models
+  - K Nearest Neighbors (KNN) Algorithm
+  - Random Forest
+
+- Code (code implementation for model)
+  - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
+  - [KNN-Iris](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)
+  - [Optimization Method - Mini-batches, Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)
+  - [CNN - Fruit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN%20-%20Fruit%20Recognition)
+  - [Linear Regression](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Linear%20Regression)
+  - [Random Forest](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Random%20Forest)
+  - [Decision Tree](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Decision%20Tree)
+  - [Logistic Regression](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Logistic%20Regression)
+  - [Regularization - L2 and dropout](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Regularization%20-%20L2%20and%20dropout)
+  - [Deep Neural Network](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Deep%20Neural%20Network)
+  - [Neural Network - Binary Classification on 2D plane](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Binary%20Classification%20on%202D%20plane)
+  - [ResNets](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/ResNets)
+  - [GradientChecking](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/GradientChecking)
+  - [Neural Network - Digit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Digit%20Recognition)
+  - [Choose Good Initialization](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/choose%20good%20Initialization)
   
 
 ## Calendar 
