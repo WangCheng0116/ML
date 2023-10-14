@@ -1536,3 +1536,5 @@ A pretty simple usage of SVM can be found [here](https://github.com/WangCheng011
 
 # XGBoost
 XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework. It stands for eXtreme Gradient Boosting.
+
+ $\hat{y}_i$
