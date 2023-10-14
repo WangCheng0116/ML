@@ -25,6 +25,7 @@
   - Sequence Models
   - K Nearest Neighbors (KNN) Algorithm
   - Random Forest
+  - Support Vector Machine
 
 - Code (code implementation for model)
   - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
@@ -42,6 +43,7 @@
   - [GradientChecking](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/GradientChecking)
   - [Neural Network - Digit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Digit%20Recognition)
   - [Choose Good Initialization](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/choose%20good%20Initialization)
+  - [SVM on Binary Classification](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb) 
   
 
 ## Calendar 
