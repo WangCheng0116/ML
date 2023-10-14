@@ -121,6 +121,7 @@
   - [The Gradient Vanishing Problem in RNNs](#the-gradient-vanishing-problem-in-rnns)
 - [K Nearest Neighbors (KNN) Algorithm](#k-nearest-neighbors-knn-algorithm)
 - [Random Forest](#random-forest)
+- [Support Vector Machine (SVM)](#support-vector-machine-svm)
 
 
 
@@ -1507,3 +1508,26 @@ KNN is particularly useful when dealing with datasets where data points exhibit 
 
 A very great [resource](https://carbonati.github.io/posts/random-forests-from-scratch/) that I found online. I followed through the instruction and did [this](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/Random%20Forest/random-forest-from-stratch-adapted.ipynb)
 
+
+# Support Vector Machine (SVM)
+A Math proof done by myself can be found [here](https://github.com/WangCheng0116/ML/blob/main/Concepts/SVM%20Math%20Proof.pdf)  
+Following is sample usage from sklearn:
+```python
+class sklearn.svm.SVC(
+            C=1.0, # C is the penalty parameter
+            kernel='rbf', # kernel function
+            degree=3, # degree of polynomial kernel function
+            gamma='auto', # kernel coefficient
+            coef0=0.0, # constant term in kernel function
+            shrinking=True, # whether to use shrinking heuristic
+            probability=False, # whether to enable probability estimates
+            tol=0.001, # tolerance for stopping criterion
+            cache_size=200, # kernel cache size
+            class_weight=None, # set the parameter C of class i to class_weight[i]*C
+            verbose=False, # enable verbose output
+            max_iter=-1, # limit the number of iterations within solver
+            decision_function_shape='ovr', # whether to return a one-vs-rest (‘ovr’) decision function of shape (n_samples, n_classes) as all other classifiers, or the original one-vs-one (‘ovo’) decision function of libsvm which has shape (n_samples, n_classes * (n_classes - 1) / 2)
+            random_state=None)
+```  
+A pretty simple usage of SVM can be found [here](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb)
+![Alt text](image-11.png)
