@@ -51,11 +51,11 @@
   - [Neural Network - Digit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Digit%20Recognition)
   - [Choose Good Initialization](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/choose%20good%20Initialization)
   - [SVM on Binary Classification](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb) 
-- Interesting Resources
+- Resources
   - [Machine Learning Cheatsheet](https://ml-cheatsheet.readthedocs.io/en/latest/index.html) 
   - [Neural Network Playground](https://playground.tensorflow.org/)
   - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
-  - [LaTex Cheat Sheet](https://wch.github.io/latexsheet/latexsheet.pdf)
+  - [LaTex Cheatsheet](https://wch.github.io/latexsheet/latexsheet.pdf)
   
   
 
