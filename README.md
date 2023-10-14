@@ -26,7 +26,13 @@
   - K Nearest Neighbors (KNN) Algorithm
   - Random Forest
   - Support Vector Machine
+  - XGBoost
 
+- Challenges
+  - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
+  - [Backpropagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md)
+  - [SVM Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md)
+  
 - Code (code implementation for model)
   - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
   - [KNN-Iris](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)
