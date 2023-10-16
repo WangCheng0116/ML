@@ -1,6 +1,18 @@
 # Table of Contents
 <!-- toc -->
 - [Table of Contents](#table-of-contents)
+- [Decision Tree](#decision-tree)
+  - [ID3 (Iterative Dichotomiser)](#id3-iterative-dichotomiser)
+  - [C4.5](#c45)
+  - [CART](#cart)
+    - [Gini Index](#gini-index)
+    - [Dealing with continuous values](#dealing-with-continuous-values)
+  - [Pre-Pruning](#pre-pruning)
+  - [Post-Pruning](#post-pruning)
+    - [Reduced Error Pruning (REP)](#reduced-error-pruning-rep)
+    - [Pessimistic Error Pruning (PEP)](#pessimistic-error-pruning-pep)
+    - [Minimum Error Pruning (MEP)](#minimum-error-pruning-mep)
+    - [Cost-Complexity Pruning (CCP)](#cost-complexity-pruning-ccp)
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
   - [Gradient Descent](#gradient-descent)
   - [Apply Gradient Descent into linear regression model](#apply-gradient-descent-into-linear-regression-model)
@@ -128,6 +140,101 @@
     - [Greedy Algorithm](#greedy-algorithm)
     - [Approximate Algorithm](#approximate-algorithm)
 
+# Decision Tree
+
+## ID3 (Iterative Dichotomiser)
+Based on information gain, we want to maximize the information gain at each step.
+$$Information\space gain = Entropy(parent) - Entropy(children)$$
+$$Entropy = -\sum_{i=1}^{n}p_i log_2 p_i$$
+where $p_i$ is the probability of each class in the dataset.  
+Drawback:
+- It doesn't support missing values
+- It doesn't support continuous values
+- It doesn't have pruning, causing overfitting
+- Not guranteed to be binary tree
+  
+## C4.5
+Based on information gain ratio, we want to maximize the information gain ratio at each step.
+$$gainRatio(D,A_{i})=\frac{gain(D,A_{i})}{-\sum_{s}^{j-1}{(\frac{|D_{j}|}{|D|}\ast log_{2}\frac{|D_{j}|}{|D|}})}$$  
+
+
+Drawback:
+- It's can branch out to more than 2 branches
+- It only can be used for classification problems
+- Logarithm function is expensive to compute
+
+## CART
+The Gini Index or Impurity measures the probability for a random instance being misclassified when chosen randomly. The lower the Gini Index, the better the lower the likelihood of misclassification.
+### Gini Index
+The formula for Gini Index:
+$$Gini(D)=1-\sum_{i=1}^{n}p_{i}^{2}$$
+since it's a binary tree, we can simplify it as:
+$$Gini(D|A) = \frac{|D_1|}{|D|} \text{Gini}(D_1) + \frac{|D_2|}{|D|} \text{Gini}(D_2)$$  
+> In english: weighted gini sum  
+> 
+Gini index happens to be the first order Taylor expansion of entropy since $xlog(x) \approx x(x-1)$ when $x$ is small.  
+![Alt text](image-19.png)
+
+### Dealing with continuous values
+![All](image-20.png)  
+Split points are achieved by sorting the values and finding the midpoints between adjacent values. Then it is converted into a discrete scenario again.
+
+## Pre-Pruning
+- Maximum Depth
+- Minimum Number of Samples
+- Setting a threshold for the minimum information gain
+- Setting a threshold for the minimum Gini Index
+drawback: it can be too conservative and underfit the data
+## Post-Pruning
+|            | CCP          | REP                | PEP                 | MEP                |
+| ---------- | ------------ | ------------------ | ------------------- | ------------------ |
+| Pruning Method | Bottom-Up | Bottom-Up | Top-Down | Bottom-Up |
+| Computational Complexity | O(n^2) | O(n) | O(n) | O(n) |
+| Error Estimation | Standard Error | Pruning Set Error | Continuity Correction | Probability Estimation |
+| Requires Testing Set | No | Yes | No | No |
+
+### Reduced Error Pruning (REP)
+If pruning can reduce the error rate on the testing set, then we prune the tree.
+### Pessimistic Error Pruning (PEP)
+Error rate for a single node:
+$$error(t) = \frac{e(t) + 0.5}{n(t)}$$
+> +0.5 is the continuity correction
+Error rate for a subtree:  
+
+$$Error(T) = \frac{ \sum_{i=1}^{L} e(i) + 0.5L }{ N(T)  }$$
+> N(T) is the number of samples in the subtree
+> L is the number of leaves in the subtree
+
+Expected Error rate for a subtree:
+$$E(T) = N(T) * Error(T)$$
+Standard Deviation of the error rate for a subtree:
+$$\sigma(T) = \sqrt{N(T) * Error(T) * (1 - Error(T))}$$
+> We treat the error as a binomial distribution, so expectation is $np$ and variance is $np(1-p)$
+Hence, the most pessimistic error rate for a subtree is:
+$$E(T) + \sigma(T)$$  
+If after pruning the tree, the error rate is lower than the most pessimistic error rate, then we prune the tree.
+### Minimum Error Pruning (MEP)
+At node T, the probability of being classified as class k is:
+$$Error(T)= \frac {N(T)-n_k(T)+K-1}{N(T)+K}$$
+> $n_k(T)$ is the number of samples at node T classified as class k  
+> $N(T)$ is the number of samples at node T  
+> K is the total number of classes  
+
+Before pruning, the error is:
+$$Error(T_{before}) = \sum_{i=1}^{L} w_i \cdot Error(Leaf_i) = \sum_{i=1}^{l} \frac{N(Leaf_i)}{N(T)} \cdot Error(Leaf_i)
+$$
+After pruning, the error is:
+$$Error(T_{after})= \frac {N(T)-n_k(T)+K-1}{N(T)+K}$$
+
+If $Error(T_{after}) < Error(T_{before})$, then we prune the tree.
+
+
+### Cost-Complexity Pruning (CCP)
+The reason why is it called CCP is that error here consists of two parts: cost and complexity.
+$$C_\alpha(T) = C(T) + \alpha |T|$$
+where  
+$$C(T) = \sum_{i=1}^{L}w_i\cdot Error(Leaf_i) \tag{Error(Leaf) is the misclassing rate}$$
+If $C_\alpha(T_{after}) ≤ C_\alpha(T_{before})$, then we prune the tree.
 
 
 # Linear Regression with one variable
