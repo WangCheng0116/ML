@@ -137,13 +137,19 @@
   - [Sampling](#sampling)
   - [The Gradient Vanishing Problem in RNNs](#the-gradient-vanishing-problem-in-rnns)
 - [K Nearest Neighbors (KNN) Algorithm](#k-nearest-neighbors-knn-algorithm)
-- [Random Forest](#random-forest)
 - [Support Vector Machine (SVM)](#support-vector-machine-svm)
-- [XGBoost](#xgboost)
-  - [Loss Function Formulation](#loss-function-formulation)
-  - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
-    - [Greedy Algorithm](#greedy-algorithm)
-    - [Approximate Algorithm](#approximate-algorithm)
+- [Ensemble Learning](#ensemble-learning)
+  - [Bagging](#bagging)
+    - [Random Forest](#random-forest)
+  - [Boosting](#boosting)
+    - [AdaBoost](#adaboost)
+      - [Algorithm](#algorithm)
+      - [Example](#example)
+    - [XGBoost](#xgboost)
+      - [Loss Function Formulation](#loss-function-formulation)
+      - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
+        - [Greedy Algorithm](#greedy-algorithm)
+        - [Approximate Algorithm](#approximate-algorithm)
 
 # Decision Tree
 
@@ -1641,11 +1647,7 @@ At its core, KNN classifies or predicts the target value of a new data point by 
 KNN is particularly useful when dealing with datasets where data points exhibit clustering or local patterns. It is straightforward to understand and implement, making it a valuable tool for both beginners and experienced practitioners in the field of machine learning.
 
 
-# Random Forest
-![Wiki](image-8.png)  
-(extracted from wikipedia)  
 
-A very great [resource](https://carbonati.github.io/posts/random-forests-from-scratch/) that I found online. I followed through the instruction and did [this](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/Random%20Forest/random-forest-from-stratch-adapted.ipynb)
 
 
 # Support Vector Machine (SVM)
@@ -1671,11 +1673,81 @@ class sklearn.svm.SVC(
 A pretty simple usage of SVM can be found [here](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb)
 ![Alt text](image-11.png)
 
+# Ensemble Learning
+It has two aspects:
+1. Bagging: train models parallelly 
+2. Boosting: train models sequentially
+## Bagging
+Bagging stands for **Bootstrap Aggregation**. It is a technique used to reduce the variance of our predictions by combining the result of multiple classifiers modeled on different sub-samples of the same data set.
+### Random Forest
+![Wiki](image-8.png)  
+(extracted from wikipedia)  
 
-# XGBoost
+A very great [resource](https://carbonati.github.io/posts/random-forests-from-scratch/) that I found online. I followed through the instruction and did [this](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/Random%20Forest/random-forest-from-stratch-adapted.ipynb)
+
+## Boosting
+
+### AdaBoost
+#### Algorithm
+**Input:** Training dataset T = {($x_1$, $y_1$), ($x_2$, $y_2$), ..., ($x_N$, $y_N$)}, where $x_i$ ∈ X ⊆ $R^n$, and $y_i$ ∈ Y = {-1, +1}. 
+
+1. Initialize the weight distribution for the training data.  
+  
+$$D_1 = (w_{11}, w_{12}, \ldots, w_{1i}, \ldots, w_{1N}),$$
+where $w_{1i} = \frac{1}{N}$ for $i = 1, 2, \ldots, N.$. 
+
+1. For $m = 1, 2,..., M$
+	- Use $D_m$ to train and we get a classifier $G_{m}(x)$
+	- The error rate of  classifier $G_{m}(x)$ is 
+  $$e_m = \sum_{i=1}^N P(G_m(x_i) \neq y_i) = \sum_{i=1}^N w_{mi} I(G_m(x_i) \neq y_i)$$
+    
+	- Compute the coefficient of $G_m(x)$: 
+  $$\alpha_m = \frac{1}{2} log\frac{1- e_m}{e_m}$$
+	- Update weights as:  
+$$w_{m+1} = (w_{m+1,1}, \ldots, w_{m+1,i}, \ldots, w_{m+1,N})$$
+$$w_{m+1,i} = \frac{w_{mi}}{Z_m} \exp(-\alpha_m y_i G_m(x_i)), \quad i = 1, 2, \ldots, N$$
+
+Here, $Z_m$ is the normalization factor.
+$$Z_m = \sum_{i=1}^N w_{mi} \exp(-\alpha_m y_i G_m(x_i))$$
+
+1. Build our final claasifier:
+$$G(x) = sign(\sum_{m=1}^{M}\alpha_mG_m(x))$$
+The main idea is if a certain classifer has a bad performance, which means 
+$e_m$ is less 0.5, then coefficient $a_m$ will be greater than 1. Misclassified data will play a more important role in the next round of iteration
+
+#### Example 
+| Index |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10 |
+|-------|---- |---- |---- |---- |---- |---- |---- |---- |---- |----|
+|   X   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
+|   Y   |  1  |  1  |  1  | -1 | -1 | -1 |  1  |  1  |  1  | -1 |
+1. Initialization: $$D_1 = (w_{11}, w_{12}, ..., w_{110})$$
+$$w_{1i} = 0.1 \space for  \space i = 1,2,...,10 $$
+2. When $m$ = 1
+- When $v = 2.5$ it gets its lowest misclassification error, so we build:
+$$ G_1(x) = \begin{cases} 1 & \text{if } x < 2.5 \\ -1 & \text{if } x > 2.5 \end{cases} $$
+- Misclassification Error: $$e_1 = 0.3$$
+- Coefficient for $G_1(x)$: $$\alpha_1 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.4236$$
+- Update weights as follows:$$D_2 = (w_{21}, w_{22}, ..., w_{210})$$
+$$w_{2i} = \frac{w_{1i}}{Z_1}exp(-\alpha_1y_iG_1(x_i))$$
+$$D_2 = (0.07143, ..., 0.07143, 0.16667,0.16667,0.16667, 0.07143)$$
+- Current ultimate classifier is: $$f_1(x) = 0.4236G_1(x)$$
+3. When $m = 2$:
+- - When $v = 8.5$ it gets its lowest misclassification error, so we build:
+$$ G_2(x) = \begin{cases} 1 & \text{if } x < 8.5 \\ -1 & \text{if } x > 8.5 \end{cases} $$
+- Misclassification Error: $$e_2 = 0.07143 * 3$$ since index 4, 5, 6 are mislabeled and all three have the weight of 0.07143
+- Coefficient for $G_1(x)$: $$\alpha_2 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.6496$$
+- Update weights as follows:$$D_2 = (w_{31}, w_{32}, ..., w_{310})$$
+$$w_{2i} = \frac{w_{1i}}{Z_1}exp(-\alpha_1y_iG_1(x_i))$$
+$$D_2 = (omitted)$$
+- Current ultimate classifier is: $$f_2(x) = 0.4236G_1(x) + 0.6496G_2(x)$$
+4. When $m =3$:
+Same procedure applies we can have $$f_3(x) = 0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)$$
+
+After all this, we derive our model, which is: $$G(x) = sign[f_3(x)] = sign[0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)]$$
+### XGBoost
 XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework. It stands for eXtreme Gradient Boosting.
 
-## Loss Function Formulation
+#### Loss Function Formulation
 We know that XGBoost is a sum of $k$ basic models:
 $$\hat{y}_i = \sum_{t=1}^kf_{t}(x_{i})$$  
 where $f_{k}$ is the $k_{th}$ model and $\hat{y}_{i}$ is the prediction of $i_{th}$ sample.
@@ -1740,13 +1812,13 @@ $$L(t) =  -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{ H_j+\lambda}+\gamma T $$
 ![Alt text](image-14.png) 
 It is easier when looking at real data. We can think of $G_j$ as the sum of the first derivative of the loss function of the data points that fall into the $j_{th}$ leaf. And $H_j$ is the sum of the second derivative of the loss function of all the data points that fall into the $j_{th}$ leaf.
 
-## Partitioning (How to find the best split)
+#### Partitioning (How to find the best split)
 Let's first take a step back and think about what we have achieved so far. We only get one thing by far, which is the loss function:
 $$L(t) =  -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{ H_j+\lambda}+\gamma T $$
 
 But how can we build a tree which can minimize this loss function? One feasible way is to try all possible splits and find the best one, i.e. exhaustion. But this is not efficient. So we need to find a way to find the best split in a more efficient way.
 
-### Greedy Algorithm
+##### Greedy Algorithm
 Before splitting, the loss function is:
 $$L_{before} = -\frac{1}{2} \left[ \frac{(G_L + G_R)^2}{H_L + H_R + \lambda} \right] + \gamma$$
 
@@ -1761,7 +1833,7 @@ This calls out the algorithm:
 ![Alt text](image-16.png)  
 In English, in each iteration, choose the split that can let loss function decrease the most.
 
-### Approximate Algorithm
+##### Approximate Algorithm
 ![Alt text](image-17.png)
 - First for loop：Find a partition of sorted data set based on different percentile.
 - Second for loop: Compute the loss for each bucket and find the best split after comparison.
