@@ -48,8 +48,7 @@
     - [Implementation](#implementation)
   - [Other Methods of Regularization](#other-methods-of-regularization)
 - [Neural Networks](#neural-networks)
-  - [Model Representation I](#model-representation-i)
-  - [Other activation functions](#other-activation-functions)
+  - [Activation functions](#activation-functions)
   - [Multiclass Classification](#multiclass-classification-1)
   - [Cost Function](#cost-function-1)
   - [Backpropagation Algorithm](#backpropagation-algorithm)
@@ -279,43 +278,45 @@ $$arg \max_{c_k}P(Y = c_k) \prod_{j=1}^{n} P(X^{(j)} = x^{(j)} | Y = c_k) $$
 
 # Linear Regression with one variable
 Our hypothesis model:  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/c71fb25e-86cb-4792-a6f0-41cd991fe4b1)  
+$$h_\theta(x) = \theta_0 + \theta_1x$$
 the function to estimate our errors between real data and our model  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/893c1a2c-55de-4404-9524-09e58f1a80ea)  
-This is the diagram of lost function in a 3d space  
-<img width="181" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/9ddb83aa-4fdf-4b60-9baa-3c50ee5aec8d">  
+
+$$J(\theta_0, \theta_1) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2$$
+where $m$ is the number of training examples, $x^{(i)}$ is the ith training example, $y^{(i)}$ is the ith output, $h_\theta(x^{(i)})$ is the hypothesis of the ith training example.
+
 ## Gradient Descent  
 The idea behind gradient descent is as follows: Initially, we randomly select a combination of parameters (θ₀, θ₁, ..., θₙ), calculate the cost function, and then look for the next combination of parameters that will cause the cost function to decrease the most. We continue to do this until we reach a local minimum because we haven't tried all possible parameter combinations, so we cannot be sure if the local minimum we find is the global minimum. Choosing different initial parameter combinations may lead to different local minima.
 
-<img width="290" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/bcb4b061-b16e-4aac-a465-465d44927113">  
-<img width="347" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/2503e93d-41b1-441d-ab4a-aab878123e73">  
 
 In gradient descent, as we approach a local minimum, the algorithm automatically takes smaller steps. This is because when we get close to a local minimum, it's evident that the derivative (gradient) equals zero at that point. Consequently, as we approach the local minimum, the gradient values naturally become smaller, leading the gradient descent to automatically adopt smaller step sizes. This is the essence of how gradient descent works. Therefore, there's actually no need for further decreasing the learning rate (alpha).  
 
 ## Apply Gradient Descent into linear regression model  
 the key here is to find the partial derivative of model parameter  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/0ed8abe7-9d4c-4f81-81e3-cfcb3582f83f)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/8c09e8a8-e987-4034-8d63-d7e81979101f)  
-this method would sometimes also be referred to as "Batch Gradient Descent" because each step makes use of all training data 
+$$\theta_0 = \theta_0 - \alpha \frac{\partial}{\partial \theta_0} J(\theta_0, \theta_1)$$
+$$\theta_1 = \theta_1 - \alpha \frac{\partial}{\partial \theta_1} J(\theta_0, \theta_1)$$
+$$\frac{\partial}{\partial \theta_0} J(\theta_0, \theta_1) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})$$
+$$\frac{\partial}{\partial \theta_1} J(\theta_0, \theta_1) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x^{(i)}$$
+> We need to update $\theta_0$ and $\theta_1$ simultaneously  
+> 
+where $\alpha$ is the learning rate, $m$ is the number of training examples, $x^{(i)}$ is the ith training example, $y^{(i)}$ is the ith output, $h_\theta(x^{(i)})$ is the hypothesis of the ith training example.  
+This method would sometimes also be referred to as "Batch Gradient Descent" because each step makes use of all training data.
 
 # Matrix Review  
 [CS2109S CheatSheet](https://coursemology3.s3.ap-southeast-1.amazonaws.com/uploads/attachments/e3/2d/be/e32dbead0b0c575ef71d120059c1741af17a3085cba0fb5eb6278da9568d8289.pdf?response-content-disposition=inline%3B%20filename%3D%22matrix_calculus_cheatsheet.pdf%22&X-Amz-Expires=600&X-Amz-Date=20230928T083209Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2EQN7A45RM2X7VPX%2F20230928%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=a2bdde670ac0db2119bc0d20f73ffbaa1253b613d99f5c6ec52ee301b0fd9c29)
 
 # Linear Regression with multiple variables  
-<img width="237" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/c0b0e60b-18cd-4f48-b66b-83bffe639546">  
-
 ## New notations  
-$x^{(i)}$ means ith data from the training set, for example,  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/4a904451-8f94-4bda-8923-8798c0057112)  
-is the second row in the training set  
+$x^{(i)}$ means $i$th data ($i$th row) from the training set.
+
 $x_{j}^{i}$ means the jth feature in the ith data row  
 Suppose we have data $x_{1}$, $x_{2}$, $x_{3}$, $x_{4}$, we would add a bias column $x_{0}$ to be 1, so the feature matrix would have a dimension of (m, n + 1)
 
 ## Gradient Descent for Multiple Variables
 $h_θ (x)=θ^T X=θ_0+θ_1 x_1+θ_2 x_2+...+θ_n x_n$  
 taking derivatives, we have  
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/3c084c79-538f-4103-b964-bafb5865e039">  
-
+$$\frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_j^{(i)}$$
+where $m$ is the number of training examples, $x^{(i)}$ is the ith training example, $y^{(i)}$ is the ith output, $h_\theta(x^{(i)})$ is the hypothesis of the ith training example.
+> $\theta_0$ is not included in the summation because it is not multiplied by any feature.
 ## Python Implementation  
 ``` python
 def cost_function(X, y, theta):
@@ -365,7 +366,18 @@ $X^T (y - Xθ) = 0$
 therefore $θ=(X^T X)^{(-1)} X^T y$  
 
 Rigorous steps:  
-<img src="https://github.com/WangCheng0116/ML/assets/111694270/b1a509ae-2239-4082-a4ca-4f515f258a8e" alt="Image" width="400" height="500">
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2$$
+$$= \frac{1}{2m} (X\theta - y)^T (X\theta - y)$$
+$$= \frac{1}{2m} (\theta^T X^T - y^T) (X\theta - y)$$
+$$= \frac{1}{2m} (\theta^T X^T X\theta - \theta^T X^T y - y^T X\theta + y^T y)$$
+so
+$$\frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{2m} (2 X^T X\theta - 2 X^T y)$$
+let it be 0, we have
+$$\frac{\partial}{\partial \theta_j} J(\theta) = 0$$
+
+$$X^T X\theta = X^T y$$
+
+$$\theta = (X^T X)^{-1} X^T y$$
 
 
 
@@ -395,18 +407,26 @@ The interpretation of our hypothesis could be $h_θ (x)$ estimates the probabili
 ## Decision Boundary  
 Suppose when $h_θ (x)$ ≥ 0, we predict y = 1, it is equivalent to say $θ^T X$ ≥ 0 based on graph of sigmoid function  
 For a linear function, let's assume the boundary is $-3+x_1+x_2≥0$  
-<img width="150" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/fc995d40-9379-49df-af50-1e5ad89d2cd9">  
+
 For non-linear, we could also include polynomials like this  $h_θ (x)=g(θ_0+θ_1 x_1+θ_2 x_2+θ_3 x_1^2+θ_4 x_2^2 )$  
-<img width="181" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6422cc39-2385-4b9d-87f7-f72a38cc0961">  
+
 
 ## Cost Function
 If we still plug our function into Square Error function, the ultimate cost function would not have the property of convexity, so we need to come up with a new convex function to make sure that local min is global min.  
 
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/fbf616b0-46f5-45ac-964c-3ea93ed2d81f">
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/63734c4a-9d64-41aa-a771-8ecf3fea90e1">  
+$$\begin{equation}
+Cost(h_\theta(x), x) = 
+\begin{cases}
+    {-log(h_\theta(x))} & \text{if } y = 1 \\
+    {-log(1- h_\theta(x))} & \text{if } y = 0 \\
+\end{cases}
+\end{equation}$$
+
 
 Simplify it as $Cost(h_θ (x),y)=-y×log(h_θ (x))-(1-y)×log(1-h_θ (x))$  
-Our ultimate cost function is ![image](https://github.com/WangCheng0116/ML/assets/111694270/ecdad8f3-bcb9-4eb4-8b69-3978d91f93b1)  
+Our ultimate cost function is: 
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_\theta(x^{(i)}), y^{(i)})$$
+$$= \frac{1}{m} \sum_{i=1}^{m} [-y^{(i)} log(h_\theta(x^{(i)}))-(1-y^{(i)}) log(1-h_\theta(x^{(i)}))]$$
 ``` python
 # code for cost function
 def cost(theta, X, y):
@@ -416,14 +436,17 @@ def cost(theta, X, y):
   first = np.multiply(-y, np.log(sigmoid(X* theta.T)))
   second = np.multiply((1 - y), np.log(1 - sigmoid(X* theta.T)))
   return np.sum(first - second) / (len(X))
-```
+```  
+
 Taking derivative, we found out that 
-<img src="https://github.com/WangCheng0116/ML/assets/111694270/deebcf4b-ada9-4ca3-8b34-14f4e2bcb9a8" alt="Image" width="500" height="450">
+$$\frac{\partial}{\partial \theta_j} J(\theta) = \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) \cdot x_j^{(i)}$$
+
  
 it's the same as linear regression!!!  
-we apply the same strategy here  
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/01ef33e8-275d-4025-bf57-c3c000001273">  
-in this case feature scaling is also helpful in reducing the number of iterations  
+Proof:
+![Alt text](image-22.png) 
+Then we can update $\theta_i$ accordingly.  
+> In this case feature scaling is also helpful in reducing the number of iterations  
 
 ## Vectorization of Logistic Regression  
 ``` python
@@ -437,16 +460,14 @@ bias = b - α * db
 ```
 
 ## Multiclass Classification  
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/07a1202e-ee1d-4a2c-968b-b3a791486907">  
+![Alt text](image-23.png)
 
 We would use a method called one v.s. all  
-<img width="400" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e42adf14-d933-42b1-89c0-229927c8a238">  
-
+![Alt text](image-24.png)
 in this case we have three classifiers $h_θ^{(i)} (x)$. In order to make predictions, we will plug in x to each classifier and select the one with the highest probability $max h_θ^{(i)} (x)$
 
 # Regularization  
 ## Underfit and Overfit
-<img width="420" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/135b056f-de7e-439d-a66b-3f07f111e5ac">  
 
 * Underfit: High bias
 * Just Right
@@ -460,40 +481,56 @@ Solutions:
   * keep all features but reduce magnitude of parameters
 
 ## Motivation to have regularization
-$h_θ (x)=θ_0+θ_1 x_1+θ_2 x_2^2+θ_3 x_3^3+θ_4 x_4^4$, the reason why we have overfit is because of those terms with high degree, we want to minimize their impact on our model. So we choose![image](https://github.com/WangCheng0116/ML/assets/111694270/ada44f0f-d354-4b75-a042-afe7719eaeb1)  
+$h_θ (x)=θ_0+θ_1 x_1+θ_2 x_2^2+θ_3 x_3^3+θ_4 x_4^4$, the reason why we have overfit is because of those terms with high degree, we want to minimize their impact on our model. So we choose $\theta$ s.t. it can minimize:  
+$$\frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 + 1000 \cdot \theta_3^2 + 1000 \cdot \theta_4^2$$
 
 to include punishment for high degree terms.  
 
-In general, we will have![image](https://github.com/WangCheng0116/ML/assets/111694270/dd0518a4-c7a0-4fb5-845b-ffd8e021824d)  
+In general, we will have: 
+$$J(\theta) = \frac{1}{2m} [\sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 + \lambda \sum_{j=1}^{n} \theta_j^2]$$
+where $\lambda$ is called **Regularization Parameter**
 where λ is called **Regularization Parameter**
 
 
 ## Gradient Descent and Normal Equation Using Regularization in Linear Regression
 
-
+* Gradient Descent
 > important: $θ_0$ would never be part of regularization, so all index numbers of $θ_j$ start from 1
 
-![image](https://github.com/WangCheng0116/ML/assets/111694270/f5b44dfa-13fd-4744-aaf2-14fca072161b)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/a4a32b91-7e79-4002-a218-e923f3c22d56)  
-* Note that the difference is each time $θ_j$ is multiplied with a number smaller than 1
-* For $θ_0$, we take λ as 0
+$$\theta_0 = \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)}$$
+$$\theta_j = \theta_j - \alpha [\frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} + \frac{\lambda}{m} \theta_j]$$
+$$= \theta_j(1 - \alpha \frac{\lambda}{m}) - \alpha \frac{1}{m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}$$
 
-<img width="227" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e95e8711-5f8e-4f9e-9ff8-ecf101f99232">  
+- Note that the difference is each time $θ_j$ is multiplied with a number smaller than 1
+- For $θ_0$, we take λ as 0
+
+* Normal Equation
+$$\theta = (X^T X + \lambda \cdot L)^{-1} X^T y$$
+where L is a matrix of size $(n + 1) * (n + 1)$ with 0 at the top left and 1s down the diagonal, 0 everywhere else.
 
 Rigorous proof:  
 
-<img src="https://github.com/WangCheng0116/ML/assets/111694270/756b269a-6734-4f3a-964a-d29ef957b81b" alt="Image" width="550" height="400">
-
+$$J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)})^2 + \frac{\lambda}{2m} \sum_{j=1}^{n} \theta_j^2$$
+$$= \frac{1}{2m} (X\theta - y)^T (X\theta - y) + \frac{\lambda}{2m} \theta^T \theta$$
+$$= \frac{1}{2m} (\theta^T X^T - y^T) (X\theta - y) + \frac{\lambda}{2m} \theta^T \theta$$
+$$= \frac{1}{2m} (\theta^T X^T X\theta - \theta^T X^T y - y^T X\theta + y^T y) + \frac{\lambda}{2m} \theta^T \theta$$
+hence the derivative is:
+$$\frac{\partial}{\partial \theta} J(\theta) = \frac{1}{m} (X^T X\theta - X^T y) + \frac{\lambda}{m} \theta$$
+Let it be 0, we have:
+$$\frac{1}{m} (X^T X\theta - X^T y) + \frac{\lambda}{m} \theta = 0$$
+$$(X^T X + \lambda \cdot L)\theta = X^T y$$
+$$\theta = (X^T X + \lambda \cdot L)^{-1} X^T y$$
+where L is a matrix of size $(n + 1) * (n + 1)$ with 0 at the top left and 1s down the diagonal, 0 everywhere else.
 
 * If λ > 0, it is guaranteed to be invertible;  
 
-* The 0, 1, 1 ... 1 matrix is of size $(n + 1) * (n + 1)$
 
 
 ## Gradient Descent Using Regularization in Logistic Regression
 > important: $θ_0$ would never be part of regularization, so all index numbers of $θ_j$ start from 1
 
-![image](https://github.com/WangCheng0116/ML/assets/111694270/38b8dc08-2df9-481f-8a2e-a7492728d1df)
+$$J(\theta) = \frac{1}{m} \sum_{i=1}^{m} [-y^{(i)} log(h_\theta(x^{(i)}))-(1-y^{(i)}) log(1-h_\theta(x^{(i)}))] + \frac{\lambda}{2m} \sum_{j=1}^{n} \theta_j^2$$
+
 ``` python
 import numpy as np
 def costReg(theta, X, y, lambda):
@@ -502,17 +539,21 @@ def costReg(theta, X, y, lambda):
     y = np.matrix(y)
     first = np.multiply(-y, np.log(sigmoid(X*theta.T)))
     second = np.multiply((1 - y), np.log(1 - sigmoid(X*theta.T)))
-    reg = (lambda / (2 * len(X))* np.sum(np.power(theta[:,1:theta.shape[1]],2))
+    reg = lambda / (2 * len(X))* np.sum(np.power(theta[:,1:theta.shape[1]],2))
     return np.sum(first - second) / (len(X)) + reg
 ```
 We will have the following update models:  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/44736829-0e51-498c-8f1c-69f4e36b0294)  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/55b31ab3-1584-4f69-a37a-4161449723b3)
+$$\theta_0 = \theta_0 - \alpha \frac{1}{m} \sum_{i=1}^{m} ((h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)})$$
+$$\theta_j = \theta_j - \alpha [\frac{1}{m} \sum_{i=1}^{m} ((h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}) + \frac{\lambda}{m} \theta_j]$$
+$$= \theta_j(1 - \alpha \frac{\lambda}{m}) - \alpha \frac{1}{m} \sum_{i=1}^{m} ((h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)})$$
+## Gradient Descent Using Regularization in Neural Networks 
+$$J(w^{[1]}, b^{[1]}, ..., w^{[L]}, b^{[L]}) = \frac{1}{m} \sum_{i=1}^{m} L(\hat{y}^{(i)}, y^{(i)}) + \frac{\lambda}{2m} \sum_{l=1}^{L} ||w^{[l]}||_F^2$$
+where $||w^{[l]}||_F^2 = \sum_{i=1}^{n^{[l-1]}} \sum_{j=1}^{n^{[l]}} (w_{ij}^{[l]})^2$, basically it is the sum of all the square of all the weight parameters.
 
-## Gradient Descent Using Regularization in Neural Networks  
-<img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/40ae8cb4-9d36-4afb-bbe1-c75da556a49e">  
-Basically, it means for all $w^{[i]}$, it will sum up the square of each element in $w^{[i]}$, i.e., the sum of the square of all weight parameters. We need to include an extra term when updating.  
-<img width="620" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/6f07840e-ddf6-4c28-b1ab-f988811d015e">  
+We need to include an extra term when updating.  
+$$dw^{[l]} = \frac{\partial L}{\partial w^{[l]}} + \frac{\lambda}{m} w^{[l]}$$
+hence, 
+$$w^{[l]} = w^{[l]} - \alpha dw^{[l]}$$
 
 ## Dropout  
 ### Implementation
@@ -540,17 +581,8 @@ Using a combination of *Data Augmentation* and *Early Stopping* can help in trai
 
 # Neural Networks
 
-## Model Representation I
-<img width="1131" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/e7a58359-6a69-4131-a5b5-62b14556ea6f">  
 
-**z** is pre-activation value, **a** is after activation, $w^{[i]}$ means the weight matrix from layer **i-1** to to layer **i**, the and size of matrix $w^{[i]}$ is (# of nodes in layer **i**, # of nodes in layer **i-1**)  
-In vectorization form, we will have  
-<img width="688" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/f42be892-8d4c-46e6-bb1a-1a0db0c045fe">  
-<img width="390" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d354d725-3558-4169-9a07-af35e0ede829">  
-After vectorization, we will only need to change x to X and a to A,  
-<img width="920" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/205eff58-ff7e-476c-b6d7-7c015d84e83f">
-
-## Other activation functions  
+## Activation functions  
 
 * **tanh (Hyperbolic Tangent):** 
   * Formula: $tanh(z) = \frac{e^{z} - e^{-z}}{e^{z} + e^{-z}}$
@@ -571,7 +603,8 @@ After vectorization, we will only need to change x to X and a to A,
 The intuition remains the same, just one thing different. The final output is a set of data rather than a single one, for example, [1 0 0], [0 1 0], [0 0 1] mean cars, cats and dogs respectively.
 
 ## Cost Function  
- ![image](https://github.com/WangCheng0116/ML/assets/111694270/8e3c6b71-3b5b-4564-8712-2e0fe61fdefe)  
+$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{K} [y_k^{(i)} log((h_\theta(x^{(i)}))_k) + (1 - y_k^{(i)}) log(1 - (h_\theta(x^{(i)}))_k)] + \frac{\lambda}{2m} \sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} (\theta_{ji}^{(l)})^2$$
+where $y_k^{(i)}$ indicates whether the label of the ith training example is k, and $h_\theta(x^{(i)})_k$ is the kth output.
 
 It looks intimidating, but the idea remains the same, the only difference is that the final output is a vector of dimension **K**, $(h_θ(x))_i$ = i^th output in the result vector, the last summation term is just simply the sum of all the parameters (all weights) excluding the term where i = 0, which means it is multiplied with bias, so there's no need to take them into account. (If you do nothing will happen)  
 $θ_{ji}^{(l)}$ here represents a parameter or weight in a neural network, specifically for layer "l" connecting the "i-th" neuron in layer "l" to the "j-th" neuron in layer "l+1" mathematically, $θ_{ji}^{(l)}$ is weight connecting $a_i^{l}$ and $a_j^{l+1}$  
@@ -581,69 +614,7 @@ A concrete example: $θ_{10}^{(2)}$ is the weight connecting $a_0^{(2)}$ at laye
 The idea is to compute the error term of each layer and then use it to update the weights.  
 Our goal always remain the same: we have a set of parameters waiting to be optimized, and we also have cost function. The essence of gradient descent is to find the partial derivative of cost function to all the parameters.  
 
-
-Let's start with the notation in the proof:  
-For weights let **wᴸₘₙ** be the weight from the mₜₕ neuron in the (L-1)ₜₕ layer to the nₜₕ neuron in the Lₜₕ layer.  
-activation of the **mₜₕ** neuron in the Lₜₕ layer by aᴸₘ and for the bias we’ll do **bᴸₘ**.  
-So we will have![image](https://github.com/WangCheng0116/ML/assets/111694270/687fb62c-30b3-45e4-8908-6d43d108941b)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/8924c514-47f5-4093-98f4-0610be5a4444)
-![image](https://github.com/WangCheng0116/ML/assets/111694270/befbe5ce-cfa8-44ff-b5b2-92e9de4c0f90)  
-is same as  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/8c13ccb7-6e96-411b-9c0c-960a1023bb3a)  
-and only when **i=n**, the term would survive in the partial derivative, so we have  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/b821315a-17dd-44cb-b9d1-849ba06e7aab)  
-Let the red part be **δᴸₙ**, we have  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/997698b4-3d3a-4a17-84a2-9ff04c4bd367)  
-In vectorization form, we have  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/35b77c72-8cda-40bc-8bb6-351679756089)  
-
-For bias terms, we use the same method:  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/a489afdd-9578-4875-8c23-b4a689cfc601)  
-plugging in 
-![image](https://github.com/WangCheng0116/ML/assets/111694270/52be6ccd-b600-4fb3-b1ff-3d286d8ddb9c)  
-we will have  
-![formula](https://github.com/WangCheng0116/ML/assets/111694270/2f4506ec-ad95-4e94-820c-3a94c04d3f34)  
-in vectorization form  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/24eaf15e-c671-4430-a3c1-5b35c9cfc8b6)
-
-our goal here simplifies to find delta  
-
-Let's start with the last layer H  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/fd3874c4-582c-4877-be6c-ddc56b4a04f2)  
-since we know the cost function, we have  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/9f877d79-57d8-4dc1-9b11-9778577008ad)  
-this is the first part of the last last equation  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/7882297c-ae99-4976-b333-ad1422951954) 
-this is the second term of the last last equation, by combining both  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/97674f42-6254-4369-aff6-622de1a40876)  
-in vectorization form  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/9fb3cae8-5ad1-419a-94eb-8531463610d3)  
-
-By generalizing into the relation between L and L + 1, marked as red here,     
-![image](https://github.com/WangCheng0116/ML/assets/111694270/9ca6e8ad-d8bb-4c7f-a931-835a7d19f603)  
-we still need to find out the second term (notice that only when **i=n** it will be left),  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/ad26a84b-6ec5-4988-92a7-aaf67e04aa39)  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/cbd9cf1f-c8b8-4c81-be4c-527b151b66e8)  
-By combining two terms, the last last last formula would be  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/b0d062fa-96bc-4af4-984a-c0ed5b9ae5a6)  
-in vectorization form, this can be also written as (⊙ means elementwise production)  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/5aa0065a-c3ec-4ea4-a297-d125e8ab2e16)  
-
-To sum up, in two versions, the first is from elementwise perspective  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/8db186f9-46a3-4910-b8bc-5ca16ff5aa91)  
-the other one is from vector perspective (layer by layer)    
-![image](https://github.com/WangCheng0116/ML/assets/111694270/0e67b7a1-445c-484b-a85a-8439e295fdc2)  
-
-The final procedure would be  
-1- Find aᴸ and zᴸ for layers 0 through H by feeding an example into the network. (Use the first two equations.) This is known as the “forward pass”.
-
-2- Compute δᴸ for layers H through 0 using the formulae for δᴴ, δᴸ respectively. (Use the third equation.)
-
-3- Simultaneously compute ∂J/∂Wᴸ and ∂J/∂bᴸ for layers H through 0 as once we have δᴸ we can find both of these. (Use the last two equations.) This is known as the “backward pass”.
-
-4- Repeat for more examples until the weights and biases of the network can be updated through gradient descent (depends on your batch size):
-
-<img width="801" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/b21ef5e0-3b1b-4780-8e2a-bd5069012506">
+Details and mathematical proof can be found at [here](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md).
 
 ## Randomize Initialization  
 If we still use 0 to initialize, it is easy to prove the whole updating procedure will be completely symmetric.  
@@ -653,10 +624,11 @@ for $b^{[i]}$, it won't affect symmetry so we could initialize it to be 0
 
 # Deep Neural Network
 ## Working Flow Chart  
-![image](https://github.com/WangCheng0116/ML/assets/111694270/b7a21d78-fbeb-40e3-bc89-61f6dbaf5c68)  
+![Alt text](image-25.png)
 By caching the value of $z^{[i]}$, we could make bp easier.  
-<img width="1313" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/300facb2-a4df-463e-b31d-4c8923edea1b">
-<img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/7b569246-bebd-407f-b50f-66745f2ae7e8"><img width="1416" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/a1d3c3bc-fcba-42de-9abe-d74bb9ee3570">  
+![Alt text](image-26.png)
+![Alt text](image-27.png)
+![Alt text](image-28.png)
 in these two detailed slides, LHS refers to single training data, while the other one is after vectorization.  
 
 # Setting Up ML Application  
@@ -736,10 +708,8 @@ If the mini-batch size is 1, then it is called **Stochastic Gradient Descent**.
 If the mini-batch size is m, then it is called **Batch Gradient Descent**.
 
 Here is a picture to illustrate the difference between the three algorithms:
-<img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/5d97c96a-ba73-4dcf-9286-662e6cd7a015">
-<img width="834" alt="image" src="https://github.com/WangCheng0116/ML/assets/111694270/d30945a7-05a6-4e09-b6dd-3e28ac72fef5">
-
-
+![Alt text](image-29.png)
+![Alt text](image-30.png)
 ### Batch Gradient Descent:
 - Performs one gradient descent update using all m training samples.
 - Each iteration takes a long time, making the training process slow.
