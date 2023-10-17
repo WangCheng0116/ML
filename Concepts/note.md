@@ -1700,7 +1700,7 @@ where $w_{1i} = \frac{1}{N}$ for $i = 1, 2, \ldots, N.$.
 	- Use $D_m$ to train and we get a classifier $G_{m}(x)$
 	- The error rate of  classifier $G_{m}(x)$ is 
   $$e_m = \sum_{i=1}^N P(G_m(x_i) \neq y_i) = \sum_{i=1}^N w_{mi} I(G_m(x_i) \neq y_i)$$
-    
+
 	- Compute the coefficient of $G_m(x)$: 
   $$\alpha_m = \frac{1}{2} log\frac{1- e_m}{e_m}$$
 	- Update weights as:  
@@ -1720,18 +1720,22 @@ $e_m$ is less 0.5, then coefficient $a_m$ will be greater than 1. Misclassified 
 |-------|---- |---- |---- |---- |---- |---- |---- |---- |---- |----|
 |   X   |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
 |   Y   |  1  |  1  |  1  | -1 | -1 | -1 |  1  |  1  |  1  | -1 |
-1. Initialization: $$D_1 = (w_{11}, w_{12}, ..., w_{110})$$
+1. Initialization: 
+$$D_1 = (w_{11}, w_{12}, ..., w_{110})$$
 $$w_{1i} = 0.1 \space for  \space i = 1,2,...,10 $$
-2. When $m$ = 1
+1. When $m$ = 1
 - When $v = 2.5$ it gets its lowest misclassification error, so we build:
 $$ G_1(x) = \begin{cases} 1 & \text{if } x < 2.5 \\ -1 & \text{if } x > 2.5 \end{cases} $$
 - Misclassification Error: $$e_1 = 0.3$$
-- Coefficient for $G_1(x)$: $$\alpha_1 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.4236$$
-- Update weights as follows:$$D_2 = (w_{21}, w_{22}, ..., w_{210})$$
+- Coefficient for $G_1(x)$: 
+$$\alpha_1 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.4236$$
+- Update weights as follows:
+$$D_2 = (w_{21}, w_{22}, ..., w_{210})$$
 $$w_{2i} = \frac{w_{1i}}{Z_1}exp(-\alpha_1y_iG_1(x_i))$$
 $$D_2 = (0.07143, ..., 0.07143, 0.16667,0.16667,0.16667, 0.07143)$$
-- Current ultimate classifier is: $$f_1(x) = 0.4236G_1(x)$$
-3. When $m = 2$:
+- Current ultimate classifier is: 
+$$f_1(x) = 0.4236G_1(x)$$
+1. When $m = 2$:
 - - When $v = 8.5$ it gets its lowest misclassification error, so we build:
 $$ G_2(x) = \begin{cases} 1 & \text{if } x < 8.5 \\ -1 & \text{if } x > 8.5 \end{cases} $$
 - Misclassification Error: $$e_2 = 0.07143 * 3$$ since index 4, 5, 6 are mislabeled and all three have the weight of 0.07143
@@ -1739,11 +1743,14 @@ $$ G_2(x) = \begin{cases} 1 & \text{if } x < 8.5 \\ -1 & \text{if } x > 8.5 \end
 - Update weights as follows:$$D_2 = (w_{31}, w_{32}, ..., w_{310})$$
 $$w_{2i} = \frac{w_{1i}}{Z_1}exp(-\alpha_1y_iG_1(x_i))$$
 $$D_2 = (omitted)$$
-- Current ultimate classifier is: $$f_2(x) = 0.4236G_1(x) + 0.6496G_2(x)$$
-4. When $m =3$:
-Same procedure applies we can have $$f_3(x) = 0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)$$
+- Current ultimate classifier is: 
+$$f_2(x) = 0.4236G_1(x) + 0.6496G_2(x)$$
+1. When $m =3$:
+Same procedure applies we can have 
+$$f_3(x) = 0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)$$
 
-After all this, we derive our model, which is: $$G(x) = sign[f_3(x)] = sign[0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)]$$
+After all this, we derive our model, which is: 
+$$G(x) = sign[f_3(x)] = sign[0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)]$$
 ### XGBoost
 XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework. It stands for eXtreme Gradient Boosting.
 
