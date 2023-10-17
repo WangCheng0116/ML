@@ -142,9 +142,16 @@
   - [Bagging](#bagging)
     - [Random Forest](#random-forest)
   - [Boosting](#boosting)
-    - [AdaBoost](#adaboost)
+    - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
       - [Algorithm](#algorithm)
       - [Example](#example)
+      - [Why alpha is like that?](#why-alpha-is-like-that)
+      - [Why we can update w\_m is like that?](#why-we-can-update-w_m-is-like-that)
+    - [Boosting Decision Tree](#boosting-decision-tree)
+      - [Herustic Example](#herustic-example)
+    - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
+      - [Why Gradient?](#why-gradient)
+      - [Algorithm](#algorithm-1)
     - [XGBoost](#xgboost)
       - [Loss Function Formulation](#loss-function-formulation)
       - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
@@ -1687,7 +1694,7 @@ A very great [resource](https://carbonati.github.io/posts/random-forests-from-sc
 
 ## Boosting
 
-### AdaBoost
+### AdaBoost (Adaptive Boosting)
 #### Algorithm
 **Input:** Training dataset T = {($x_1$, $y_1$), ($x_2$, $y_2$), ..., ($x_N$, $y_N$)}, where $x_i$ ∈ X ⊆ $R^n$, and $y_i$ ∈ Y = {-1, +1}. 
 
@@ -1751,6 +1758,77 @@ $$f_3(x) = 0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)$$
 
 After all this, we derive our model, which is: 
 $$G(x) = sign[f_3(x)] = sign[0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)]$$
+
+#### Why alpha is like that?
+We have a recursive step here: 
+$$f_m(x) = f_{m-1}(x) + \alpha_mG_m(x)$$  
+By defining exponential loss function:
+$$L(y, f(x)) = exp(-yf(x))$$ 
+We want to find $\alpha_m$ which can minimize the overall cost function, i.e.:
+$$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N e^{-y_i(f_{m-1}(x_i) + \alpha_m G_m(x_i))}$$
+it is equailent to: 
+$$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N e^{-y_if_{m-1}(x_i) }\cdot e^{-y_i\alpha_m G_m(x_i)}$$  
+Let's denote $w_{mi} = e^{-y_if_{m-1}(x_i)}$, then we have:
+$$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N w_{mi}\cdot e^{-y_i\alpha_m G_m(x_i)}$$  
+which is 
+$$\argmin_{\alpha_m} \sum_{y_i = G_m(x_i)}w_{mi}\cdot e^{-\alpha_m} + \sum_{y_i \neq G_m(x_i)}w_{mi}\cdot e^{\alpha_m}$$  
+since $y_i$ and $G_m(x_i)$ are either 1 or -1. By furtuer simplification, we have:  
+$$\argmin_{\alpha_m}e^{-\alpha_m}(\sum_{i =1}^{N}w_{mi} - \sum_{y_i \neq G_m(x_i)}w_{mi}) + \sum_{y_i \neq G_m(x_i)}w_{mi}\cdot e^{\alpha_m} $$
+
+$$= \argmin_{\alpha_m}e^{-\alpha_m}\sum_{i =1}^{N}w_{mi} + (e^{\alpha_m}- e^{-\alpha_m})\sum_{y_i \neq G_m(x_i)}w_{mi}$$
+Since we want to find $\alpha_m$ which can minimize the overall cost function, we can take the derivative of the above equation w.r.t $\alpha_m$ and set it to 0. Then we have:
+$$-e^{-\alpha_m}\sum_{i =1}^{N}w_{mi} + (e^{\alpha_m}+ e^{-\alpha_m})\sum_{y_i \neq G_m(x_i)}w_{mi} = 0$$  
+$$<=> e^{2\alpha _m} = \frac{\sum_{y_i = G_m(x_i)}w_{mi}}{\sum_{y_i \neq G_m(x_i)}w_{mi}}$$  
+$$<=> \alpha _m = \frac{1}{2}log\frac{1- e_m}{e_m}$$
+#### Why we can update w_m is like that?
+$$w_{m+1i} = e^{-y_if_{m}(x_i)}$$  
+$$=e^{-y_i(f_{m-1}(x_i)+ \alpha_mG_m(x_i))}$$  
+$$= e^{-y_if_{m-1}(x_i)}\cdot e^{-y_i\alpha_mG_m(x_i)}$$  
+$$= w_{mi}\cdot e^{-y_i\alpha_mG_m(x_i)}$$  
+but here we need to introduce a normalization factor $Z_m$ to make sure $w_{m+1}$ is a distribution, i.e., in next round of iteration, the sum of it will be 1.
+### Boosting Decision Tree
+#### Herustic Example
+Suppose we have a train data set of
+| x_i  | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
+|-----|------|------|------|------|------|------|------|------|------|------|
+| y_i  | 5.56 | 5.70 | 5.91 | 6.40 | 6.80 | 7.05 | 8.90 | 8.70 | 9.00 | 9.05 |
+1. At the first iteration:
+Suppose we let $s = 6.5$ be the threshold, then we have:
+$$T_1(x) = \begin{cases} 6.24 & \text{if } x < 6.5 \\ 8.91 & \text{if } x > 6.5 \end{cases} $$
+Then we can calculate the MSE:
+$$MSE_1 = \frac{1}{10}\sum_{i=1}^{10}(y_i - T_1(x_i))^2 = 1.93$$
+and it happens to be the least MSE we can get among all possible thresholds (9 in total in this case).  
+Then we derive the residual:
+$$r_{2i} = y_i - T_1(x_i)$$  
+, which can be shown in this table:
+| $x_i$  | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
+|-----|------|------|------|------|------|------|------|------|------|------|
+| $r_{2i}$  | -0.68 | -0.54 | -0.33 | 0.16 | 0.56 | 0.81 | -0.01 | -0.21 | 0.09 | 0.14 |
+2. At the second iteration:
+We treat $r_{2i}$ as our new $y_i$ and we want to find a new $T_2(x)$ to minimize the MSE. We can find:
+$$T_2(x) = \begin{cases} -0.52 & \text{if } x < 3.5 \\ 0.22 & \text{if } x > 3.5 \end{cases} $$  
+By combining this with previous learner, we have:
+$$f_2(x) = T_1(x) + T_2(x) = \begin{cases} 5.72 & \text{if } x < 3.5 \\ 7.46 & \text{if } 3.5 < x < 6.5 \\ 9.13 & \text{if } x > 6.5 \end{cases} $$
+
+At last, after MSE has met the given tolerance, we sum all the trees up and get our final model:
+$$f_n(x) = \sum_{m=1}^{M}T_m(x)$$
+> A quick note here: We are trying to approximate the residual at each iteration, which is the key point of boosting trees.
+
+### Gradient Boosting Decision Tree 
+#### Why Gradient?
+Key idea: Gradient is an approximation of the residual.  
+
+Math Proof:  
+We know $f(x)$'s first order derivative at $x = x_{t-1}$ is：
+$$f(x) \approx f(x_{t-1}) + f^{'}(x_{t-1})(x-x_{t-1})$$  
+Similarly, Loss Function $L(y,F(x))$'s taylor expansion at $F(x) = F_{t-1}(x)$ is ：
+$$L(y,F(x))\approx L(y, F_{t-1}(x)) + \left[ \frac{\delta L(y,F(x))}{\delta F(x)} \right]_{F(x) = F_{t-1}(x)}(F(x)-F_{t-1}(x))$$ 
+By subsituting $F(x) = F_{t}(x)$, we have：
+$$L(y,F_{t}(x))\approx L(y, F_{t-1}(x)) + \left[ \frac{\delta L(y,F(x))}{\delta F(x)} \right]_{F(x) = F_{t-1}(x)}(F_{t}(x)-F_{t-1}(x))$$
+So $-\left[ \frac{\delta L(y, F(x))}{\delta F(x)} \right]_{F(x)=F_{t-1}(x)}$ is an approximation of $y-f_{t-1}(x)$ = $residual$
+#### Algorithm
+![Alt text](image-21.png)
+(credits to [wikipedia](https://en.wikipedia.org/wiki/Gradient_boosting#Algorithm))
 ### XGBoost
 XGBoost is a decision-tree-based ensemble Machine Learning algorithm that uses a gradient boosting framework. It stands for eXtreme Gradient Boosting.
 
