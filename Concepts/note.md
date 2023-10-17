@@ -13,6 +13,11 @@
     - [Pessimistic Error Pruning (PEP)](#pessimistic-error-pruning-pep)
     - [Minimum Error Pruning (MEP)](#minimum-error-pruning-mep)
     - [Cost-Complexity Pruning (CCP)](#cost-complexity-pruning-ccp)
+- [Bayes Classifier](#bayes-classifier)
+  - [Bayes Theorem](#bayes-theorem)
+  - [Naive Bayes Theorem](#naive-bayes-theorem)
+  - [Bayes Classifier](#bayes-classifier-1)
+  - [Native Bayes Classifier](#native-bayes-classifier)
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
   - [Gradient Descent](#gradient-descent)
   - [Apply Gradient Descent into linear regression model](#apply-gradient-descent-into-linear-regression-model)
@@ -236,6 +241,28 @@ where
 $$C(T) = \sum_{i=1}^{L}w_i\cdot Error(Leaf_i) \tag{Error(Leaf) is the misclassing rate}$$
 If $C_\alpha(T_{after}) ≤ C_\alpha(T_{before})$, then we prune the tree.
 
+# Bayes Classifier
+
+## Bayes Theorem
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$
+more generally, we have
+
+$$P(Y = c_i | X = x) = \frac{P(X = x | Y = c_i) \cdot P(Y = c_i)}{P(X = x)} =\frac{P(X = x | Y = c_i) \cdot P(Y = c_i)}{\sum_{i=1}^{k} P(X = x | Y = c_i) \cdot P(Y = c_i)} $$
+where $c_i$ is the ith class, $x$ is the input data,which has n features (i.e. $x$ = $(x_1, x_2, ..., x_n)$). $P(Y = c_i | X = x)$ is the probability of the input data being classified as class $c_i$.
+
+## Naive Bayes Theorem
+When the $n$ features from $x$ are independent, we have
+$$P(X = x | Y = c_i) = \prod_{j=1}^{n} P(X^{(j)} = x^{(j)} | Y = c_i)$$
+where $X^{(j)}$ is the jth feature of $X$.
+By substituting the above formula into the Bayes Theorem, we have:
+$$P(Y = c_i | X = x) = \frac{\prod_{j=1}^{n} P(X^{(j)} = x^{(j)} | Y = c_i) \cdot P(Y = c_i)}{\sum_{i=1}^{k} P(Y = c_i)\prod_{j=1}^{n} P(X^{(j)} = x^{(j)} | Y = c_i)} $$
+## Bayes Classifier
+Given above formula, the actual idea of Bayes Classifier comes to our mind naturally, which is:
+$$arg \max_{c_i} P(X=x|Y=c_i)\cdot P(Y=c_i)$$
+When we are considering which class a certain data belongs to, all the probabilities will have the same denominator, so we can ignore it.
+## Native Bayes Classifier
+Same philosophy applies here:
+$$arg \max_{c_k}P(Y = c_k) \prod_{j=1}^{n} P(X^{(j)} = x^{(j)} | Y = c_k) $$
 
 # Linear Regression with one variable
 Our hypothesis model:  
