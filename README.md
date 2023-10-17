@@ -1,6 +1,5 @@
 # Machine Learning Daily Blog
-![image](https://github.com/WangCheng0116/ML/assets/111694270/df7c767e-f08d-4ed1-a189-3c623519b105)
-
+![Alt text](image.png)
 ## Overview  
 - Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
   - Linear Regression with one variable
@@ -75,7 +74,7 @@
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
-| ✅[14](##14-Oct)   | [ ] 15    | [ ] 16    | [ ] 17      | [ ] 18    | [ ] 19  | [ ] 20    |
+| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | [ ] 18    | [ ] 19  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
 
@@ -227,3 +226,9 @@ Things have started getting busier and busier recently, mainly because of CS2103
 Today I tried digging into a gradient-boosted method, which is stated to be quite important by Prof. Again, this topic is very mathy and for future actual code usage, I will try to look for suitable frameworks and train this model. This topic deserves to be included in the [challenge](https://github.com/WangCheng0116/ML/blob/main/Challenges/XGBoost.md) folder.
 ## 14 Oct
 This is a hard day. Currently, I need to confess that SVM is by far the most math-heavy topic I have ever learned. On a side note, it is very interesting to see how my math courses are intertwined with SVM, because I happen to be learning non-linear optimization (MA3236). I will put SVM in [challenge](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md) folder. A very simple implementation of SVM can be found [here](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb) (using scikit)
+
+## 16 Oct
+Today's topic is a quite unique one, since we are going back to revise the concept of decision tree. Things turned out to be so surprising -- 2109S only covers a very tiny small portion of that and omit a lot of math induction. Learned a lot :)
+
+## 17 Oct
+Today's topic is about ensembling method, which is a very popular method in ML. And also, the method called gradient boosting has been emphasized by prof. Indeed it is a very powerful method, but it is also very mathy. Refer to [here](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md#ensemble-learning) for more details. 
