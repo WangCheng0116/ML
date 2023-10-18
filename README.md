@@ -196,6 +196,7 @@
   - [Backpropagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md)
   - [SVM Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md)
   - [XGBoost Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/XGBoost.md)
+  - [EM Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/EM.md)
   
 - Code (code implementation for model)
   - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
@@ -239,7 +240,7 @@
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
-| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | [ ] 18    | [ ] 19  | [ ] 20    |
+| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | [ ] 19  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
 
@@ -397,3 +398,6 @@ Today's topic is a quite unique one, since we are going back to revise the conce
 
 ## 17 Oct
 Today's topic is about ensembling method, which is a very popular method in ML. And also, the method called gradient boosting has been emphasized by prof. Indeed it is a very powerful method, but it is also very mathy. Refer to [here](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md#ensemble-learning) for more details. 
+
+## 18 Oct
+Another pretty mathy day. After enterting the realm of unsupervised learning, concepts of probability and statistics start kicking in more frequently. Today's topic is about GMM, EM and a bit more advanced stuff about K-mean. EM is very smart and somehow even quite intuitive, but the math behind it is very intimidating. Refer to [here](https://github.com/WangCheng0116/ML/blob/main/Challenges/EM.md) for more details.
