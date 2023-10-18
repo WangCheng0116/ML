@@ -135,14 +135,36 @@
   - [Language Model](#language-model)
   - [Sampling](#sampling)
   - [The Gradient Vanishing Problem in RNNs](#the-gradient-vanishing-problem-in-rnns)
+- [Expectation Maximization (EM) Algorithm](#expectation-maximization-em-algorithm)
+  - [Intuitive Explanation](#intuitive-explanation)
+  - [Intuitive Algorithm](#intuitive-algorithm)
+  - [Formal Proof](#formal-proof)
+    - [Likelihood Function](#likelihood-function)
+    - [Log Likelihood Function](#log-likelihood-function)
+    - [Jensen Inequality](#jensen-inequality)
+    - [EM](#em)
+  - [EM Algorithm](#em-algorithm)
+- [Clustering](#clustering)
+  - [Measuring Similarity](#measuring-similarity)
+    - [Minkowski Distance:](#minkowski-distance)
+    - [Mahalanobis Distance:](#mahalanobis-distance)
+    - [Correlation Coefficient:](#correlation-coefficient)
+    - [Cosine Similarity:](#cosine-similarity)
+- [K Means Clustering](#k-means-clustering)
+  - [Algorithm](#algorithm)
+  - [How to choose k?](#how-to-choose-k)
 - [K Nearest Neighbors (KNN) Algorithm](#k-nearest-neighbors-knn-algorithm)
+  - [Algorithm I - Linear Scan](#algorithm-i---linear-scan)
+  - [Algorithm II - KD Tree](#algorithm-ii---kd-tree)
+    - [Build KD Tree](#build-kd-tree)
+    - [Search KD Tree to find k nearest neighbors](#search-kd-tree-to-find-k-nearest-neighbors)
 - [Support Vector Machine (SVM)](#support-vector-machine-svm)
 - [Ensemble Learning](#ensemble-learning)
   - [Bagging](#bagging)
     - [Random Forest](#random-forest)
   - [Boosting](#boosting)
     - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
-      - [Algorithm](#algorithm)
+      - [Algorithm](#algorithm-1)
       - [Example](#example)
       - [Why alpha is like that?](#why-alpha-is-like-that)
       - [Why we can update w\_m is like that?](#why-we-can-update-w_m-is-like-that)
@@ -150,7 +172,7 @@
       - [Herustic Example](#herustic-example)
     - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
       - [Why Gradient?](#why-gradient)
-      - [Algorithm](#algorithm-1)
+      - [Algorithm](#algorithm-2)
     - [XGBoost](#xgboost)
       - [Loss Function Formulation](#loss-function-formulation)
       - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
@@ -1618,12 +1640,217 @@ During backpropagation, as the number of layers increases, the gradients can not
 
 On the other hand, the problem of gradient vanishing is more challenging to tackle. Solutions like **GRUs and LSTMs** have been developed to mitigate the gradient vanishing problem in RNNs.
 
+# Expectation Maximization (EM) Algorithm
+## Intuitive Explanation
+Suppose we want collect the data about the distribution of heights in NUS. We successfully gather the height data from 100 boys and 100 girls, but someone removed all labels by accident, which means we don't know whether a data come from boys or girls.
+Now we face two issues:
+* Suppose we know the labels again, then we can use [MLE](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation#) to estimate the distribution of boys and girls respectively.
+* Suppose we know for example, boys' heights ~ $N(\mu_1 = 172, \sigma^2_1=5^2)$, girls' height ~$N(\mu_2 = 162, \sigma^2_2=5^2)$.Then when given a data, we know which class is more likely to be the source of this data. For example, 180 cm is more likely from boys.  
+
+But the thing is we know neither, so it becomes a problem of "Which came first, the chicken or the egg?". Well the answer is we can use EM algorithm to solve this problem.
+
+## Intuitive Algorithm
+1. **Initialization:** We start by setting the initial distribution parameters for male and female heights. For instance, the height distribution for males is assumed to be $N(\mu_1 = 172, \sigma^2_1 = 5^2)$, and for females, it's $N(\mu_2 = 162, \sigma^2_2 = 5^2)$. These initial values may not be very accurate.
+
+2. **Expectation (E-Step):** We calculate the likelihood of each individual belonging to the male or female group based on their height. For example, a person with a height of 180 is highly likely to belong to the male group.
+
+3. **Maximization (M-Step):** After roughly assigning the 200 people to either the male or female group in the E-Step, we estimate the height distribution parameters for males and females separately using the Maximum Likelihood Estimation (MLE) method.
+
+4. **Iteration:** We update the parameters of these two distributions. As a result, the probability of each student belonging to either males or females changes again, requiring us to adjust the E-Step once more.
+
+5. **Convergence:** We repeat these E-Step and M-Step iterations iteratively until the parameters no longer change significantly, or until specific termination conditions are met.
+
+> In this case, hidden variables are labels, namely boys and girls. And the observed variables are heights.
+
+## Formal Proof
+### Likelihood Function
+> What is the probablity that I happen to choose $n$ samples?  
+
+Every sample is drawn from $p(x|θ)$ independently, so the probability of choosing them altogether at once is:
+$$ L(\theta) = \prod_{i=1}^n p(x^{(i)}|θ)$$
+### Log Likelihood Function
+By logging the $L(\theta)$, we can get the log likelihood function:
+$$H(\theta) = \log L(\theta) = \sum_{i=1}^n \log p(x^{(i)}|θ)$$
+> The reason why we choose log likelihood function is that it is easier to calculate and avoid the situation where the product of many small numbers is too small to be accurate in computer.
+### Jensen Inequality
+If $f(x)$ is a convex function, then
+$$E[f(x)] \geq f(E[x])$$
+specially, if $f(x)$ is strictly convex, then 
+$E[f(x)] = f(E[x])$ if and only if  $p(x = E(x)) = 1$, i.e. random variable $x$ is a constant.
+> If $f(x)$ is concave, flip the inequality sign.
+
+### EM 
+For $m$ independent data $x=(x^{(1)},x^{(2)},...,x^{(m)})$, and corrsponding hidden variables $z=(z^{(1)},z^{(2)},...z^{(m)})$. Then $(x,z)$ is full data.  
+
+We want to find $\theta$ and $z$ s.t. it can maximize the likelihood function $L(\theta)$, i.e
+$$
+\theta, z=\arg \max _{\theta, z} L(\theta, z)$$
+$$=\arg \max _{\theta, z} \sum_{i=1}^m \log P\left(x^{(i)} \mid \theta\right)
+$$
+$$=\arg \max _{\theta, z} \sum_{i=1}^m \log \sum_{z^{(i)}} P\left(x^{(i)}, z^{(i)} \mid \theta\right) \quad \text{(by Law of Total Probability)}
+$$
+We can see here that the summation is inside the log function. We want to extract it out:  
+$$
+\begin{aligned}
+\sum_{i=1}^m \log \sum_{z^{(i)}} P\left(x^{(i)}, z^{(i)} \mid \theta\right) & =\sum_{i=1}^m \log \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)} \\
+& \geq \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)} \quad \text{(log(E[x]) >= E[log(x)] (because log(x) is concave))}
+\end{aligned}
+$$
+where $Q_i(z^{(i)})$ is a distribution over $z^{(i)}$, it satisfies $\sum_{z^{(i)}} Q_i\left(z^{(i)}\right)=1$ and $1 \geq Q_i\left(z^{(i)}\right) \geq 0$.
+> This is also called Expectation Step (E-Step), because $E\left(\log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)}\right)=\sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)}$
+
+Suppose $\theta$ has been fixed, then $logL(\theta)$ is determined by two values, $Q_i(z^{(i)})$ and $P\left(x^{(i)}, z^{(i)} \mid \theta\right)$. We want to maximize the lower bound of $logL(\theta)$, so we need to make the inequality hold.
+
+In order to hold the inequality, we need to let 
+$$
+\frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)}=c
+$$
+$$\Leftrightarrow P\left(x^{(i)}, z^{(i)} \mid \theta\right)=cQ_i\left(z^{(i)}\right) \quad \text{(1)}$$
+$$
+\Leftrightarrow
+\sum_z P\left(x^{(i)}, z^{(i)} \mid \theta\right)=c \sum_z Q_i\left(z^{(i)}\right) \quad \text{(sum over z)}
+$$
+$$
+\Leftrightarrow
+\sum_z P\left(x^{(i)}, z^{(i)} \mid \theta\right) = c
+\quad \text{(2)}
+$$
+By $(1)$ and $(2)$,
+$$
+\begin{gathered}
+
+Q_i\left(z^{(i)}\right)=\frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{c}=\frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{\sum_z P\left(x^{(i)}, z^{(i)} \mid \theta\right)}=\frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{P\left(x^{(i)} \mid \theta\right)}=P\left(z^{(i)} \mid x^{(i)}, \theta\right)
+\end{gathered}
+$$
+since 
+* Marginal Probability$: \space P\left(x^{(i)} \mid \theta\right)=\sum_z P\left(x^{(i)}, z^{(i)} \mid \theta\right)$
+* Conditinonal Probability$: \space \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{P\left(x^{(i)} \mid \theta\right)}=P\left(z^{(i)} \mid x^{(i)}, \theta\right)$  
+
+> We can interpret $P\left(z^{(i)} \mid x^{(i)}, \theta\right)$ as the probability of $z^{(i)}$ given $x^{(i)}$ and $\theta$.
+
+
+Hence we have successfully found the $Q_i(z^{(i)}) = P\left(z^{(i)} \mid x^{(i)}, \theta\right)$ that maximizes the lower bound of $logL(\theta)$.
+What we are left to do is to maximize:  
+$$
+\begin{aligned}
+\sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta\right)}{Q_i\left(z^{(i)}\right)} &=\sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log P\left(x^{(i)}, z^{(i)} \mid \theta\right)-\sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log Q_i\left(z^{(i)}\right) \\
+&=\sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log P\left(x^{(i)}, z^{(i)} \mid \theta\right)+H(Q_i)
+\end{aligned}
+$$
+$$
+\approx \sum_{i=1}^m \sum_{z^{(i)}} P\left(z^{(i)} \mid x^{(i)}, \theta\right) \log P\left(x^{(i)}, z^{(i)} \mid \theta\right) \quad \text{(by leaving out the constant)}
+$$
+where $H(Q_i)$ is the entropy of $Q_i(z^{(i)})$ and it is a constant.
+## EM Algorithm
+**Input:**
+Observation data $x = (x^{(1)}, x^{(2)}, \ldots, x^{(m)})$,
+joint distribution $p(x, z \, | \, \theta)$,
+conditional distribution $p(z \, | \, x, \theta)$,
+maximum iteration count $J$.
+
+1. Randomly initialize the initial values of model parameters $\theta$ as $\theta^{(0)}$.
+
+2. For each $j$ from 1 to $J$:  
+    **E-step:**  
+    Calculate the conditional probability expectations of the joint distribution:  
+    $$
+    Q_i\left(z^{(i)}\right)=P\left(z^{(i)} \mid x^{(i)}, \theta\right)
+    $$
+    > After substituting $\theta$, $Q_i\left(z^{(i)}\right)$ is a constant.
+
+    **M-step:**  
+    Maximize the likelihood function with respect to $\theta$:
+    $$
+    \theta=\arg \max _{\theta} \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log {P\left(x^{(i)}, z^{(i)} \mid \theta\right)}
+    $$
+3. Repeat step 2 until convergence.
+> [Video of EM Algorithm](https://www.bilibili.com/video/BV19a411N72s/?spm_id_from=333.337.search-card.all.click&vd_source=43fae35e0d515715cd36645ea2e6e547)
+
+# Clustering
+## Measuring Similarity
+### Minkowski Distance:
+$$d(x, y) = \left(\sum_{i=1}^n |x_i - y_i|^p\right)^{1/p}$$
+- When p = 1, it is Manhattan Distance
+- When p = 2, it is Euclidean Distance
+- When p = $\infty$, it is Chebyshev Distance, which is the maximum of the absolute difference between the coordinates of the two points, noted as $d(x, y) = \max_i |x_{ki} - y_{ki}|$
+### Mahalanobis Distance:
+$$d(x, y) = \sqrt{(x-y)^TS^{-1}(x-y)}$$
+where $S$ is the covariance matrix of the data.
+- When $S = I$, it is Euclidean Distance
+### Correlation Coefficient:
+Similarity between data $x_i$ and $x_j$ is defined as:
+$$\begin{gathered}r_{i j}=\frac{\sum_{k=1}^m\left(x_{k i}-\bar{x}_i\right)\left(x_{k j}-\bar{x}_j\right)}{\left[\sum_{k=1}^m\left(x_{k i}-\bar{x}_i\right)^2 \sum_{k=1}^m\left(x_{k j}-\bar{x}_j\right)^2\right]^{\frac{1}{2}}} \\ \bar{x}_i=\frac{1}{m} \sum_{k=1}^m x_{k i}, \quad \bar{x}_j=\frac{1}{m} \sum_{k=1}^m x_{k j}\end{gathered}$$
+### Cosine Similarity:
+$$\cos (x, y)=\frac{x \cdot y}{\|x\|\|y\|}$$
+
+> It is important to choose the appropriate similarity measure for different data. In this following picture, <img src="image-31.png" width="280" height="200">   
+>  C is more similar to A than B in terms of cosine, but B is more similar to A than C in terms of Euclidean distance.
+
+# K Means Clustering
+Suppose we want to cluster n data into k classes, there are exponentially many ways of doing so. This question turns out to be NP-hard.
+Therefore, we will try solving this iteratively.
+> This will not guarantee the global optimal solution, but it is a good approximation.
+## Algorithm
+1. Initialize k centroids  
+Randomly pick k data points as centroids, noted as $m^{(0)}= (m_1^{(0)}, ..., m_k^{(0)})$  
+2. Cluster assignment  
+Calculate the distance between each data point and each centroid in $m^{(j)}$, and assign each data point to the closest centroid.  
+3. Update centroid  
+$m_j^{(i+1)} = (m_1^{j+1}, ..., m_k^{j+1})$
+4. If not converged, go to step 2. Otherwise, stop.
+> Time Complexity: $O(mnk)$, where $m$ is dimension of data, $n$ is number of data points, $k$ is number of clusters.
+
+## How to choose k?
+Generally speaking, with the increase in $k$, the diameter of the cluster will decrease monotonically. When $k$ exceeds a certain value, the diameter of the cluster will decrease very slowly (basically remain the same). And that is the point where we should stop increasing $k$.
+> Binary search can be used to find the optimal $k$. 
+   
 # K Nearest Neighbors (KNN) Algorithm
-At its core, KNN classifies or predicts the target value of a new data point by examining the k-nearest data points from the training dataset. The "k" in KNN represents the number of nearest neighbors considered for making predictions. When classifying a data point, KNN counts the number of neighbors belonging to each class and assigns the class label that is most common among the k-nearest neighbors.
+At its core, KNN classifies or predicts the target value of a new data point by examining the k-nearest data points from the training dataset. The $k$ in KNN represents the number of nearest neighbors considered for making predictions. When classifying a data point, KNN counts the number of neighbors belonging to each class and assigns the class label that is most common among the k-nearest neighbors.
+> k can be chosen by cross validation. It is usually an odd number to avoid ties and less than the square root of the amount of data points.
 
-KNN is particularly useful when dealing with datasets where data points exhibit clustering or local patterns. It is straightforward to understand and implement, making it a valuable tool for both beginners and experienced practitioners in the field of machine learning.
 
 
+## Algorithm I - Linear Scan
+```
+For every point x in the dataset: -- O(N)
+    Compute distance between x and query point q -- O(d)
+    Return the k points that are nearest to q -- O(k) (By quick select)
+```
+> Time Complexity: $O(Nd + Nk)$, where $N$ is number of data points, $d$ is dimension of data, $k$ is number of neighbors.
+## Algorithm II - KD Tree
+### Build KD Tree
+1. Constructing a root node:  
+  We first choose we will spilt the whole dataset by the first coordinate. Then, we find the median of the first coordinate and use it as the root node and partition the dataset into two parts.  
+2. Repeat:  
+Suppose we are at depth $j$, we now consider the $j$(mod $k$) + coordinate and do the same thing. This terminates when we have no more data points to split.
+> Time Complexity: $O(dN\log N)$, where $N$ is number of data points, $d$ is dimension of data.  
+
+<img src="image-32.png" width="300" height="400">
+
+### Search KD Tree to find k nearest neighbors
+```
+Find nearest neighbor:
+For Each Point:
+- Start at the root
+- Traverse the Tree to the section where the new point belongs
+- Find the leaf; store it as the best
+- Traverse upward, and for each node:
+  - If it’s closer, it becomes the best
+  - Check if there could be yet better points on the other side:
+    - Fit a sphere around the point of the same radius as the distance to the current best
+    - See if that sphere goes over the splitting plane associated with the considered branch point
+    - If there could be, go down again on the other side. Otherwise, go up another level
+```
+> Time Complexity: $O(d\log N)$, where $d$ is dimension of data, $N$ is number of data points.
+```
+Find k nearest neighbors:
+For i = 1 to k:
+  Find nearest neighbor
+  Remove it from the tree
+```
+> Time Complexity: $O(kd\log N)$, where $d$ is dimension of data, $N$ is number of data points, $k$ is number of neighbors.
+
+[Visualization of Searching a KD Tree | 8:08](https://www.bilibili.com/video/BV1No4y1o7ac?p=22&vd_source=43fae35e0d515715cd36645ea2e6e547)
 
 
 
@@ -1736,7 +1963,7 @@ By defining exponential loss function:
 $$L(y, f(x)) = exp(-yf(x))$$ 
 We want to find $\alpha_m$ which can minimize the overall cost function, i.e.:
 $$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N e^{-y_i(f_{m-1}(x_i) + \alpha_m G_m(x_i))}$$
-it is equailent to: 
+it is equivalent to: 
 $$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N e^{-y_if_{m-1}(x_i) }\cdot e^{-y_i\alpha_m G_m(x_i)}$$  
 Let's denote $w_{mi} = e^{-y_if_{m-1}(x_i)}$, then we have:
 $$\alpha_m = \argmin_{\alpha_m} \sum_{i=1}^N w_{mi}\cdot e^{-y_i\alpha_m G_m(x_i)}$$  
@@ -1748,8 +1975,8 @@ $$\argmin_{\alpha_m}e^{-\alpha_m}(\sum_{i =1}^{N}w_{mi} - \sum_{y_i \neq G_m(x_i
 $$= \argmin_{\alpha_m}e^{-\alpha_m}\sum_{i =1}^{N}w_{mi} + (e^{\alpha_m}- e^{-\alpha_m})\sum_{y_i \neq G_m(x_i)}w_{mi}$$
 Since we want to find $\alpha_m$ which can minimize the overall cost function, we can take the derivative of the above equation w.r.t $\alpha_m$ and set it to 0. Then we have:
 $$-e^{-\alpha_m}\sum_{i =1}^{N}w_{mi} + (e^{\alpha_m}+ e^{-\alpha_m})\sum_{y_i \neq G_m(x_i)}w_{mi} = 0$$  
-$$<=> e^{2\alpha _m} = \frac{\sum_{y_i = G_m(x_i)}w_{mi}}{\sum_{y_i \neq G_m(x_i)}w_{mi}}$$  
-$$<=> \alpha _m = \frac{1}{2}log\frac{1- e_m}{e_m}$$
+$$\Leftrightarrow e^{2\alpha _m} = \frac{\sum_{y_i = G_m(x_i)}w_{mi}}{\sum_{y_i \neq G_m(x_i)}w_{mi}}$$  
+$$\Leftrightarrow \alpha _m = \frac{1}{2}log\frac{1- e_m}{e_m}$$
 #### Why we can update w_m is like that?
 $$w_{m+1i} = e^{-y_if_{m}(x_i)}$$  
 $$=e^{-y_i(f_{m-1}(x_i)+ \alpha_mG_m(x_i))}$$  
