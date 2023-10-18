@@ -145,6 +145,12 @@
     - [EM](#em)
   - [EM Algorithm](#em-algorithm)
   - [Why EM Converges?](#why-em-converges)
+- [Gaussian Mixture Model (GMM)](#gaussian-mixture-model-gmm)
+  - [Notation](#notation)
+  - [Algorithm](#algorithm)
+  - [Intuitive Example](#intuitive-example)
+  - [Implementation](#implementation-1)
+  - [Math Proof](#math-proof)
 - [Clustering](#clustering)
   - [Measuring Similarity](#measuring-similarity)
     - [Minkowski Distance:](#minkowski-distance)
@@ -152,7 +158,7 @@
     - [Correlation Coefficient:](#correlation-coefficient)
     - [Cosine Similarity:](#cosine-similarity)
 - [K Means Clustering](#k-means-clustering)
-  - [Algorithm](#algorithm)
+  - [Algorithm](#algorithm-1)
   - [How to choose k?](#how-to-choose-k)
   - [Improvement](#improvement)
   - [Smarter Initialization - K Means++](#smarter-initialization---k-means)
@@ -168,7 +174,7 @@
     - [Random Forest](#random-forest)
   - [Boosting](#boosting)
     - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
-      - [Algorithm](#algorithm-1)
+      - [Algorithm](#algorithm-2)
       - [Example](#example)
       - [Why alpha is like that?](#why-alpha-is-like-that)
       - [Why we can update w\_m is like that?](#why-we-can-update-w_m-is-like-that)
@@ -176,7 +182,7 @@
       - [Herustic Example](#herustic-example)
     - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
       - [Why Gradient?](#why-gradient)
-      - [Algorithm](#algorithm-2)
+      - [Algorithm](#algorithm-3)
     - [XGBoost](#xgboost)
       - [Loss Function Formulation](#loss-function-formulation)
       - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
@@ -1684,14 +1690,14 @@ $E[f(x)] = f(E[x])$ if and only if  $p(x = E(x)) = 1$, i.e. random variable $x$ 
 > If $f(x)$ is concave, flip the inequality sign.
 
 ### EM 
+> Following proof doesn't use vectorization.
+
 For $m$ independent data $x=(x^{(1)},x^{(2)},...,x^{(m)})$, and corrsponding hidden variables $z=(z^{(1)},z^{(2)},...z^{(m)})$. Then $(x,z)$ is full data.  
 
-We want to find $\theta$ and $z$ s.t. it can maximize the likelihood function $L(\theta)$, i.e
+We want to find $\theta$ and $z$ s.t. it can maximize the likelihood function $L(\theta, z)$, i.e
 $$
-\theta, z=\arg \max _{\theta, z} L(\theta, z)$$
-$$=\arg \max _{\theta, z} \sum_{i=1}^m \log P\left(x^{(i)} \mid \theta\right)
-$$
-$$=\arg \max _{\theta, z} \sum_{i=1}^m \log \sum_{z^{(i)}} P\left(x^{(i)}, z^{(i)} \mid \theta\right) \quad \text{(by Law of Total Probability)}
+\theta, z=
+\arg \max _{\theta, z} \sum_{i=1}^m \log \sum_{z^{(i)}} P\left(x^{(i)}, z^{(i)} \mid \theta\right) 
 $$
 We can see here that the summation is inside the log function. We want to extract it out:  
 $$
@@ -1781,7 +1787,99 @@ $$
 $$
 =H(\theta^{(t)})
 $$
+# Gaussian Mixture Model (GMM)
+> GMM is a special case of EM algorithm.
+## Notation
+* Gaussian Mixtures: 
+$$p(x) = \sum_{i=1}^k \pi_i N(x|\mu_i, \Sigma_i)$$
+* $\pi_i$ is the weight of the $i$-th Gaussian, and $\sum_{i=1}^k \pi_i = 1$.
+* 
+$$\gamma(i, k) 
+= \frac{\pi_i N(x|\mu_i, \Sigma_i)}{\sum_{j=1}^k \pi_j N(x|\mu_j, \Sigma_j)}$$
+ is the probability of $i$-th data belonging to the $k$-th Gaussian distribution.
+> $\gamma(i, k)$ is simply a handy notation to extract all the data out which are from the $k$-th Gaussian distribution. Don't be confused by the notation.
+## Algorithm
+- **E-Step:** Calculate $\gamma(i, k)$
+$$\gamma(i, k) 
+= \frac{\pi_i N(x|\mu_i, \Sigma_i)}{\sum_{j=1}^k \pi_j N(x|\mu_j, \Sigma_j)}$$
+> The E-step computes these probabilities using the current estimates of the model's parameters. 
+- **M-Step:** Update parameters
+$$  
+\left\{
+\begin{array}{l}
+N_k = \sum_{i=1}^{N} \gamma(i, k) \\
+\\  
+\\
+\mu_k = \frac{1}{N_k} \sum_{i=1}^{N} \gamma(i, k) x_i \\
+\\ 
+\\
+\sum_k = \frac{1}{N_k} \sum_{i=1}^{N} \gamma(i, k) (x_i - \mu_k)(x_i - \mu_k)^T \\
+\\  
+\\
+\pi_k = \frac{N_k}{N} = \frac{1}{N} \sum_{i=1}^{n} \gamma(i, k)
+\end{array}
+\right.
+$$
 
+
+## Intuitive Example
+Again, back to the height example.  
+
+Suppose we have the following data:
+$$
+\begin{array}{l}
+x^{(1)} = 180 \\
+x^{(2)} = 170 \\
+x^{(3)} = 160 \\
+x^{(4)} = 155 \\
+\end{array}
+$$
+
+We initialize two Gaussian distributions (for males and females respectively) as follows:
+$$
+\mu_1 = 170 \space \mu_2 = 160$$
+$$
+\sigma_1 = 0.5 \space \sigma_2 = 0.7
+$$
+$$
+\pi_1 = 0.5 \space \pi_2 = 0.5
+$$
+Then 
+$$
+\begin{array}{l}
+\gamma(1, 1) = 0.8 \quad \gamma(1, 2) = 0.2 \\
+\gamma(2, 1) = 0.6 \quad \gamma(2, 2) = 0.4 \\
+\gamma(3, 1) = 0.4 \quad \gamma(3, 2) = 0.6 \\
+\gamma(4, 1) = 0.2 \quad \gamma(4, 2) = 0.8 \\
+\end{array}
+$$
+> eg. $\gamma(3, 1)$ means the probability of 160cm person is from Male distribution.
+
+For $k=1$:
+$$
+\begin{array}{l}
+N_1 = 0.8 + 0.6 + 0.4 + 0.2 = 2 
+\\
+\\
+\mu_1 = \frac{1}{2} (180 \times 0.8 + 170 \times 0.6 + 160 \times 0.4 + 155 \times 0.2) = 171.5 
+\\
+\\
+\sigma_1 = \frac{1}{2} (0.8 \times (180 - 171.5)^2 + 0.6 \times (170 - 171.5)^2 + 0.4 \times (160 - 171.5)^2 + 0.2 \times (155 - 171.5)^2) = 25.5 
+\\
+\\
+\pi_1 = \frac{2}{4} = 0.5
+\end{array}
+$$
+
+Same applies to $k=2$.
+
+Then we update the parameters and calculate $\gamma$ again. We repeat this process until convergence.
+
+## Implementation
+Credits to [this](https://github.com/Ransaka/GMM-from-scratch/blob/master/GMM%20from%20scratch.ipynb), which is a very good implementation of GMM from scratch.
+## Math Proof
+(to be added)
+ 
 # Clustering
 ## Measuring Similarity
 ### Minkowski Distance:
