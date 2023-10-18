@@ -187,6 +187,7 @@
   - [Neural Network Playground](https://playground.tensorflow.org/)
   - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
   - [LaTex Cheatsheet](https://wch.github.io/latexsheet/latexsheet.pdf)
+  - [GAN Lab](https://poloclub.github.io/ganlab/)
   
   
 
