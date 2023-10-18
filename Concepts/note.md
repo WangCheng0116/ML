@@ -154,6 +154,9 @@
 - [K Means Clustering](#k-means-clustering)
   - [Algorithm](#algorithm)
   - [How to choose k?](#how-to-choose-k)
+  - [Improvement](#improvement)
+  - [Smarter Initialization - K Means++](#smarter-initialization---k-means)
+  - [Why K-Means is a variant of EM?](#why-k-means-is-a-variant-of-em)
 - [K Nearest Neighbors (KNN) Algorithm](#k-nearest-neighbors-knn-algorithm)
   - [Algorithm I - Linear Scan](#algorithm-i---linear-scan)
   - [Algorithm II - KD Tree](#algorithm-ii---kd-tree)
@@ -1811,12 +1814,56 @@ Calculate the distance between each data point and each centroid in $m^{(j)}$, a
 3. Update centroid  
 $m_j^{(i+1)} = (m_1^{j+1}, ..., m_k^{j+1})$
 4. If not converged, go to step 2. Otherwise, stop.
-> Time Complexity: $O(mnk)$, where $m$ is dimension of data, $n$ is number of data points, $k$ is number of clusters.
+
+
+> **Time Complexity:** $O(tknm)$
+- $t$ is the number of iterations.
+- $k$ is the number of clusters.
+- $n$ is the number of data points.
+- $m$ is the dimension of data points.
+
+> **Space Complexity:** $O(m(n+k))$
+- $k$ is the number of clusters.
+- $m$ is the dimension of data points.
+- $n$ is the number of data points.
+
 
 ## How to choose k?
 Generally speaking, with the increase in $k$, the diameter of the cluster will decrease monotonically. When $k$ exceeds a certain value, the diameter of the cluster will decrease very slowly (basically remain the same). And that is the point where we should stop increasing $k$.
 > Binary search can be used to find the optimal $k$. 
    
+
+## Improvement
+* Use Kernel Function
+* Use [gap statistics](https://github.com/milesgranger/gap_statistic) to find optimal $k$.
+
+## Smarter Initialization - K Means++
+1. Randomly pick the first centroid ($c1$)
+2. Calculate the distance between all data points and the selected centroid
+3. Find $x_i$ with the largest distance to the selected centroid, and use it as the second centroid ($c2$)
+4. Repeat steps 3 and 4 till all the defined K clusters are found
+
+## Why K-Means is a variant of EM?
+* **E-Step**: Label each data point to the closest centroid
+* **M-Step**: Update the centroid of all data points in the cluster
+
+Loss function is
+$$
+J = \sum_{ i = 1}^{C}\sum_{ j = 1}^{N}r_{ij} \cdot ||x_j - \mu_i||^2
+$$
+where $r_{ij}$ is the indicator function, which is 1 if $x_j$ belongs to cluster $i$, otherwise 0:
+$$
+r_{ij} = \begin{cases}
+1 & \text{if } x_j \text{ belongs to cluster } i \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Take derivative of $J$ with respect to $\mu_k$ and let it equal to 0:
+$$\frac{\delta J}{\delta u_k} = 2 \sum_{i=1}^{n} r_{ik} (x_i - \mu_k) = 0 $$
+$$\Leftrightarrow \mu_{k}  =  \frac {\sum_{i=1}^{n}r_{ik}x_{i}}{\sum_{i=1}^{N}r_{ik}} $$
+> A more rigorous proof can be found [here](https://www.zhihu.com/question/49972233)
+
+
 # K Nearest Neighbors (KNN) Algorithm
 At its core, KNN classifies or predicts the target value of a new data point by examining the k-nearest data points from the training dataset. The $k$ in KNN represents the number of nearest neighbors considered for making predictions. When classifying a data point, KNN counts the number of neighbors belonging to each class and assigns the class label that is most common among the k-nearest neighbors.
 > k can be chosen by cross validation. It is usually an odd number to avoid ties and less than the square root of the amount of data points.
