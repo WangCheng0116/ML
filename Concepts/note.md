@@ -144,6 +144,7 @@
     - [Jensen Inequality](#jensen-inequality)
     - [EM](#em)
   - [EM Algorithm](#em-algorithm)
+  - [Why EM Converges?](#why-em-converges)
 - [Clustering](#clustering)
   - [Measuring Similarity](#measuring-similarity)
     - [Minkowski Distance:](#minkowski-distance)
@@ -1765,6 +1766,18 @@ maximum iteration count $J$.
     $$
 3. Repeat step 2 until convergence.
 > [Video of EM Algorithm](https://www.bilibili.com/video/BV19a411N72s/?spm_id_from=333.337.search-card.all.click&vd_source=43fae35e0d515715cd36645ea2e6e547)
+## Why EM Converges?
+$$
+H(\theta^{(t+1)}) \geq \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta^{(t+1)}\right)}{Q_i\left(z^{(i)}\right)} 
+$$
+
+$$
+\geq \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta^{(t)}\right)}{Q_i\left(z^{(i)}\right)}
+\qquad \text{(by why we get $\theta^{(i + 1)}$)}
+$$
+$$
+=H(\theta^{(t)})
+$$
 
 # Clustering
 ## Measuring Similarity
