@@ -240,7 +240,7 @@
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
-| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | [ ] 19  | [ ] 20    |
+| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | [ ] 20    |
 | [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
 
@@ -401,3 +401,6 @@ Today's topic is about ensembling method, which is a very popular method in ML. 
 
 ## 18 Oct
 Another pretty mathy day. After enterting the realm of unsupervised learning, concepts of probability and statistics start kicking in more frequently. Today's topic is about GMM, EM and a bit more advanced stuff about K-mean. EM is very smart and somehow even quite intuitive, but the math behind it is very intimidating. Refer to [here](https://github.com/WangCheng0116/ML/blob/main/Challenges/EM.md) for more details.
+
+## 19 Oct
+Too much information has been flooding in my mind. Pause for a while not to take in new concepts and take a deep breath. Today's task - Review!
