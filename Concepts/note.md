@@ -44,7 +44,7 @@
   - [Gradient Descent and Normal Equation Using Regularization in Linear Regression](#gradient-descent-and-normal-equation-using-regularization-in-linear-regression)
   - [Gradient Descent Using Regularization in Logistic Regression](#gradient-descent-using-regularization-in-logistic-regression)
   - [Gradient Descent Using Regularization in Neural Networks](#gradient-descent-using-regularization-in-neural-networks)
-  - [Dropout](#dropout)
+  - [Dropout (In Neural Networks)](#dropout-in-neural-networks)
     - [Implementation](#implementation)
   - [Other Methods of Regularization](#other-methods-of-regularization)
 - [Neural Networks](#neural-networks)
@@ -176,8 +176,8 @@
     - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
       - [Algorithm](#algorithm-2)
       - [Example](#example)
-      - [Why alpha is like that?](#why-alpha-is-like-that)
-      - [Why we can update w\_m is like that?](#why-we-can-update-w_m-is-like-that)
+      - [Why $\\alpha$ is like that?](#why-alpha-is-like-that)
+      - [Why we can update $w\_m$ is like that?](#why-we-can-update-w_m-is-like-that)
     - [Boosting Decision Tree](#boosting-decision-tree)
       - [Herustic Example](#herustic-example)
     - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
@@ -250,6 +250,7 @@ $$error(t) = \frac{e(t) + 0.5}{n(t)}$$
 > +0.5 is the continuity correction
 Error rate for a subtree:  
 
+Error rate for a subtree:
 $$Error(T) = \frac{ \sum_{i=1}^{L} e(i) + 0.5L }{ N(T)  }$$
 > N(T) is the number of samples in the subtree
 > L is the number of leaves in the subtree
@@ -264,10 +265,13 @@ $$E(T) + \sigma(T)$$
 If after pruning the tree, the error rate is lower than the most pessimistic error rate, then we prune the tree.
 ### Minimum Error Pruning (MEP)
 At node T, the probability of being classified as class k is:
-$$Error(T)= \frac {N(T)-n_k(T)+K-1}{N(T)+K}$$
+$$Error(T)= 1- \frac{n_k(T)}{N(T)}$$
+$$=1 - \frac{n_k(T) + 1}{N(T) + K} \quad \text{(Laplace Smoothing)}$$
+$$=\frac {N(T)-n_k(T)+K-1}{N(T)+K}$$
 > $n_k(T)$ is the number of samples at node T classified as class k  
 > $N(T)$ is the number of samples at node T  
 > K is the total number of classes  
+> The reason why it is not $1- \frac{n_k(T)}{N(T)}$ is that we use Laplace Smoothing to avoid the case where $n_k(T) = 0$. We can think of it as it gives every class an extra sample to avoid 0;
 
 Before pruning, the error is:
 $$Error(T_{before}) = \sum_{i=1}^{L} w_i \cdot Error(Leaf_i) = \sum_{i=1}^{l} \frac{N(Leaf_i)}{N(T)} \cdot Error(Leaf_i)
@@ -587,7 +591,7 @@ $$dw^{[l]} = \frac{\partial L}{\partial w^{[l]}} + \frac{\lambda}{m} w^{[l]}$$
 hence, 
 $$w^{[l]} = w^{[l]} - \alpha dw^{[l]}$$
 
-## Dropout  
+## Dropout (In Neural Networks)
 ### Implementation
 One way to implement this is called **inverted-dropout**  
 ``` python
@@ -827,7 +831,7 @@ The Adam algorithm combines the ideas of Momentum and RMSprop. It is the most co
 This is how it works, in the first iteration, initialize:
 $$v_{dW} = 0, s_{dW} = 0, v_{db} = 0, s_{db} = 0$$
 
-For each mini-batch, compute dW and db. At the t-th iteration:
+For each mini-batch, compute dW and db. At the $t$-th iteration:
 
 $$v_{dW} = \beta_1 v_{dW} + (1 - \beta_1) dW$$
 $$v_{db} = \beta_1 v_{db} + (1 - \beta_1) db$$
@@ -1194,7 +1198,7 @@ Can refer to this section's title area to find recommended resources to further 
 - The typical LeNet-5 architecture includes Convolutional layers (CONV), Pooling layers (POOL), and Fully Connected layers (FC), arranged in the order of CONV->POOL->CONV->POOL->FC->FC->OUTPUT. The pattern of one or more convolutional layers followed by a pooling layer is still widely used.
 - When LeNet-5 was proposed, it used average pooling and often employed Sigmoid and tanh as activation functions. Nowadays, improvements such as using max-pooling and ReLU as activation functions are common.
 
-**Related Paper:** [LeCun et al., 1998. Gradient-based learning applied to document recognition](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=726791&tag=1). Professor Andrew Ng recommends a detailed reading of the second paragraph and a general reading of the third paragraph.
+**Related Paper:** [LeCun et al., 1998. Gradient-based learning applied to document recognition](http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=726791&tag=1). 
 
 ---
 
@@ -1207,7 +1211,7 @@ Can refer to this section's title area to find recommended resources to further 
 - AlexNet is similar to LeNet-5 but more complex, containing about 60 million parameters. Additionally, AlexNet uses the ReLU function.
 - When used to train image and data sets, AlexNet can handle very similar basic building blocks, often comprising a large number of hidden units or data.
 
-**Related Paper:** [Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural networks](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf). This paper is easy to understand and has had a significant impact, marking the beginning of the deep learning era in computer vision.
+**Related Paper:** [Krizhevsky et al., 2012. ImageNet classification with deep convolutional neural networks](http://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf)
 
 ---
 
@@ -1787,6 +1791,7 @@ $$
 $$
 =H(\theta^{(t)})
 $$
+> I feel sus abt the proof. TBC later.
 # Gaussian Mixture Model (GMM)
 > GMM is a special case of EM algorithm.
 ## Notation
@@ -2100,9 +2105,9 @@ $$f_1(x) = 0.4236G_1(x)$$
 1. When $m = 2$:
 - - When $v = 8.5$ it gets its lowest misclassification error, so we build:
 $$ G_2(x) = \begin{cases} 1 & \text{if } x < 8.5 \\ -1 & \text{if } x > 8.5 \end{cases} $$
-- Misclassification Error: $$e_2 = 0.07143 * 3$$ since index 4, 5, 6 are mislabeled and all three have the weight of 0.07143
-- Coefficient for $G_1(x)$: $$\alpha_2 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.6496$$
-- Update weights as follows:$$D_2 = (w_{31}, w_{32}, ..., w_{310})$$
+- Misclassification Error: $e_2 = 0.07143 * 3$ since index 4, 5, 6 are mislabeled and all three have the weight of 0.07143
+- Coefficient for $G_1(x)$: $\alpha_2 = \frac{1}{2}log\frac{1 - e_1}{e_1} = 0.6496$
+- Update weights as follows:$D_2 = (w_{31}, w_{32}, ..., w_{310})$
 $$w_{2i} = \frac{w_{1i}}{Z_1}exp(-\alpha_1y_iG_1(x_i))$$
 $$D_2 = (omitted)$$
 - Current ultimate classifier is: 
@@ -2114,7 +2119,7 @@ $$f_3(x) = 0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)$$
 After all this, we derive our model, which is: 
 $$G(x) = sign[f_3(x)] = sign[0.4236G_1(x) + 0.6496G_2(x) + 0.7514G_3(x)]$$
 
-#### Why alpha is like that?
+#### Why $\alpha$ is like that?
 We have a recursive step here: 
 $$f_m(x) = f_{m-1}(x) + \alpha_mG_m(x)$$  
 By defining exponential loss function:
@@ -2135,7 +2140,7 @@ Since we want to find $\alpha_m$ which can minimize the overall cost function, w
 $$-e^{-\alpha_m}\sum_{i =1}^{N}w_{mi} + (e^{\alpha_m}+ e^{-\alpha_m})\sum_{y_i \neq G_m(x_i)}w_{mi} = 0$$  
 $$\Leftrightarrow e^{2\alpha _m} = \frac{\sum_{y_i = G_m(x_i)}w_{mi}}{\sum_{y_i \neq G_m(x_i)}w_{mi}}$$  
 $$\Leftrightarrow \alpha _m = \frac{1}{2}log\frac{1- e_m}{e_m}$$
-#### Why we can update w_m is like that?
+#### Why we can update $w_m$ is like that?
 $$w_{m+1i} = e^{-y_if_{m}(x_i)}$$  
 $$=e^{-y_i(f_{m-1}(x_i)+ \alpha_mG_m(x_i))}$$  
 $$= e^{-y_if_{m-1}(x_i)}\cdot e^{-y_i\alpha_mG_m(x_i)}$$  
@@ -2144,9 +2149,9 @@ but here we need to introduce a normalization factor $Z_m$ to make sure $w_{m+1}
 ### Boosting Decision Tree
 #### Herustic Example
 Suppose we have a train data set of
-| x_i  | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
+| $x_i$  | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
 |-----|------|------|------|------|------|------|------|------|------|------|
-| y_i  | 5.56 | 5.70 | 5.91 | 6.40 | 6.80 | 7.05 | 8.90 | 8.70 | 9.00 | 9.05 |
+| $y_i$  | 5.56 | 5.70 | 5.91 | 6.40 | 6.80 | 7.05 | 8.90 | 8.70 | 9.00 | 9.05 |
 1. At the first iteration:
 Suppose we let $s = 6.5$ be the threshold, then we have:
 $$T_1(x) = \begin{cases} 6.24 & \text{if } x < 6.5 \\ 8.91 & \text{if } x > 6.5 \end{cases} $$
@@ -2155,7 +2160,7 @@ $$MSE_1 = \frac{1}{10}\sum_{i=1}^{10}(y_i - T_1(x_i))^2 = 1.93$$
 and it happens to be the least MSE we can get among all possible thresholds (9 in total in this case).  
 Then we derive the residual:
 $$r_{2i} = y_i - T_1(x_i)$$  
-, which can be shown in this table:
+which can be shown in this table:
 | $x_i$  | 1    | 2    | 3    | 4    | 5    | 6    | 7    | 8    | 9    | 10   |
 |-----|------|------|------|------|------|------|------|------|------|------|
 | $r_{2i}$  | -0.68 | -0.54 | -0.33 | 0.16 | 0.56 | 0.81 | -0.01 | -0.21 | 0.09 | 0.14 |
@@ -2245,10 +2250,12 @@ In order to simplify, let $G_j = \sum_{i \in I_j} g_i$ and $H_j = \sum_{i \in I_
 
 $$L(t) = \sum_{j=1}^T [G_j w_j + \frac{1}{2} (H_j + \lambda) w_j^2 ] + \gamma T $$
 
-To minimize $G_jw_j+\frac{1}{2}( H_j+\lambda) \cdot w_j^2$ and find  $w_j$, it is equivalent of $$w_j = argmin \space G_j w_j+\frac{1}{2}( H_j+\lambda) \cdot w_j^2$$
-Since it's a quadratic funtion, we can derive $$w_j = -\frac{G_j}{ H_j+\lambda}$$
+To minimize $G_jw_j+\frac{1}{2}( H_j+\lambda) \cdot w_j^2$ and find  $w_j$, it is equivalent of 
+$$w_j = argmin \space G_j w_j+\frac{1}{2}( H_j+\lambda) \cdot w_j^2$$
+Since it's a quadratic funtion, we can derive 
+$$w_j = -\frac{G_j}{ H_j+\lambda}$$
 By pluggin back, we have,
-$$L(t) =  -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{ H_j+\lambda}+\gamma T $$ 
+$$L(t) =  -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{ H_j+\lambda}+\gamma T$$ 
 ![Alt text](image-14.png) 
 It is easier when looking at real data. We can think of $G_j$ as the sum of the first derivative of the loss function of the data points that fall into the $j_{th}$ leaf. And $H_j$ is the sum of the second derivative of the loss function of all the data points that fall into the $j_{th}$ leaf.
 
