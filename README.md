@@ -1,3 +1,4 @@
+> For better viewing experience, I recommend you to read markdown file in vscode editor instead of online. GFM doesn't render content exactly the same with vscode.
 # Machine Learning Daily Blog
 ![Alt text](image.png)
 ## Overview  
