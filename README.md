@@ -404,3 +404,6 @@ Another pretty mathy day. After enterting the realm of unsupervised learning, co
 
 ## 19 Oct
 Too much information has been flooding in my mind. Pause for a while not to take in new concepts and take a deep breath. Today's task - Review!
+
+## 20 Oct
+Today I revisited the concept of SVM after I learned the corresponding knowledge in MA3236 (non-linear optimization), and specifically, KKT and duality. Also I have included a muc h more rigorous proof of SVM.
