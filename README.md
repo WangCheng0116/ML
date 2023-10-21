@@ -428,3 +428,9 @@ Today I revisited the concept of SVM after I learned the corresponding knowledge
 
 ## 21 Oct
 From now on, I will step into the realm of Unsupervised Learning. Today's topic is about SVD. It is very amazing to see how the knowledge of linear algebra can be applied to ML. SVD is a powerful tool for dimensionality reduction, and it is also the foundation of PCA, which I plan to study tomorrow.
+
+## 22 Oct
+PCA
+
+## 23 Oct
+Reinforcement Learning, Bellman Equation
