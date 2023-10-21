@@ -258,8 +258,8 @@
 |:---------:|:---------:|:---------:|:-----------:|:---------:|:-------:|:---------:|
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
-| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | [ ] 20    |
-| [ ] 21    | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
+| ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | ✅[20](##20-Oct)    |
+| ✅[21](##21-Oct)   | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
 
 
@@ -425,3 +425,6 @@ Too much information has been flooding in my mind. Pause for a while not to take
 
 ## 20 Oct
 Today I revisited the concept of SVM after I learned the corresponding knowledge in MA3236 (non-linear optimization), and specifically, KKT and duality. Also I have included a muc h more rigorous proof of SVM.
+
+## 21 Oct
+From now on, I will step into the realm of Unsupervised Learning. Today's topic is about SVD. It is very amazing to see how the knowledge of linear algebra can be applied to ML. SVD is a powerful tool for dimensionality reduction, and it is also the foundation of PCA, which I plan to study tomorrow.
