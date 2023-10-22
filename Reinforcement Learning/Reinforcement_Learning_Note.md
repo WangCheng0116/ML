@@ -513,6 +513,7 @@ And $v^*$ is the optimal state value under optimal policy $\pi^*$.
 - For $s \in S$
   - $\pi^*(s) = \arg\max_{a \in A} (R(s, a) + \gamma \sum_{s' \in S} p(s'|s, a) v(s'))$
 - Output: $\pi^*$ 
+> We can also do it in matrix form.
 
 > In English: First we take out a state $s$, then we examine all possible actions this state can take. For each action, we take out the action which gives the maximum action value (**greedy**). State value will be updated as the largest action value.
 > To get the optimal policy, we just need to extract out which state takes which action.
@@ -563,6 +564,12 @@ We update the $q-value$ table:
 | $s_2$ | $0 + 0.9v_1(s_1)$ | $1 + 0.9v_1(s_2)$ | $0 + 0.9v_1(s_3)$ |
 | $s_3$ | $1 + 0.9v_1(s_2)$ | $0 + 0.9v_1(s_3)$ | $-1 + 0.9v_1(s_3)$|  
 
+We update $\pi_1$ also:
+$$
+\pi_1(a_l|s_1) = 0, \quad \pi_1(a_0|s_1) = 0, \quad \pi_1(a_r|s_1) = 1  \\
+\pi_1(a_l|s_2) = 0, \quad \pi_1(a_0|s_2) = 1, \quad \pi_1(a_r|s_2) = 0  \\
+\pi_1(a_l|s_3) = 1, \quad \pi_1(a_0|s_3) = 0, \quad \pi_1(a_r|s_3) = 0  \\
+$$
 Plug in the value we get:
 | $q\text{-value}$ | $a_l$ | $a_0$ | $a_r$ |
 | --- | --- | --- | --- |
@@ -641,7 +648,10 @@ Plug in the value we get:
 | $s_2$ | $0 + 0.9 \times (-10) = -9$ | $1 + 0.9 \times (-9) = -7.1$ | $-1 + 0.9 \times (-9) = -9.1$ | 
 
 Policy can be updated as:
-$$\pi_1(a_r|s_1) = 1, \quad \pi_1(a_0|s_2) = 1$$
+$$\pi_1(a_l|s_1) = 0, \quad \pi_1(a_0|s_1) = 0, \quad \pi_1(a_r|s_1) = 1  \\
+\pi_1(a_l|s_2) = 0, \quad \pi_1(a_0|s_2) = 1, \quad \pi_1(a_r|s_2) = 0  \\
+$$
+Then we can repeat the above process until the policy converges.
 
 > In this case, we achieve the optimal policy after one iteration. But in general, we need to iterate until the policy converges.
 
@@ -658,7 +668,7 @@ Since in order to solve Bellman equation, we can randomly initialize $v_{\pi1}^{
 Then after one iteration, we get $v_1$ at (4) in Value Iteration, but there are still infinite many iterations to get $v_{\pi_1}$.  
 Can we pause the iteration midway? Then we have **truncated policy iteration**:
 ### Algorithm
-- Input: $p(r|s,a)$, $p(s'|s,a)$, $\gamma \in (0, 1)$
+- Input: $R(s, a) = rp(r|s,a)$, $p(s'|s,a)$, $\gamma \in (0, 1)$
 - while $v_k$ not converges:
   - **Policy Evaluation**:
     - Initialization: $v_k^{(0)} = v_{k-1}$
@@ -683,11 +693,28 @@ $j_{truncate}$ plays an important role in **truncated policy iteration**.
 ## Summary
 
 ![Alt text](image-10.png)  
+**Value Iteration Algorithm in short:**
+- Initialize: $v_0(s) = 0$ for all $s \in S$ (or randomly)
+- While not converged:
+  - **Policy Update**: $\pi_{k+1} =\arg\max_{\pi}(\gamma_{\pi} + \gamma P_{\pi}v_k)$
+  - **Value Update**: $v_{k+1} = r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}}v_k$
+
+**Policy Iteration Algorithm in short:**
+- Initialize: $\pi$ randomly
+- While not converged:
+  - **Policy Evaluation** (solve $v_{\pi_k}$): $v_{\pi_k} = r_{\pi_k} + \gamma P_{\pi_k}v_{\pi_k}$
+    > Iterative or closed-form solution.
+  
+  - **Policy Improvement**: $\pi_{k+1} =\arg\max_{\pi}(\gamma_{\pi} + \gamma P_{\pi}v_{\pi_k})$
+
+---
+
 **Value Update** looks similar to **Policy Evaluation**, but one is just a one-step iteration, while the other requires to sovle the Bellman equation. 
 
+---
 
-The first half is about math proof, and the second half is about algorithm. For simplicity, we can just look at
-- [Value Iteration Algorithm](#value-iteration-algorithm)
-    - [Example](#example)
-- [Policy Iteration Algorithm](#policy-iteration-algorithm)
-    - [Example](#example-1)
+> At step **Policy Update**, we will usually encounter such scenario:  
+> Maxmimize: $c_1q_1 + c_2q_2 + \cdots + c_nq_n$,   
+> where $\sum_{i=1}^{n}c_i = 1$ and $c_i \geq 0$.  
+> We will simply choose the one that has the highset action value, and set other coefficients to be 0.  
+> Suppose $q_1$ is the largest, then we will choose $c_1 = 1$ and $c_i = 0$ for $i \neq 1$.
