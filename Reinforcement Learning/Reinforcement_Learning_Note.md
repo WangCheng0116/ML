@@ -26,6 +26,20 @@
   - [Truncated Policy Iteration](#truncated-policy-iteration)
     - [Algorithm](#algorithm)
   - [Summary](#summary-1)
+- [Monte Carlo Method](#monte-carlo-method)
+  - [Mean Estimation and Law of Large Numbers](#mean-estimation-and-law-of-large-numbers)
+  - [MC Basic](#mc-basic)
+    - [Algorithm:](#algorithm-1)
+    - [Example](#example-2)
+  - [MC Exploring Starts](#mc-exploring-starts)
+    - [Making sample more efficient](#making-sample-more-efficient)
+    - [Making update more efficient](#making-update-more-efficient)
+    - [Algorithm](#algorithm-2)
+  - [MC $\\epsilon$-Greedy](#mc-epsilon-greedy)
+    - [Soft Policy](#soft-policy)
+    - [Algorithm](#algorithm-3)
+    - [How does $\\epsilon$ affect?](#how-does-epsilon-affect)
+  - [Summary](#summary-2)
 # Basic Concepts
 * State: $s_t$ describes the agent's status with respect to the environment.
 * State Space: $S$ is the set of all possible states.
@@ -718,3 +732,171 @@ $j_{truncate}$ plays an important role in **truncated policy iteration**.
 > where $\sum_{i=1}^{n}c_i = 1$ and $c_i \geq 0$.  
 > We will simply choose the one that has the highset action value, and set other coefficients to be 0.  
 > Suppose $q_1$ is the largest, then we will choose $c_1 = 1$ and $c_i = 0$ for $i \neq 1$.
+
+
+# Monte Carlo Method
+> Solve Problem without knowing the model.
+## Mean Estimation and Law of Large Numbers
+For a random vairble $X$.Suppose we have i.i.d. samples $x_1, x_2, \cdots, x_n$ from $X$. Let $\bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i$, then
+> i.i.d.: independent and identically distributed
+$$
+\bar{x} \rightarrow \mathbb{E}[X] \quad \text{as} \quad n \rightarrow \infty\\
+Var(\bar{x}) = \frac{1}{n}Var(X)
+$$
+Proof:
+$$
+\mathbb{E}[\bar{x}] = \mathbb{E}\left[\frac{1}{n}\sum_{i=1}^{n}x_i\right] 
+= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[x_i] 
+= \frac{1}{n}\sum_{i=1}^{n}\mathbb{E}[X] 
+= \mathbb{E}[X]
+$$
+$$
+Var(\bar{x}) = Var\left(\frac{1}{n}\sum_{i=1}^{n}x_i\right)
+= \frac{1}{n^2}Var\left(\sum_{i=1}^{n}x_i\right) \\
+= \frac{1}{n^2}\sum_{i=1}^{n}Var(x_i)
+= \frac{1}{n^2}\sum_{i=1}^{n}Var(X)
+= \frac{1}{n^2}n\cdot Var(X)
+= \frac{1}{n}Var(X)
+$$
+
+## MC Basic
+### Algorithm:
+> Key idea: convert policy evaluation to model-free problem.
+---
+- **Policy Evaluation** (solve $v_{\pi_k}$): $v_{\pi_k} = r_{\pi_k} + \gamma P_{\pi_k}v_{\pi_k}$
+- **Policy Improvement**: $\pi_{k+1} =\arg\max_{\pi}(\gamma_{\pi} + \gamma P_{\pi}v_{\pi_k})$
+**Policy Improvement** can also be expressed in elementwise form:
+$$
+\pi_{k+1}(s)=\arg\operatorname*{max}_{\pi}\sum_{a}\pi(a|s)\left[\sum_{r}p(r|s,a)r+\gamma\sum_{s^{\prime}}p(s^{\prime}|s,a)v_{\pi_{k}}(s^{\prime})\right] \\
+= \arg\operatorname*{max}_{\pi}\sum_{a}\pi(a|s)q_{\pi_{k}}(s,a)
+$$
+
+The key is to calculate $q_{\pi_{k}}(s,a)$ without using the model, i.e.
+$$
+q_{\pi_{k}}(s,a) = \mathbb{E}[G_t|S_t=s, A_t=a]
+$$
+> In English: Expected return at state $s$ taking action $a$.
+
+By having a lot of samples, we can estimate the expected return as
+$$
+\hat{q}_{\pi_{k}}(s,a) \approx \frac{1}{N}\sum_{i=1}^{N}g^{(i)}(s, a)
+$$
+
+**Policy Evaluation** can be expressed as:  
+For each action-state pair $(s, a)$, run an infinite number of (or sufficiently many episodes). The average of their returns
+is used to approximate $q_{\pi_{k}}(s,a)$.
+> This leads to low low efficiency. Will be improved later.
+
+
+### Example
+We have given the following Policy:  
+<div style="text-align:center">
+    <img src="image-11.png" alt="Alt text" width="200" height="200">
+</div> 
+
+$r_{\mathrm{boundary}}=-1,\;r_{\mathrm{forbidden}}=-1,\;r_{\mathrm{target}}=1,\;\gamma=0.9$  
+
+At **Policy Evaluation** step, we need to calculate $q_{\pi_{k}}(s,a)$ for each action-state pair $(s, a)$ (in this case $9 \times5$ in totol). For simplicity, we only calculate $q_{\pi_{0}}(s_1, a_i)$ 
+* Start from $(s_1, a_1)$, the episode is $s_1 \xrightarrow{a_1} s_1 \xrightarrow{a_1} s_1 ~...$
+$$
+q_{\pi_{0}}(s_1, a_1) = -1 + 0.9 \times (-1) + 0.9^2 \times (-1) + \cdots = -\frac{1}{1- \gamma}
+$$
+* Start from $(s_1, a_2)$, the episode is $s_1 \xrightarrow{a_2} s_2 \xrightarrow{a_3} s_5 \xrightarrow{a_3} ~...$
+$$
+q_{\pi_{0}}(s_1, a_2) = 0 + 0.9 \times 0 + 0.9^2 \times 0 + 0.9^3 \times 1 + 0.9^4 \times 1 + \cdots = \frac{\gamma^3}{1- \gamma}
+$$
+> We can stay at the target state forever.
+
+We will update the policy as:
+$$\pi_{1}(a_{2}|s_{1})=1\quad\mathrm{or}\quad\pi_{1}(a_{3}|s_{1})=1.$$
+since they have the largest action value.
+
+> * Since our policy is deterministic, we only calculate the action once. If our policy is stochastic, then we need to calculate the action multiple times and get the average.
+> * It is possible for us to vary the value of **episode length** to have different estimation.
+
+## MC Exploring Starts
+
+### Making sample more efficient
+> Idea: Make MC basic more efficient.
+
+Previously, MC Basic Algorightm uses **initial-visit** strategy, which means an episode is used to only estimate the first visit to each state.  
+For example, 
+$$s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{4}}{\longrightarrow}s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{3}}{\longrightarrow}s_{5}\stackrel{a_{1}}{\longrightarrow}$$
+
+Initial-visit strategy merely estimates the action
+value of $(s1, a2)$
+
+To make it more efficient, we employs **every-visit** strategy, which means an episode is used to estimate every visit to each state.
+$$
+\begin{align}
+s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{4}}{\longrightarrow}s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{3}}{\longrightarrow}s_{5}\stackrel{a_{1}}{\longrightarrow} ...\\
+s_{2}\stackrel{a_{4}}{\longrightarrow}s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{3}}{\longrightarrow}s_{5}\stackrel{a_{1}}{\longrightarrow}... \\
+s_{1}\stackrel{a_{2}}{\longrightarrow}s_{2}\stackrel{a_{3}}{\longrightarrow}s_{5}\stackrel{a_{1}}{\longrightarrow}...\\
+s_{2}\stackrel{a_{3}}{\longrightarrow}s_{5}\stackrel{a_{1}}{\longrightarrow}...
+\end{align}
+$$
+We can update $p(s_1, a_2)$, $p(s_2, a_4)$, $p(s_1, a_2)$, $p(s_2, a_3)$, etc.
+
+### Making update more efficient
+* The first strategy is, previously, in the policy evaluation step, to collect all the episodes starting
+from the same state-action pair and then approximate the action value using the
+average return of these episodes. 
+> the agent must wait until all the episodes have
+been collected before the estimate can be updated.
+* The second strategy, which can overcome this drawback, is to use the return of a
+single episode to approximate the corresponding action value. In this way, we can
+immediately obtain a rough estimate when we receive an episode. Then, the policy
+can be improved in an episode-by-episode fashion.
+
+### Algorithm
+![Alt text](image-12.png)
+> Interestingly, when calculating the discounted return obtained by starting from each state-action pair, the procedure starts from the ending states and travels back to the starting state. 
+
+## MC $\epsilon$-Greedy
+### Soft Policy
+> A policy is **soft** if it has a positive probability of taking any action at any state  
+
+An $\epsilon$-greedy policy is a soft policy that has a higher chance of choosing the greedy action and the same nonzero
+probability of taking any other action.
+Suppose $\epsilon \in [0, 1]$, then
+$$\pi(a|s) = \begin{cases}
+1 - \frac{\epsilon}{|A(s)|}(|A(s)| - 1) & \text{for the greedy action} \\
+\frac{\epsilon}{|A(s)|} & \text{for non-greedy actions}
+\end{cases}
+$$  
+where $|A(s)|$ is the number of actions available at state $s$.
+> We can show $1-\frac{\epsilon}{\left|\mathcal{A}(s)\right|}(\left|\mathcal{A}(s)\right|-1)=1-\epsilon+\frac{\epsilon}{\left|\mathcal{A}(s)\right|}\geq\frac{\epsilon}{\left|\mathcal{A}(s)\right|}$
+
+When $\epsilon = 0$, $\epsilon$-greedy becomes completely greedy. When $\epsilon$ = 1, the probability of taking any action equals $\frac{\epsilon}{|A(s)|}$
+
+Previously, **Policy Update** is:
+$$
+\pi_{k+1}(s)=\arg\operatorname*{max}_{\pi}\sum_{a}\pi(a|s)q_{\pi_{k}}(s,a)
+$$
+to which the solution is:
+$$\pi_{k+1}(a|s)=\left\{\begin{array}{l}{{1,\ \ a=a_k^*}}\\ {{0,\ \ a\neq a_k^*}}\end{array} ~~~(a_{k}^{*}=\arg\operatorname*{max}_{a}{q_{\pi_k}}(s,a))\right.$$
+> We update the policy which yields the largest action value.
+
+Now we introcude stochasticity to the policy, then **Policy Update** becomes:  
+$$\pi_{k+1}(a|s) = \begin{cases}
+1 - \frac{\epsilon}{|A(s)|}(|A(s)| - 1) & a = a_{k}^{*} \\
+\frac{\epsilon}{|A(s)|} & a \neq a_{k}^{*}
+\end{cases}
+$$  
+### Algorithm
+![Alt text](image-14.png)
+### How does $\epsilon$ affect?
+* If $\epsilon$ increases, then the policy becomes more exploratory.
+* If $\epsilon$ decreases, then the policy becomes more exploitative.
+
+## Summary
+* MC Basic:   
+    This algorithm is obtained by replacing the model-based policy evaluation step in the policy iteration algorithm with a model-free MC-based estimation component. Given sufficient samples, it is guaranteed that this algorithm can converge to optimal policies and optimal state values.
+* MC Exploring Starts:   
+ This algorithm is a variant of MC Basic. It can be obtained from the MC Basic algorithm using the first-visit or every-visit strategy to use samples more efficiently.
+* MC $\epsilon$-Greedy:   
+This algorithm is a variant of MC Exploring Starts. Specifically, in the
+policy improvement step, it searches for the best $\epsilon$-greedy policies instead of greedy
+policies. In this way, the exploration ability of the policy is enhanced and hence the
+condition of exploring starts can be removed.
+> The reason why we can remove the condtion of exploring starts (i.e. the agent must start from all state-action pairs) is that $\epsilon$-greedy policy enhances the exploration ability, making it possible to explore all state-action pairs. (This also why $\epsilon$-greedy policy uses **Every-visit** strategy.)
