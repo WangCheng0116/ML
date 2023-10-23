@@ -2,7 +2,9 @@
 # Machine Learning Daily Blog
 ![Alt text](image.png)
 ## Overview  
-- Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
+> Notes for: [Supervised Learning](https://github.com/WangCheng0116/ML/blob/main/Supervised%20Learning/Supervised%20Learning.md)  
+[Unsupervised Learning](https://github.com/WangCheng0116/ML/blob/main/Unsupervised%20Learning/Unsupervised%20Learning.md)  
+[Reinforment Learning](https://github.com/WangCheng0116/ML/blob/main/Reinforcement%20Learning/Reinforcement_Learning_Note.md)
 - [Decision Tree](#decision-tree)
   - [ID3 (Iterative Dichotomiser)](#id3-iterative-dichotomiser)
   - [C4.5](#c45)
