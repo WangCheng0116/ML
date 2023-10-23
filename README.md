@@ -259,7 +259,7 @@
 |           | ✅ [1](##1-Oct)     |  ✅ [2](##2-Oct)     |  ✅ [3](##3-Oct)       | ✅ [4](##4-Oct)     | [Midterm] 5   |  ✅[6](##6-Oct)     |
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
 | ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | ✅[20](##20-Oct)    |
-| ✅[21](##21-Oct)   | [ ] 22    | [ ] 23    | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
+| ✅[21](##21-Oct)   | ✅[22](##22-Oct)     | ✅[23](##23-Oct)     | [ ] 24      | [ ] 25    | [ ] 26  | [ ] 27    |
 | [ ] 28    | [ ] 29    | [ ] 30    | [ ] 31      |           |         |           |
 
 
@@ -427,10 +427,10 @@ Too much information has been flooding in my mind. Pause for a while not to take
 Today I revisited the concept of SVM after I learned the corresponding knowledge in MA3236 (non-linear optimization), and specifically, KKT and duality. Also I have included a muc h more rigorous proof of SVM.
 
 ## 21 Oct
-From now on, I will step into the realm of Unsupervised Learning. Today's topic is about SVD. It is very amazing to see how the knowledge of linear algebra can be applied to ML. SVD is a powerful tool for dimensionality reduction, and it is also the foundation of PCA, which I plan to study tomorrow.
+Today's topic is about SVD. It is very amazing to see how the knowledge of linear algebra can be applied to ML. SVD is a powerful tool for dimensionality reduction, and it is also the foundation of PCA, which I plan to study tomorrow.
 
 ## 22 Oct
-PCA
+PCA is a powerful tool to reduce dimensionality. And the math basis is SVD. The idea behind is understandable, but I really didn't dive into the application part. In what scenario should we use PCA? I will explore it in the future.
 
 ## 23 Oct
-Reinforcement Learning, Bellman Equation
+I skip to anohter new topic lol. Reinforcement learning. Simply because this is the topic that I am interested in. Bellman Equation is yet the most confusing part I have ever encountered in machine learning. It took me a very long time and a lot of efforts refering to different sources to understand it. 
