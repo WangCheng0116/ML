@@ -54,4 +54,6 @@ The key points are how to find the recursive relation bewtween $\frac{\partial C
 Following is illustration with diagrams:
 
 ![Alt text](IMG_C04A1ACDA7E9-1.jpeg)
-![Alt text](IMG_DB11AE717A55-1.jpeg)
+![Alt text](IMG_DB11AE717A55-1.jpeg)  
+
+A video explanation with concrete example: [link](https://www.bilibili.com/video/BV1R64y187yt/?spm_id_from=333.337.search-card.all.click&vd_source=43fae35e0d515715cd36645ea2e6e547)
