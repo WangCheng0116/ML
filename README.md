@@ -434,3 +434,9 @@ PCA is a powerful tool to reduce dimensionality. And the math basis is SVD. The 
 
 ## 23 Oct
 I skip to anohter new topic lol. Reinforcement learning. Simply because this is the topic that I am interested in. Bellman Equation is yet the most confusing part I have ever encountered in machine learning. It took me a very long time and a lot of efforts refering to different sources to understand it. 
+
+## 24 Oct
+Mente Carlo.
+
+## 25 Oct
+Perceptron.

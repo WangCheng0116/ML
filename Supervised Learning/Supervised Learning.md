@@ -1,6 +1,16 @@
 # Table of Contents
 <!-- toc -->
 - [Table of Contents](#table-of-contents)
+- [Perceptron](#perceptron)
+  - [Model Description](#model-description)
+  - [Geometric Interpretation](#geometric-interpretation)
+  - [Loss Function](#loss-function)
+  - [Gradient Descent](#gradient-descent)
+  - [Algorithm](#algorithm)
+  - [Convergence of Algorithm](#convergence-of-algorithm)
+  - [Duality Form of Perceptron](#duality-form-of-perceptron)
+  - [Duality Algorithm](#duality-algorithm)
+  - [](#)
 - [Decision Tree](#decision-tree)
   - [ID3 (Iterative Dichotomiser)](#id3-iterative-dichotomiser)
   - [C4.5](#c45)
@@ -19,7 +29,7 @@
   - [Bayes Classifier](#bayes-classifier-1)
   - [Native Bayes Classifier](#native-bayes-classifier)
 - [Linear Regression with one variable](#linear-regression-with-one-variable)
-  - [Gradient Descent](#gradient-descent)
+  - [Gradient Descent](#gradient-descent-1)
   - [Apply Gradient Descent into linear regression model](#apply-gradient-descent-into-linear-regression-model)
 - [Matrix Review](#matrix-review)
 - [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
@@ -147,7 +157,7 @@
   - [Why EM Converges?](#why-em-converges)
 - [Gaussian Mixture Model (GMM)](#gaussian-mixture-model-gmm)
   - [Notation](#notation)
-  - [Algorithm](#algorithm)
+  - [Algorithm](#algorithm-1)
   - [Intuitive Example](#intuitive-example)
   - [Implementation](#implementation-1)
   - [Math Proof](#math-proof)
@@ -174,7 +184,7 @@
     - [Random Forest](#random-forest)
   - [Boosting](#boosting)
     - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
-      - [Algorithm](#algorithm-1)
+      - [Algorithm](#algorithm-2)
       - [Example](#example)
       - [Why $\\alpha$ is like that?](#why-alpha-is-like-that)
       - [Why we can update $w\_m$ is like that?](#why-we-can-update-w_m-is-like-that)
@@ -182,7 +192,7 @@
       - [Herustic Example](#herustic-example)
     - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
       - [Why Gradient?](#why-gradient)
-      - [Algorithm](#algorithm-2)
+      - [Algorithm](#algorithm-3)
     - [XGBoost](#xgboost)
       - [Loss Function Formulation](#loss-function-formulation)
       - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
@@ -193,6 +203,140 @@
   - [Algorithm II - KD Tree](#algorithm-ii---kd-tree)
     - [Build KD Tree](#build-kd-tree)
     - [Search KD Tree to find k nearest neighbors](#search-kd-tree-to-find-k-nearest-neighbors)
+
+# Perceptron
+## Model Description
+* It's a linear classifier.
+* Input: $x = (x_1, x_2, ..., x_n)$
+* Output: $y = \{-1, 1\}$
+* Model: $f(x) = sign(w \cdot x + b)$
+* > $sign$, not $sigmoid$
+* Loss Function: $L(w, b) = -\sum_{x_i \in M} y_i(w \cdot x_i + b)$
+
+## Geometric Interpretation
+* $w \cdot x + b = 0$ is a hyperplane
+* $w \cdot x + b > 0$ is one side of the hyperplane
+* $w \cdot x + b < 0$ is the other side of the hyperplane
+* $w$ is the normal vector of the hyperplane, $b$ is the intercept.
+<img src="image-38.png" width="300">
+
+## Loss Function
+If a point is misclassified, then its distance to the hyperplane is 
+$$-{\frac{1}{\lVert w\rVert}}y_{i}(w\cdot x_{i}+b)$$
+So total loss is: 
+$$L(w, b) = -\sum_{x_i \in M} y_i(w \cdot x_i + b)$$
+> $-y_i(w \cdot x_i + b)$ is always greater than $0$ for misclassified points. So loss is always not negative.
+> When loss = 0, it means all points are classified correctly.
+where $M$ is the set of misclassified points. 
+
+## Gradient Descent
+$$
+\begin{aligned}
+\frac{\partial L}{\partial w} &= -\sum_{x_i \in M} y_i x_i \\
+\frac{\partial L}{\partial b} &= -\sum_{x_i \in M} y_i
+\end{aligned}
+$$
+$$
+w = w + \alpha \sum_{x_i \in M} y_i x_i \\
+b = b + \alpha \sum_{x_i \in M} y_i
+$$
+where $\eta$ is the learning rate.
+We will usually use stochastic gradient descent, which means we will update $w$ and $b$ after each misclassified point.
+
+## Algorithm
+* Initialize $w$ and $b$ as $0$
+* Repeat until $loss = 0$:
+  * Pick a misclassified point $(x_i, y_i)$, i.e. $y_i(w \cdot x_i + b) \leq 0$
+  * Update $w$ and $b$:
+    * $w = w + \alpha y_i x_i$
+    * $b = b + \alpha y_i$
+
+## Convergence of Algorithm
+
+Suppose data is linearly separable. Then there exists a hyperplane that can classify all points correctly.
+
+Let $\theta^* = {(w^*, b^*)}$ be the optimal solution.
+
+Then since every point has been classified correctly, we have:
+
+$$y_i(w^* \cdot x_i + b^*) > 0 \quad for ~i = 1, 2, ..., N$$
+
+There exists $\gamma > 0$ such that:
+
+
+$$y_i(w^* \cdot x_i + b^*) \geq \gamma \quad for ~i = 1, 2, ..., N \\
+\Leftrightarrow (y_ix_i, y_i) \cdot \theta^* \geq \gamma \quad (a)$$
+Suppose at step $k$, we update $w$ and $b$ as
+$$
+w_k \leftarrow w_{k-1} + \alpha y_ix_i \\
+b_k \leftarrow b_{k-1} + \alpha y_i
+$$
+or equivalently, 
+$$
+\theta_k = \theta_{k-1} + \alpha y_i(x_i, 1) \quad (b)
+$$
+We can show $\theta_{k}\cdot \theta^* \geq k\alpha \gamma$, since 
+$$
+\begin{align}
+\theta_{k}\cdot \theta^* &= (\theta_{k-1} + \alpha y_i(x_i, 1)) \cdot \theta ^* \quad(from~a)\\
+&= \theta_{k-1}\cdot \theta^* + \alpha (y_ix_i, y_i) \cdot \theta ^* \\
+&\geq \theta_{k-1}\cdot \theta^* + \alpha \gamma\quad (from~b) \\
+&\geq \theta_{k-2}\cdot \theta^* + 2\alpha \gamma
+\end{align}
+$$
+Solving recurstion, we have $\theta_{k}\cdot \theta^* \geq k\alpha \gamma \quad (A)$.  
+ 
+We can also show $||\theta_k||^2  \leq k\alpha^2R^2$, where $R = \max_{1\leq i\leq N}||(x_i, 1)||_2$, since
+$$
+\begin{align}
+||\theta_k||^2 &= (\theta_{k-1} + \alpha y_i(x_i, 1))^2\\
+&= \theta_{k-1}^2 + 2\theta_{k-1} \alpha y_i(x_i, 1) + (\alpha y_i(x_i, 1))^2\\
+&= \theta_{k-1}^2 + 2\theta_{k-1} \alpha y_i(x_i, 1) + \alpha^2 (x_i, 1)^2\\
+&\leq \theta_{k-1}^2 + 2\theta_{k-1} \alpha y_i(x_i, 1) + \alpha^2R^2\\
+&= \theta_{k-1}^2 + 2\alpha\theta_{k-1} (y_ix_i, x_i) + \alpha^2R^2\\
+&\leq \theta_{k-1}^2 + \alpha^2R^2 \quad (since~ \theta_{k-1} (y_ix_i, x_i) ~is ~misclassified)
+\end{align}
+$$
+By solving recurstion, we have $||\theta_k||^2  \leq k\alpha^2R^2\quad (B)$
+From $(A)$ and $(B)$
+$$
+\begin{align}
+k\alpha\gamma &\leq \theta_k \cdot \theta^* \quad (A)\\
+&\leq |\theta_k||\theta^*|\quad (Cauchy)\\
+&\leq \sqrt{k}\alpha R \quad(B)
+\end{align}
+$$
+We can set $|\theta^*|$ to be 1, since we can adjust $w$ and $b$ propotionally.  
+So we only need to itearate $k \leq (\frac{R}{r})^2$ times.
+
+## Duality Form of Perceptron
+In the previous version of algorithm, we see that 
+$$
+w = w + \alpha \sum_{x_i \in M} y_i x_i \\
+b = b + \alpha \sum_{x_i \in M} y_i
+$$
+Then for a paticular point $(x_i, y_i)$, suppose it is used to update $w$ and $b$ for $n_i$ times, then $w$ and $b$ can be re-expressed as (consider updates all at once):
+$$
+w = \sum_{i = 1}^{N}\alpha n_i   y_i x_i \\
+b =  \sum_{i = 1}^{N}\alpha n_i y_i
+$$
+$$
+f(x) = sign(wx + b) = sign[(\sum_{i = 1}^{N}\alpha n_i   y_i x_i ) \cdot x + \sum_{i = 1}^{N}\alpha n_i y_i]
+$$
+> If $n_i$ is large, it means that data has been used for many times to update parameters, indicating that it is closer to hyperplane and contribute more.
+
+## Duality Algorithm
+* Initialize $w$ and $b$ as 0
+*  Repeat until $l=0$
+	* select data $(x_i, y_i)$
+	* if $y_i(wx_i+b) = y_i[(\sum_{j=1}^{N}\alpha n_j y_jx_j)\cdot x_i + \sum_{j=1}^{N}\alpha n_j  y_j]\geq 0$
+		* $n_i = n_i + 1$
+	
+## 
+The reason why we want to have this algorithm is that, in part 
+$(\sum_{j=1}^{N}\alpha n_j y_jx_j)* x_i$, we have a lot of inner products. If we can pre-compute them, it will be more efficient. And the way we use to calculate all inner products is by using $Gram$ Matrix, 
+$$G=[x_{i}\ast x_j]_{N\times N} = \begin{bmatrix} \langle x_1, x_1 \rangle & \langle x_1, x_2 \rangle & \cdots & \langle x_1, x_n \rangle \\ \langle x_2, x_1 \rangle & \langle x_2, x_2 \rangle & \cdots & \langle x_2, x_n \rangle \\ \vdots & \vdots & \ddots & \vdots \\ \langle x_n, x_1 \rangle & \langle x_n, x_2 \rangle & \cdots & \langle x_n, x_n \rangle \\ \end{bmatrix}$$
+
 
 # Decision Tree
 
