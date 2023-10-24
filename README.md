@@ -1,222 +1,312 @@
-> **⚠️For a better viewing experience, I recommend reading markdown file in vscode editor instead of on GitHub. GFM doesn't render content exactly the same with vscode.**
 # Machine Learning Daily Blog
-![Alt text](image.png)
-## Overview  
-- Basic Concepts ([notes](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md))
-- [Decision Tree](#decision-tree)
-  - [ID3 (Iterative Dichotomiser)](#id3-iterative-dichotomiser)
-  - [C4.5](#c45)
-  - [CART](#cart)
-    - [Gini Index](#gini-index)
-    - [Dealing with continuous values](#dealing-with-continuous-values)
-  - [Pre-Pruning](#pre-pruning)
-  - [Post-Pruning](#post-pruning)
-    - [Reduced Error Pruning (REP)](#reduced-error-pruning-rep)
-    - [Pessimistic Error Pruning (PEP)](#pessimistic-error-pruning-pep)
-    - [Minimum Error Pruning (MEP)](#minimum-error-pruning-mep)
-    - [Cost-Complexity Pruning (CCP)](#cost-complexity-pruning-ccp)
-- [Bayes Classifier](#bayes-classifier)
-  - [Bayes Theorem](#bayes-theorem)
-  - [Naive Bayes Theorem](#naive-bayes-theorem)
-  - [Bayes Classifier](#bayes-classifier-1)
-  - [Native Bayes Classifier](#native-bayes-classifier)
-- [Linear Regression with one variable](#linear-regression-with-one-variable)
-  - [Gradient Descent](#gradient-descent)
-  - [Apply Gradient Descent into linear regression model](#apply-gradient-descent-into-linear-regression-model)
-- [Matrix Review](#matrix-review)
-- [Linear Regression with multiple variables](#linear-regression-with-multiple-variables)
-  - [New notations](#new-notations)
-  - [Gradient Descent for Multiple Variables](#gradient-descent-for-multiple-variables)
-  - [Python Implementation](#python-implementation)
-  - [Feature Scaling](#feature-scaling)
-  - [Learning Rate](#learning-rate)
-- [Features and Polynomial Regression](#features-and-polynomial-regression)
-- [Normal Equation](#normal-equation)
-- [Comparison](#comparison)
-  - [What if X^T X is not invertible?](#what-if-xt-x-is-not-invertible)
-- [Logistic Regression](#logistic-regression)
-  - [Classification Problems](#classification-problems)
-  - [Decision Boundary](#decision-boundary)
-  - [Cost Function](#cost-function)
-  - [Vectorization of Logistic Regression](#vectorization-of-logistic-regression)
-  - [Multiclass Classification](#multiclass-classification)
-- [Regularization](#regularization)
-  - [Underfit and Overfit](#underfit-and-overfit)
-  - [Motivation to have regularization](#motivation-to-have-regularization)
-  - [Gradient Descent and Normal Equation Using Regularization in Linear Regression](#gradient-descent-and-normal-equation-using-regularization-in-linear-regression)
-  - [Gradient Descent Using Regularization in Logistic Regression](#gradient-descent-using-regularization-in-logistic-regression)
-  - [Gradient Descent Using Regularization in Neural Networks](#gradient-descent-using-regularization-in-neural-networks)
-  - [Dropout (In Neural Networks)](#dropout-in-neural-networks)
-    - [Implementation](#implementation)
-  - [Other Methods of Regularization](#other-methods-of-regularization)
-- [Neural Networks](#neural-networks)
-  - [Activation functions](#activation-functions)
-  - [Multiclass Classification](#multiclass-classification-1)
-  - [Cost Function](#cost-function-1)
-  - [Backpropagation Algorithm](#backpropagation-algorithm)
-  - [Randomize Initialization](#randomize-initialization)
-- [Deep Neural Network](#deep-neural-network)
-  - [Working Flow Chart](#working-flow-chart)
-- [Setting Up ML Application](#setting-up-ml-application)
-  - [Data Split: Training / Validation / Test Sets](#data-split-training--validation--test-sets)
-  - [Vanishing and Exploding Gradients](#vanishing-and-exploding-gradients)
-  - [Gradient Checking (Grad Check)](#gradient-checking-grad-check)
-- [Optimization Algorithms](#optimization-algorithms)
-  - [Mini-Batch Gradient Descent](#mini-batch-gradient-descent)
-    - [Batch Gradient Descent:](#batch-gradient-descent)
-    - [Stochastic Gradient Descent:](#stochastic-gradient-descent)
-  - [Exponentially Weighted Averages](#exponentially-weighted-averages)
-  - [Bias Correction in Exponentially Weighted Averages](#bias-correction-in-exponentially-weighted-averages)
-  - [Gradient Descent with Momentum](#gradient-descent-with-momentum)
-  - [RMSprop(Root Mean Square Propagation)](#rmsproproot-mean-square-propagation)
-  - [Adam Optimization Algorithm(Adaptive Moment Estimation)](#adam-optimization-algorithmadaptive-moment-estimation)
-  - [Learning Rate Decay](#learning-rate-decay)
-  - [Local Optima](#local-optima)
-- [Hyperparameter Tuning Batch Normalization and Programming Frameworks](#hyperparameter-tuning-batch-normalization-and-programming-frameworks)
-  - [Tuning Process](#tuning-process)
-  - [Using an Appropriate Scale to Pick Hyperparameters](#using-an-appropriate-scale-to-pick-hyperparameters)
-  - [Hyperparameters Tuning in Practice: Pandas vs. Caviar](#hyperparameters-tuning-in-practice-pandas-vs-caviar)
-  - [Normalizing Activations in a Network](#normalizing-activations-in-a-network)
-  - [Batch Normalization (BN)](#batch-normalization-bn)
-  - [Fitting Batch Norm into a Neural Network](#fitting-batch-norm-into-a-neural-network)
-  - [Batch Normalization and Its Usage](#batch-normalization-and-its-usage)
-  - [Why Does Batch Norm Work?](#why-does-batch-norm-work)
-  - [Benefits of Batch Normalization](#benefits-of-batch-normalization)
-  - [Batch Norm at Test Time](#batch-norm-at-test-time)
-  - [Softmax Regression](#softmax-regression)
-- [Introduction to ML Strategy I](#introduction-to-ml-strategy-i)
-  - [Orthogonalization in Machine Learning](#orthogonalization-in-machine-learning)
-  - [Training / Validation / Test Set Split](#training--validation--test-set-split)
-  - [Distribution of Validation and Test Sets](#distribution-of-validation-and-test-sets)
-  - [Partitioning Data](#partitioning-data)
-  - [Comparing to Human Performance](#comparing-to-human-performance)
-  - [Summary](#summary)
-- [Introduction to ML Strategy II](#introduction-to-ml-strategy-ii)
-- [Convolutional Neural Networks](#convolutional-neural-networks)
-  - [Padding in Convolution](#padding-in-convolution)
-  - [Strided Convolution](#strided-convolution)
-  - [Convolution in High Dimensions](#convolution-in-high-dimensions)
-  - [Single-Layer Convolutional Network](#single-layer-convolutional-network)
-    - [Summary of Notation](#summary-of-notation)
-  - [Simple Convolutional Network Example](#simple-convolutional-network-example)
-  - [Pooling Layer](#pooling-layer)
-  - [Fully Connected Layer](#fully-connected-layer)
-  - [Example of a Convolutional Neural Network (CNN)](#example-of-a-convolutional-neural-network-cnn)
-  - [Why Convolutions?](#why-convolutions)
-- [Convolutional Neural Networks (CNN) Architectures](#convolutional-neural-networks-cnn-architectures)
-  - [LeNet-5](#lenet-5)
-  - [AlexNet](#alexnet)
-  - [VGG](#vgg)
-  - [ResNet (Residual Network)](#resnet-residual-network)
-    - [Reasons Why Residual Networks Work](#reasons-why-residual-networks-work)
-- [Object Detection](#object-detection)
-  - [Object Localization](#object-localization)
-  - [Object Detection](#object-detection-1)
-  - [Convolutional Implementation of Sliding Windows (Do partition all at once, no need to feed in sliding windows sequentially)](#convolutional-implementation-of-sliding-windows-do-partition-all-at-once-no-need-to-feed-in-sliding-windows-sequentially)
-  - [Bounding Box Predictions](#bounding-box-predictions)
-  - [Intersection Over Union (IoU)](#intersection-over-union-iou)
-  - [Non-Maximum Suppression](#non-maximum-suppression)
-  - [R-CNN](#r-cnn)
-- [Face Recognition and Neural Style Transfer](#face-recognition-and-neural-style-transfer)
-  - [Difference Between Face Verification and Face Recognition](#difference-between-face-verification-and-face-recognition)
-  - [One-Shot Learning](#one-shot-learning)
-  - [Siamese Network](#siamese-network)
-  - [Triplet Loss](#triplet-loss)
-  - [As Binary Classification](#as-binary-classification)
-  - [Neural Style Transfer](#neural-style-transfer)
-  - [What Deep Convolutional Networks Learn](#what-deep-convolutional-networks-learn)
-  - [Cost Function For Neural Style Transfer](#cost-function-for-neural-style-transfer)
-    - [Content Cost Function](#content-cost-function)
-    - [Style Cost Function](#style-cost-function)
-- [Sequence Models](#sequence-models)
-  - [Notations](#notations)
-  - [Recurrent Neural Network (RNN) Model](#recurrent-neural-network-rnn-model)
-    - [Forward Propagation](#forward-propagation)
-    - [Backpropagation Through Time (BPTT)](#backpropagation-through-time-bptt)
-  - [Different Types of RNNs](#different-types-of-rnns)
-  - [Language Model](#language-model)
-  - [Sampling](#sampling)
-  - [The Gradient Vanishing Problem in RNNs](#the-gradient-vanishing-problem-in-rnns)
-- [Expectation Maximization (EM) Algorithm](#expectation-maximization-em-algorithm)
-  - [Intuitive Explanation](#intuitive-explanation)
-  - [Intuitive Algorithm](#intuitive-algorithm)
-  - [Formal Proof](#formal-proof)
-    - [Likelihood Function](#likelihood-function)
-    - [Log Likelihood Function](#log-likelihood-function)
-    - [Jensen Inequality](#jensen-inequality)
-    - [EM](#em)
-  - [EM Algorithm](#em-algorithm)
-  - [Why EM Converges?](#why-em-converges)
-- [Gaussian Mixture Model (GMM)](#gaussian-mixture-model-gmm)
-  - [Notation](#notation)
-  - [Algorithm](#algorithm)
-  - [Intuitive Example](#intuitive-example)
-  - [Implementation](#implementation-1)
-  - [Math Proof](#math-proof)
-- [Clustering](#clustering)
-  - [Measuring Similarity](#measuring-similarity)
-    - [Minkowski Distance:](#minkowski-distance)
-    - [Mahalanobis Distance:](#mahalanobis-distance)
-    - [Correlation Coefficient:](#correlation-coefficient)
-    - [Cosine Similarity:](#cosine-similarity)
-- [K Means Clustering](#k-means-clustering)
-  - [Algorithm](#algorithm-1)
-  - [How to choose k?](#how-to-choose-k)
-  - [Improvement](#improvement)
-  - [Smarter Initialization - K Means++](#smarter-initialization---k-means)
-  - [Why K-Means is a variant of EM?](#why-k-means-is-a-variant-of-em)
-- [K Nearest Neighbors (KNN) Algorithm](#k-nearest-neighbors-knn-algorithm)
-  - [Algorithm I - Linear Scan](#algorithm-i---linear-scan)
-  - [Algorithm II - KD Tree](#algorithm-ii---kd-tree)
-    - [Build KD Tree](#build-kd-tree)
-    - [Search KD Tree to find k nearest neighbors](#search-kd-tree-to-find-k-nearest-neighbors)
-- [Support Vector Machine](#support-vector-machine)
-  - [Proof](#proof)
-    - [Problem Formulation](#problem-formulation)
-    - [Optimization Problem](#optimization-problem)
-  - [Duality Conversion](#duality-conversion)
-  - [Algorithm (HardMargin)](#algorithm-hardmargin)
-  - [SoftMargin](#softmargin)
-  - [Algorithm (SoftMargin)](#algorithm-softmargin)
-  - [Another Perspective: HingeLoss](#another-perspective-hingeloss)
-  - [SMO (Sequential Minimal Optimization)](#smo-sequential-minimal-optimization)
-    - [How to choose $\\alpha\_1$ and $\\alpha\_2$ in SMO](#how-to-choose-alpha_1-and-alpha_2-in-smo)
-    - [How to update $b$](#how-to-update-b)
-  - [Kernel Function](#kernel-function)
-    - [Positive Definite Kernel Function](#positive-definite-kernel-function)
-  - [Common Kernel Functions](#common-kernel-functions)
-    - [String Kernel Example](#string-kernel-example)
-  - [Reference](#reference)
-  - [Sklearn Usage](#sklearn-usage)
-- [Ensemble Learning](#ensemble-learning)
-  - [Bagging](#bagging)
-    - [Random Forest](#random-forest)
-  - [Boosting](#boosting)
-    - [AdaBoost (Adaptive Boosting)](#adaboost-adaptive-boosting)
-      - [Algorithm](#algorithm-2)
-      - [Example](#example)
-      - [Why $\\alpha$ is like that?](#why-alpha-is-like-that)
-      - [Why we can update $w\_m$ is like that?](#why-we-can-update-w_m-is-like-that)
-    - [Boosting Decision Tree](#boosting-decision-tree)
-      - [Herustic Example](#herustic-example)
-    - [Gradient Boosting Decision Tree](#gradient-boosting-decision-tree)
-      - [Why Gradient?](#why-gradient)
-      - [Algorithm](#algorithm-3)
-    - [XGBoost](#xgboost)
-      - [Loss Function Formulation](#loss-function-formulation)
-      - [Partitioning (How to find the best split)](#partitioning-how-to-find-the-best-split)
-        - [Greedy Algorithm](#greedy-algorithm)
-        - [Approximate Algorithm](#approximate-algorithm)
+> **⚠️For a better viewing experience, I recommend reading markdown file in vscode editor instead of on GitHub. GFM doesn't render content exactly the same with vscode.**
+# Machine Learning Topics I have Learned
+Notes: [Supervised Learning](https://github.com/WangCheng0116/ML/blob/main/Supervised%20Learning/Supervised%20Learning.md) | [Unsupervised Learning](https://github.com/WangCheng0116/ML/blob/main/Unsupervised%20Learning/Unsupervised%20Learning.md) | [Reinforment Learning](https://github.com/WangCheng0116/ML/blob/main/Reinforcement%20Learning/Reinforcement_Learning_Note.md)
+## Decision Tree
+
+- **ID3 (Iterative Dichotomiser)**
+- **C4.5**
+- **CART**
+  - *Gini Index*
+  - *Dealing with continuous values*
+- **Pre-Pruning**
+- **Post-Pruning**
+  - *Reduced Error Pruning (REP)*
+  - *Pessimistic Error Pruning (PEP)*
+  - *Minimum Error Pruning (MEP)*
+  - *Cost-Complexity Pruning (CCP)*
+
+## Bayes Classifier
+
+- **Bayes Theorem**
+- **Naive Bayes Theorem**
+- **Bayes Classifier**
+- **Native Bayes Classifier**
+
+## Linear Regression
+
+### Linear Regression with One Variable
+
+- **Gradient Descent**
+- **Applying Gradient Descent to Linear Regression Model**
+
+### Linear Regression with Multiple Variables
+
+- **New Notations**
+- **Gradient Descent for Multiple Variables**
+- **Python Implementation**
+- **Feature Scaling**
+- **Learning Rate**
+
+## Features and Polynomial Regression
+
+## Normal Equation
+
+## Comparison
+
+- **What if X^T X is not invertible?**
+
+## Logistic Regression
+
+- **Classification Problems**
+- **Decision Boundary**
+- **Cost Function**
+- **Vectorization of Logistic Regression**
+- **Multiclass Classification**
+
+## Regularization
+
+- **Underfit and Overfit**
+- **Motivation for Regularization**
+- **Gradient Descent and Normal Equation Using Regularization in Linear Regression**
+- **Gradient Descent Using Regularization in Logistic Regression**
+- **Gradient Descent Using Regularization in Neural Networks**
+- **Dropout (In Neural Networks)**
+  - *Implementation*
+- **Other Methods of Regularization**
+
+## Neural Networks
+
+- **Activation Functions**
+- **Multiclass Classification**
+- **Cost Function**
+- **Backpropagation Algorithm**
+- **Random Initialization**
+
+## Deep Neural Network
+
+- **Working Flow Chart**
+
+## Setting Up ML Application
+
+- **Data Split: Training / Validation / Test Sets**
+- **Vanishing and Exploding Gradients**
+- **Gradient Checking (Grad Check)**
+
+## Optimization Algorithms
+
+- **Mini-Batch Gradient Descent**
+- **Exponentially Weighted Averages**
+- **Bias Correction in Exponentially Weighted Averages**
+- **Gradient Descent with Momentum**
+- **RMSprop (Root Mean Square Propagation)**
+- **Adam Optimization Algorithm (Adaptive Moment Estimation)**
+
+## Hyperparameter Tuning, Batch Normalization, and Programming Frameworks
+
+- **Tuning Process**
+- **Using an Appropriate Scale to Pick Hyperparameters**
+- **Hyperparameters Tuning in Practice: Pandas vs. Caviar**
+- **Normalizing Activations in a Network**
+- **Batch Normalization (BN)**
+- **Fitting Batch Norm into a Neural Network**
+- **Batch Normalization and Its Usage**
+- **Why Does Batch Norm Work?**
+- **Benefits of Batch Normalization**
+- **Batch Norm at Test Time**
+
+## ML Strategy
+
+- **Orthogonalization in Machine Learning**
+- **Training / Validation / Test Set Split**
+- **Distribution of Validation and Test Sets**
+- **Partitioning Data**
+- **Comparing to Human Performance**
+- **Summary**
+
+## Convolutional Neural Networks
+
+- **Padding in Convolution**
+- **Strided Convolution**
+- **Convolution in High Dimensions**
+- **Single-Layer Convolutional Network**
+  - *Summary of Notation*
+- **Simple Convolutional Network Example**
+- **Pooling Layer**
+- **Fully Connected Layer**
+- **Example of a Convolutional Neural Network (CNN)**
+- **Why Convolutions?**
+
+## Convolutional Neural Networks (CNN) Architectures
+
+- **LeNet-5**
+- **AlexNet**
+- **VGG**
+- **ResNet (Residual Network)**
+  - *Reasons Why Residual Networks Work**
+
+## Object Detection
+
+- **Object Localization**
+- **Object Detection**
+- **Convolutional Implementation of Sliding Windows (Do partition all at once, no need to feed in sliding windows sequentially)**
+- **Bounding Box Predictions**
+- **Intersection Over Union (IoU)**
+- **Non-Maximum Suppression**
+- **R-CNN**
+
+## Face Recognition and Neural Style Transfer
+
+- **Difference Between Face Verification and Face Recognition**
+- **One-Shot Learning**
+- **Siamese Network**
+- **Triplet Loss**
+- **As Binary Classification**
+- **Neural Style Transfer**
+- **What Deep Convolutional Networks Learn**
+- **Cost Function For Neural Style Transfer**
+  - *Content Cost Function*
+  - *Style Cost Function*
+
+## Sequence Models
+
+- **Notations**
+- **Recurrent Neural Network (RNN) Model**
+  - *Forward Propagation*
+  - *Backpropagation Through Time (BPTT)*
+- **Different Types of RNNs**
+- **Language Model**
+- **Sampling**
+- **The Gradient Vanishing Problem in RNNs**
+
+## Expectation Maximization (EM) Algorithm
+
+- **Intuitive Explanation**
+- **Intuitive Algorithm**
+- **Formal Proof**
+  - *Likelihood Function*
+  - *Log Likelihood Function*
+  - *Jensen Inequality*
+  - *EM*
+- **EM Algorithm**
+- **Why EM Converges?**
+
+## Gaussian Mixture Model (GMM)
+
+- **Notation**
+- **Algorithm**
+- **Intuitive Example**
+- **Implementation**
+- **Math Proof**
+
+## Clustering
+
+- **Measuring Similarity**
+  - *Minkowski Distance:*
+  - *Mahalanobis Distance:*
+  - *Correlation Coefficient:*
+  - *Cosine Similarity:*
+
+## K-Means Clustering
+
+- **Algorithm**
+- **How to Choose k?**
+- **Improvement**
+- **Smarter Initialization - K-Means++**
+- **Why K-Means is a Variant of EM?**
+
+## K-Nearest Neighbors (KNN) Algorithm
+
+- **Algorithm I - Linear Scan**
+- **Algorithm II - KD Tree**
+  - *Build KD Tree*
+  - *Search KD Tree to Find k Nearest Neighbors*
+
+## Support Vector Machine
+
+- **Proof**
+  - *Problem Formulation*
+  - *Optimization Problem*
+- **Duality Conversion**
+- **Algorithm (Hard Margin)**
+- **Soft Margin**
+- **Algorithm (Soft Margin)**
+- **Another Perspective: Hinge Loss**
+- **SMO (Sequential Minimal Optimization)**
+  - *How to Choose $\\alpha_1$ and $\\alpha_2$ in SMO*
+  - *How to Update $b$*
+- **Kernel Function**
+  - *Positive Definite Kernel Function*
+- **Common Kernel Functions**
+  - *String Kernel Example*
+- **Reference**
+- **Sklearn Usage**
+
+## Ensemble Learning
+
+- **Bagging**
+  - *Random Forest*
+- **Boosting**
+  - *AdaBoost (Adaptive Boosting)*
+    - *Algorithm*
+    - *Example*
+    - *Why $\\alpha$ is like that?*
+    - *Why we can update $w_m$ is like that?*
+  - *Boosting Decision Tree*
+    - *Heuristic Example*
+  - *Gradient Boosting Decision Tree*
+    - *Why Gradient?*
+    - *Algorithm*
+  - *XGBoost*
+    - *Loss Function Formulation*
+    - *Partitioning (How to find the best split)*
+      - *Greedy Algorithm*
+      - *Approximate Algorithm*
+
+## Bellman Equation
+
+- **Motivating Example**
+- **State Value**
+- **Bellman Equation**
+- **Bellman Equation in Matrix Form**
+- **Solving Bellman Equation (Closed Form and Iterative Method)**
+- **Action Value**
+- **Summary**
+
+## Optimal State Value and Bellman Optimality Equation (BOE)
+
+- **Optimal Policy**
+- **Bellman Optimality Equation (BOE)**
+- **Contraction Mapping Theorem**
+  - *Definition*
+  - *Theorem*
+  - *Proof*
+- **BOE is a Contraction Mapping**
+- **Solution of BOE**
+- **$\\gamma$ in BOE**
+- **Value Iteration Algorithm**
+  - *Example*
+- **Policy Iteration Algorithm**
+  - *Example*
+- **Truncated Policy Iteration**
+  - *Algorithm*
+- **Summary**
+
+## Monte Carlo Method
+
+- **Mean Estimation and Law of Large Numbers**
+- **MC Basic**
+  - *Algorithm:*
+  - *Example*
+- **MC Exploring Starts**
+  - *Making Sample More Efficient*
+  - *Making Update More Efficient*
+  - *Algorithm*
+- **MC $\\epsilon$-Greedy**
+  - *Soft Policy*
+  - *Algorithm*
+  - *How Does $\\epsilon$ Affect?*
+- **Summary**
 
 
-- Challenges
+## Challenges
   - [Matrix Differentiation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Matrix%20Differentiation.md)
   - [Backpropagation](https://github.com/WangCheng0116/ML/blob/main/Challenges/Back%20Propogation.md)
   - [SVM Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md)
   - [XGBoost Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/XGBoost.md)
   - [EM Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/EM.md)
   
-- Code (code implementation for model)
+## Code (code implementation for model)
   - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
   - [KNN-Iris](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/KNN-Iris)
   - [Optimization Method - Mini-batches, Momentum and Adam](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Optimization%20Method%20-%20Mini-batches%2C%20Momentum%20and%20Adam)
@@ -233,11 +323,11 @@
   - [Neural Network - Digit Recognition](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/Neural%20Network%20-%20Digit%20Recognition)
   - [Choose Good Initialization](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/choose%20good%20Initialization)
   - [SVM on Binary Classification](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb) 
-- Resources
+## Resources
   - [Machine Learning Cheatsheet](https://ml-cheatsheet.readthedocs.io/en/latest/index.html) 
   - [Neural Network Playground](https://playground.tensorflow.org/)
   - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
-  - [LaTex Cheatsheet](https://wch.github.io/latexsheet/latexsheet.pdf)
+  - [LaTeX Cheatsheet](https://wch.github.io/latexsheet/latexsheet.pdf)
   - [GAN Lab](https://poloclub.github.io/ganlab/)
   
   
