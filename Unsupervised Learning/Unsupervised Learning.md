@@ -44,6 +44,10 @@
   - [Intuitive Example](#intuitive-example)
   - [Implementation](#implementation)
   - [Math Proof](#math-proof)
+    - [Definition](#definition-1)
+    - [Log Likelihood Function](#log-likelihood-function-1)
+    - [E-Step](#e-step)
+    - [M-Step](#m-step)
 
 # Singular Value Decomposition (SVD)
 
@@ -522,29 +526,42 @@ $$
 $$
 where $H(Q_i)$ is the entropy of $Q_i(z^{(i)})$ and it is a constant.
 ## EM Algorithm
+Last equation from last part is:
+$$
+\sum_{i=1}^m \sum_{z^{(i)}} P\left(z^{(i)} \mid x^{(i)}, \theta\right) \log P\left(x^{(i)}, z^{(i)} \mid \theta\right)
+$$
+First we take out summation and convert it into expectation form:
+
+
+$$Q(\theta, \theta^{(i)}) =E_{Z}[\log P(X,Z|\theta)|X,\theta^{(i)}]$$
+Expand it, we have  
+$$\sum_{Z}P(Z|X,\theta^{(i)})\log P(X,Z|\theta)$$
+where $\theta^{(i)}$ is the estimation in the $i$-th iteration.  
+
+Algorithm is as follows:  
+
 **Input:**
 Observation data $x = (x^{(1)}, x^{(2)}, \ldots, x^{(m)})$,
-joint distribution $p(x, z \, | \, \theta)$,
-conditional distribution $p(z \, | \, x, \theta)$,
+joint distribution $P(X, Z \, | \, \theta)$,
+conditional distribution $p(Z \, | \, X, \theta)$,
 maximum iteration count $J$.
 
 1. Randomly initialize the initial values of model parameters $\theta$ as $\theta^{(0)}$.
 
-2. For each $j$ from 1 to $J$:  
+2. Repeat until convergence:  
     **E-step:**  
-    Calculate the conditional probability expectations of the joint distribution:  
-    $$
-    Q_i\left(z^{(i)}\right)=P\left(z^{(i)} \mid x^{(i)}, \theta\right)
-    $$
-    > After substituting $\theta$, $Q_i\left(z^{(i)}\right)$ is a constant.
+    Calculate:  
+    $$Q(\theta, \theta^{(i)}) = \sum_{Z}P(Z|X,\theta^{(i)})\log P(X,Z|\theta)$$
+ 
 
     **M-step:**  
-    Maximize the likelihood function with respect to $\theta$:
+    Maximize $Q$ with respect to $\theta$:
     $$
-    \theta=\arg \max _{\theta} \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log {P\left(x^{(i)}, z^{(i)} \mid \theta\right)}
+    \theta^{(i+1)}=\arg \max _{\theta}Q(\theta, \theta^{(i)})
     $$
-3. Repeat step 2 until convergence.
 > [Video of EM Algorithm](https://www.bilibili.com/video/BV19a411N72s/?spm_id_from=333.337.search-card.all.click&vd_source=43fae35e0d515715cd36645ea2e6e547)
+
+> A formal definition of $Q(\theta, \theta^{(i)})$ is the expected value of the log likelihood function $P(X, Z|\theta)$ with respect to the conditional distribution $p(Z \, | \, X, \theta^{(i)})$ given the observed data $X$ and $\theta^{(i)}$.
 ## Why EM Converges?
 $$
 H(\theta^{(t+1)}) \geq \sum_{i=1}^m \sum_{z^{(i)}} Q_i\left(z^{(i)}\right) \log \frac{P\left(x^{(i)}, z^{(i)} \mid \theta^{(t+1)}\right)}{Q_i\left(z^{(i)}\right)} 
@@ -649,5 +666,114 @@ Then we update the parameters and calculate $\gamma$ again. We repeat this proce
 ## Implementation
 Credits to [this](https://github.com/Ransaka/GMM-from-scratch/blob/master/GMM%20from%20scratch.ipynb), which is a very good implementation of GMM from scratch.
 ## Math Proof
-(to be added)
- 
+
+### Definition
+We have observations $y_1, y_2, ..., y_n$.
+$$P(y|\theta)=\sum_{k=1}^{K}\alpha_{k}\phi(y|\theta_{k})$$
+where
+$$\sum_{k=1}^{K}\alpha_k = 1\\\phi(y|\theta_{k})=\frac{1}{\sqrt{2\pi}\sigma_{k}}\exp\left(-\frac{(y-\mu_{k})^{2}}{2\sigma_{k}^{2}}\right) \\
+\theta_k = (\mu_k, \sigma_k^2)$$
+
+### Log Likelihood Function
+Suppose $r_{jk}$ is the indicator of $y_j$ belonging to the $k$-th Gaussian distribution, i.e.
+$$
+r_{jk} = \begin{cases}
+1 & \text{if } y_j \text{ belongs to the } k \text{-th Gaussian distribution} \\
+0 & \text{otherwise}
+\end{cases}
+$$
+Full data is $(y_j, r_{j1}, r_{j2}, ..., r_{jK})$.
+
+Joint distribution:
+$$
+\begin{align}
+  P(y, r|\theta) &= \prod_{j=1}^{N}P(y_j, r_{j1}, r_{j2}, ..., r_{jK} | \theta) \\
+  &= 
+  \prod_{j=1}^{N} \prod_{k=1}^{K} [\alpha_k \phi(y_j|\theta_k)]^{r_{jk}} ~ \text{(because if $y_j$ belongs to the $k$-th Gaussian distribution, then $r_{jk} = 1$, otherwise it's 0)} \\
+  &= \prod_{k=1}^{K}\alpha_k^{\sum_{j=1}^{N}r_{jk}} \prod_{j=1}^{N} \phi(y_j|\theta_k)^{r_{jk}} \\
+  &= \prod_{k=1}^{K}\alpha_k^{n_k} \prod_{j=1}^{N} \phi(y_j|\theta_k)^{r_{jk}} \quad \text{($n_k$ means how many observations are from k-th Gaussian Model)}\\
+  &= \prod_{k=1}^{K}\alpha_k^{n_k} \prod_{j=1}^{N} \left[\frac{1}{\sqrt{2\pi}\sigma_{k}}\exp\left(-\frac{(y_j-\mu_{k})^{2}}{2\sigma_{k}^{2}}\right)\right]^{r_{jk}} \\
+\end{align}
+$$
+Take log on both sides, we log likelihood function is:
+$$
+\begin{align}
+  \log P(y, r|\theta) &=\sum_{k=1}^{K}\left\{n_{k}\log\alpha_{k}+\sum_{j=1}^{N}\gamma_{j k}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{k}-\frac{1}{2\sigma_{k}^{2}}(y_{j}-\mu_{k})^{2}\right]\right\}
+\end{align}
+$$
+
+> We have derived the joint distribution (i.e.$p(x,z| \theta)$) in [EM alrorithm](#em-algorithm).
+
+### E-Step
+$$
+Q(\theta, \theta^{(i)}) =E_{\gamma}[\log P(y,\gamma|\theta)|y,\theta^{(i)}] \\
+= \mathbb{E} \left\{\sum_{k=1}^{K}\left\{n_{k}\log\alpha_{k}+\sum_{j=1}^{N}\gamma_{j k}\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{k}-\frac{1}{2\sigma_{k}^{2}}(y_{j}-\mu_{k})^{2}\right]\right\}\right\} \\
+= \sum_{k=1}^{K}\left\{\sum_{j=1}^{N}(\mathbb{E}[\gamma_{jk}])\log\alpha_{k}+\sum_{j=1}^{N}\mathbb{E}[\gamma_{j k}]\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{k}-\frac{1}{2\sigma_{k}^{2}}(y_{j}-\mu_{k})^{2}\right]\right\} \\
+$$
+We need to solve $\mathbb{E}[\gamma_{jk}]$, 
+$$
+\begin{align}
+\mathbb{E}[\gamma_{jk}] &= 1 * P(\gamma_{jk} = 1 | y, \theta) + 0 * P(\gamma_{jk} = 0| y, \theta) \\
+&= P(\gamma_{jk} = 1) \\
+\end{align}
+$$
+which is just the probability of $y_j$ coming to the $k$-th Gaussian distribution. We can directly compute it:
+$$
+P(\gamma_{jk} = 1) = \frac{\alpha_k \phi(y_j|\theta_k)}{\sum_{k=1}^{K}\alpha_k \phi(y_j|\theta_k)}
+$$
+> the prob of coming from $j$ / the sum of all probs of coming from each model
+
+Ultimately, our $Q(\theta, \theta^{(i)})$ is:
+$$
+\begin{align}
+Q(\theta, \theta^{(i)}) &= \sum_{k=1}^{K}\left\{\sum_{j=1}^{N}(\mathbb{E}[\gamma_{jk}])\log\alpha_{k}+\sum_{j=1}^{N}\mathbb{E}[\gamma_{j k}]\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{k}-\frac{1}{2\sigma_{k}^{2}}(y_{j}-\mu_{k})^{2}\right]\right\} \\
+&= \sum_{k=1}^{K}\left\{\sum_{j=1}^{N}\left[\frac{\alpha_k \phi(y_j|\theta_k)}{\sum_{k=1}^{K}\alpha_k \phi(y_j|\theta_k)}\right]\log\alpha_{k}+\sum_{j=1}^{N}\left[\frac{\alpha_k \phi(y_j|\theta_k)}{\sum_{k=1}^{K}\alpha_k \phi(y_j|\theta_k)}\right]\left[\log\left(\frac{1}{\sqrt{2\pi}}\right)-\log\sigma_{k}-\frac{1}{2\sigma_{k}^{2}}(y_{j}-\mu_{k})^{2}\right]\right\} \\
+\end{align}
+$$
+
+### M-Step
+$$
+\theta^{(i+1)}=\arg \max _{\theta}Q(\theta, \theta^{(i)})  \\
+s.t. \sum_{k=1}^{K}\alpha_{k}=1
+$$
+
+By introducing Lagrange multiplier $\lambda$ to convert the constraint into the objective function, we have:
+$$
+\begin{align}
+\theta^{(i+1)} &=\arg \max _{\theta, \lambda}Q(\theta, \theta^{(i)}) + \lambda(\sum_{k=1}^{K}\alpha_{k}-1) \\
+\end{align}
+$$
+Take derivative of $\theta$ and $\lambda$ respectively and let them equal to 0:
+> $\theta$ is a combination of all parameters, i.e. $\mu_k, \sigma_k, \alpha_k$.
+
+> Each time to focus on $\theta_k$ and $\alpha_k$, so we can get rid of $\sum_{k=1}^{K}$.
+
+$$
+\begin{align}
+\frac{\partial Q(\theta, \theta^{(i)})}{\partial \alpha_k} &= \sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]\frac{1}{\alpha_k} + \lambda = 0\\
+\frac{\partial Q(\theta, \theta^{(i)})}{\partial \mu_k} &= \sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]\frac{1}{\sigma_k^2}(y_j - \mu_k) = 0 \\
+\frac{\partial Q(\theta, \theta^{(i)})}{\partial \sigma_k} &= \sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]\left[\frac{1}{\sigma_k} + \frac{1}{\sigma_k^3}(y_j - \mu_k)^2\right] = 0 \\
+\frac{\partial Q(\theta, \theta^{(i)})}{\partial \lambda} &= \sum_{k=1}^{K}\alpha_k - 1 = 0 \\
+\end{align}
+$$
+Solve the equations, we have: 
+$$
+\begin{align}
+\alpha_k &= \frac{1}{N}\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}] \\
+\mu_k &= \frac{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]y_j}{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]} \\
+\sigma_k^2 &= \frac{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}](y_j - \mu_k)^2}{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]} \\
+\end{align}
+$$
+Alogrithm is as follows:
+* **Input:** $y_1, y_2, ..., y_n$, GMM
+* **Initialize:** $\mu_k, \sigma_k, \alpha_k$
+* **E-Step:** Calculate 
+  $$\mathbb{E}[\gamma_{jk}] = \frac{\alpha_k \phi(y_j|\theta_k)}{\sum_{k=1}^{K}\alpha_k \phi(y_j|\theta_k)} \qquad j = 1, 2, ..., N; k = 1, 2, ..., K$$
+* **M-Step:** Update parameters
+  $$
+  \begin{align}
+  \alpha_k &= \frac{1}{N}\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}] \\
+  \mu_k &= \frac{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]y_j}{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]} \\
+  \sigma_k^2 &= \frac{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}](y_j - \mu_k)^2}{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]} \\
+  \end{align}
+  $$
