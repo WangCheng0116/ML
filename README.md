@@ -526,7 +526,12 @@ PCA is a powerful tool to reduce dimensionality. And the math basis is SVD. The 
 I skip to anohter new topic lol. Reinforcement learning. Simply because this is the topic that I am interested in. Bellman Equation is yet the most confusing part I have ever encountered in machine learning. It took me a very long time and a lot of efforts refering to different sources to understand it. 
 
 ## 24 Oct
-Mente Carlo.
+In most cases, it is not possible to solve Bellman Equation analytically. So we need to resort to numerical methods. Monte Carlo is one of them. The main idea behind is to use sampling to estimate the value function.
 
 ## 25 Oct
-Perceptron.
+Today I realized I skipped the topic of Perceptron and it happened to be the topic of recent lecture. So I went back and learned it. It is a very simple model, but it is the foundation of neural network. And I guess also a bit of SVM? It basically looks a degenarated version of SVM.
+
+## 26 Oct
+Math Proof of GMM.
+
+## HMM

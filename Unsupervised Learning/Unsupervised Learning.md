@@ -48,6 +48,12 @@
     - [Log Likelihood Function](#log-likelihood-function-1)
     - [E-Step](#e-step)
     - [M-Step](#m-step)
+- [Hidden Markov Model (HMM)](#hidden-markov-model-hmm)
+  - [Three Key Components](#three-key-components)
+  - [Two Assumptions](#two-assumptions)
+  - [Example](#example-1)
+  - [Three Problems](#three-problems)
+    - [Probability Calculation](#probability-calculation)
 
 # Singular Value Decomposition (SVD)
 
@@ -777,3 +783,60 @@ Alogrithm is as follows:
   \sigma_k^2 &= \frac{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}](y_j - \mu_k)^2}{\sum_{j=1}^{N}\mathbb{E}[\gamma_{jk}]} \\
   \end{align}
   $$
+
+# Hidden Markov Model (HMM)
+
+## Three Key Components
+Suppose $Q$ is the set of all possible states, $V$ is the set of all possible observations:
+$$
+Q = \{q_1, q_2, ..., q_N\} \\
+V = \{v_1, v_2, ..., v_M\}
+$$
+$I$ is state sequence, $O$ is the corresponding observation sequence:
+$$
+I = (i_1, i_2, ..., i_T) \\
+O = (o_1, o_2, ..., o_T)
+$$
+Then we have three key components of HMM:
+* **State Transition Matrix** $A$:  
+  $a_{ij}$ is the probability of transiting from state $q_i$ to state $q_j$ at time $t+1$.
+  $$
+  A = [a_{ij}]_{N \times N} \\
+  a_{ij} = P(i_{t+1} = q_j | i_t = q_i)
+  $$
+* **Observation Matrix** $B$:  
+  $b_j(k)$ is the probability of observing $v_k$ at time $t$ given the state is $q_j$.
+  $$
+  B = [b_j(k)]_{N \times M} \\
+  b_j(k) = P(o_t = v_k | i_t = q_j)
+  $$
+* **Initial State Distribution** $\pi$:
+  $\pi_i$ is the probability of the initial state being $q_i$.
+  $$
+  \pi = (\pi_1, \pi_2, ..., \pi_N) \\
+  \pi_i = P(i_1 = q_i)
+  $$
+
+> Hence, we usually denote a HMM as $\lambda = (A, B, \pi)$.
+## Two Assumptions
+* **Markov Property**:  
+  The probability of the next state depends only on the current state, not on the sequence of events that preceded it.
+  $$P(i_{t}|i_{t-1},o_{t-1},\cdot\cdot\cdot,i_{1},o_{1})=P(i_{t}|i_{t-1}),\quad t=1,2,\cdot\cdot\cdot,T$$
+* **Independent Observation Property**:  
+  The probability of an observation depends only on the state that produced the observation.
+  $$P(o_{t}|i_{T},o_{T},i_{T-1},o_{T-1},\cdot\cdot\cdot,i_{t+1},o_{t+1},i_{t},i_{t-1},o_{t-1},\cdot\cdot\cdot,i_{1},o_{1})=P(o_{t}|i_{t})$$
+
+## Example
+![Alt text](image.png)
+![Alt text](image-1.png)
+
+## Three Problems
+* **Probability calculation**:
+  Given a model $\lambda = (A, B, \pi)$ and an observation sequence $O = (o_1, o_2, ..., o_T)$, how to calculate the probability of $P(O|\lambda)$?
+* **Learning**:
+  Given an observation sequence $O = (o_1, o_2, ..., o_T)$, how to estimate the model $\lambda = (A, B, \pi)$ s.t. $P(O|\lambda)$ is maximized?
+* **Decoding**:
+  Given a model $\lambda = (A, B, \pi)$ and an observation sequence $O = (o_1, o_2, ..., o_T)$, how to find the optimal state sequence $I = (i_1, i_2, ..., i_T)$ s.t. $P(I|O, \lambda)$ is maximized?
+
+### Probability Calculation
+0
