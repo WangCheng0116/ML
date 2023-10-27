@@ -502,7 +502,7 @@ Today I tried digging into a gradient-boosted method, which is stated to be quit
 This is a hard day. Currently, I need to confess that SVM is by far the most math-heavy topic I have ever learned. On a side note, it is very interesting to see how my math courses are intertwined with SVM, because I happen to be learning non-linear optimization (MA3236). I will put SVM in [challenge](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md) folder. A very simple implementation of SVM can be found [here](https://github.com/WangCheng0116/ML/blob/main/Code%20Implementation/SVM%20Binary%20Classification/SVM_Binary_Classification.ipynb) (using scikit)
 
 ## 16 Oct
-Today's topic is a quite unique one, since we are going back to revise the concept of decision tree. Things turned out to be so surprising -- 2109S only covers a very tiny small portion of that and omit a lot of math induction. Learned a lot :)
+Today's topic is a quite unique one since we are going back to revise the concept of the decision tree. Things turned out to be so surprising -- 2109S only covers a very tiny portion of that and omits a lot of math induction. Learned a lot :)
 
 ## 17 Oct
 Today's topic is about ensembling method, which is a very popular method in ML. And also, the method called gradient boosting has been emphasized by prof. Indeed it is a very powerful method, but it is also very mathy. Refer to [here](https://github.com/WangCheng0116/ML/blob/main/Concepts/note.md#ensemble-learning) for more details. 
@@ -514,7 +514,7 @@ Another pretty mathy day. After enterting the realm of unsupervised learning, co
 Too much information has been flooding in my mind. Pause for a while not to take in new concepts and take a deep breath. Today's task - Review!
 
 ## 20 Oct
-Today I revisited the concept of SVM after I learned the corresponding knowledge in MA3236 (non-linear optimization), and specifically, KKT and duality. Also I have included a muc h more rigorous proof of SVM.
+Today I revisited the concept of SVM after I learned the corresponding knowledge in MA3236 (non-linear optimization), and specifically, KKT and duality. Also, I have included a much more rigorous proof of SVM.
 
 ## 21 Oct
 Today's topic is about SVD. It is very amazing to see how the knowledge of linear algebra can be applied to ML. SVD is a powerful tool for dimensionality reduction, and it is also the foundation of PCA, which I plan to study tomorrow.
@@ -523,15 +523,15 @@ Today's topic is about SVD. It is very amazing to see how the knowledge of linea
 PCA is a powerful tool to reduce dimensionality. And the math basis is SVD. The idea behind is understandable, but I really didn't dive into the application part. In what scenario should we use PCA? I will explore it in the future.
 
 ## 23 Oct
-I skip to anohter new topic lol. Reinforcement learning. Simply because this is the topic that I am interested in. Bellman Equation is yet the most confusing part I have ever encountered in machine learning. It took me a very long time and a lot of efforts refering to different sources to understand it. 
+I skip to another new topic lol. Reinforcement learning. Simply because this is the topic that I am interested in. Bellman Equation is yet the most confusing part I have ever encountered in machine learning. It took me a very long time and a lot of efforts referring to different sources to understand it. 
 
 ## 24 Oct
-In most cases, it is not possible to solve Bellman Equation analytically. So we need to resort to numerical methods. Monte Carlo is one of them. The main idea behind is to use sampling to estimate the value function.
+In most cases, it is not possible to solve the Bellman Equation analytically. So we need to resort to numerical methods. Monte Carlo is one of them. The main idea behind is to use sampling to estimate the value function.
 
 ## 25 Oct
-Today I realized I skipped the topic of Perceptron and it happened to be the topic of recent lecture. So I went back and learned it. It is a very simple model, but it is the foundation of neural network. And I guess also a bit of SVM? It basically looks a degenarated version of SVM.
+Today I realized I skipped the topic of Perceptron and it happened to be the topic of recent lecture. So I went back and learned it. It is a very simple model, but it is the foundation of neural network. And I guess also a bit of SVM? It basically looks a degenerated version of SVM.
 
 ## 26 Oct
-Math Proof of GMM.
+Another retrospective topic. GMM is a variant of EM algorithm, and it is by far the first variant I have seen. Honestly, understanding the EM algo is very different from knowing how to do so. Again, a prolific quantity of probability gets involved. However, surprisingly, looking at real examples of GMM is not that difficult. It's just because the notation used in the proof section is a bit confusing.
 
 ## HMM
