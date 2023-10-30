@@ -350,7 +350,7 @@ Notes: [Supervised Learning](https://github.com/WangCheng0116/ML/blob/main/Super
 |  ✅[7](##7-Oct)      | [Midterm] 8     | [Midterm] 9     | ✅[10](##10-Oct)       | ✅[11](##11-Oct)    | ✅[12](##12-Oct)  | ✅[13](##13-Oct)    |
 | ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | ✅[20](##20-Oct)    |
 | ✅[21](##21-Oct)   | ✅[22](##22-Oct)     | ✅[23](##23-Oct)     | ✅[24](##24-Oct)      | ✅[25](##25-Oct)    | ✅[26](##26-Oct)  | ✅[27](##27-Oct)    |
-| ✅[28](##28-Oct)    | ✅[29](##29-Oct)    | [ ] 30    | [ ] 31      |           |         |           |
+| ✅[28](##28-Oct)    | ✅[29](##29-Oct)    | [Presentation] 30    | [ ] 31      |           |         |           |
 
 
 ## 28 Sept  
@@ -534,4 +534,5 @@ Today I realized I skipped the topic of Perceptron and it happened to be the top
 ## 26 Oct
 Another retrospective topic. GMM is a variant of EM algorithm, and it is by far the first variant I have seen. Honestly, understanding the EM algo is very different from knowing how to do so. Again, a prolific quantity of probability gets involved. However, surprisingly, looking at real examples of GMM is not that difficult. It's just because the notation used in the proof section is a bit confusing.
 
-## HMM
+## 27 Oct
+D
