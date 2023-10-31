@@ -839,4 +839,3 @@ Then we have three key components of HMM:
   Given a model $\lambda = (A, B, \pi)$ and an observation sequence $O = (o_1, o_2, ..., o_T)$, how to find the optimal state sequence $I = (i_1, i_2, ..., i_T)$ s.t. $P(I|O, \lambda)$ is maximized?
 
 ### Probability Calculation
-0
