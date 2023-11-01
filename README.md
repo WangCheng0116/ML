@@ -305,6 +305,8 @@ Notes: [Supervised Learning](https://github.com/WangCheng0116/ML/blob/main/Super
   - [SVM Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/SVM%20Math%20Proof.md)
   - [XGBoost Math Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/XGBoost.md)
   - [EM Proof](https://github.com/WangCheng0116/ML/blob/main/Challenges/EM.md)
+  - [Entropy Understanding](https://github.com/WangCheng0116/ML/blob/main/Challenges/Entropy.md)
+  - [AutoDiff](https://github.com/WangCheng0116/ML/blob/main/Challenges/AutoDiff.md)
   
 ## Code (code implementation for model)
   - [CNN](https://github.com/WangCheng0116/ML/tree/main/Code%20Implementation/CNN)
@@ -351,6 +353,17 @@ Notes: [Supervised Learning](https://github.com/WangCheng0116/ML/blob/main/Super
 | ✅[14](##14-Oct)   | [Chill] 15    | ✅[16](##16-Oct)    | ✅[17](##17-Oct)      | ✅[18](##18-Oct)    | ✅[19](##19-Oct)  | ✅[20](##20-Oct)    |
 | ✅[21](##21-Oct)   | ✅[22](##22-Oct)     | ✅[23](##23-Oct)     | ✅[24](##24-Oct)      | ✅[25](##25-Oct)    | ✅[26](##26-Oct)  | ✅[27](##27-Oct)    |
 | ✅[28](##28-Oct)    | ✅[29](##29-Oct)    | [Presentation] 30    | ✅[31](##31-Oct)      |           |         |           |
+
+### November 2023
+|   Sunday    |   Monday    |   Tuesday   |   Wednesday   |   Thursday   |   Friday   |   Saturday   |
+|:-----------:|:-----------:|:----------:|:------------:|:-----------:|:---------:|:-----------:|
+|          |         |         |  ✅[1](##1-Nov) |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
+|  [ ]        |   [ ]       |   [ ]       |    [ ]        |    [ ]      |   [ ]     |   [ ]       |
 
 
 ## 28 Sept  
@@ -536,3 +549,6 @@ Another retrospective topic. GMM is a variant of EM algorithm, and it is by far 
 
 ## 31 Oct
 Today's topic is kind of chill but it indeed appeared in the lecture. Automatic differentiation is a very smart method to calculate the derivative of a function. It turns out that I have been using it in Pytorch without knowing it lol.
+
+## 1 Nov
+Review the concept of information entropy, cross entropy and KL divergence. Before I studied this topic, these formulas are just formulas. But now I know the intuition behind them. It is very interesting to see how the concept of probability is applied to ML.
