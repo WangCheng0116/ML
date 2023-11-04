@@ -145,6 +145,8 @@
   - [Language Model](#language-model)
   - [Sampling](#sampling)
   - [The Gradient Vanishing Problem in RNNs](#the-gradient-vanishing-problem-in-rnns)
+  - [Long Short-Term Memory (LSTM) Network](#long-short-term-memory-lstm-network)
+  - [Gated Recurrent Unit (GRU) Network](#gated-recurrent-unit-gru-network)
 - [Support Vector Machine](#support-vector-machine)
   - [Proof](#proof)
     - [Problem Formulation](#problem-formulation)
@@ -1712,7 +1714,7 @@ To address these issues, we introduce the **Recurrent Neural Network (RNN)**. Th
 
 In an RNN, at each time step, the element $x^{⟨t⟩}$ is fed into the hidden layer corresponding to that time step, and the hidden layer also receives activations $a^{⟨t-1⟩}$ from the previous time step. Typically, $a^{⟨0⟩}$ is initialized as a zero vector. Each time step produces a corresponding prediction $\hat y^{⟨t⟩}$.
 
-RNNs process data from left to right, and the parameters are shared across time steps. The parameters for input, activation, and output are denoted as $W\_{ax}$, $W\_{aa}$, and $W\_{ya}$, respectively.
+RNNs process data from left to right, and the parameters are shared across time steps. The parameters for input, activation, and output are denoted as $W_{ax}$, $W_{aa}$, and $W_{ya}$, respectively.
 
 The structure of a single RNN cell is shown below:
 
@@ -1730,7 +1732,7 @@ Here, $g_1$ is typically the tanh activation function (or sometimes ReLU), and $
 
 To simplify the equations further for efficient computation, you can concatenate $W_{aa}$ and $W_{ax}$ **horizontally** into a matrix $W_a$, and stack $a^{⟨t-1⟩}$ and $x^{⟨t⟩}$ into a single matrix. This results in:
 
-$$W_a = [W\_{aa}, W\_{ax}]$$
+$$W_a = [W_{aa}, W_{ax}]$$
 
 $$a^{⟨t⟩} = g_1(W_a[a^{⟨t-1⟩}; x^{⟨t⟩}] + b_a)$$
 
@@ -1746,9 +1748,9 @@ $$\hat y^{⟨t⟩} = g_2(W_{ya}a^{⟨t⟩} + b_y)$$
 
 A **Language Model** is a mathematical abstraction that models language based on objective linguistic facts, allowing it to estimate the likelihood of elements appearing in a sequence. For instance, in a speech recognition system, a language model can calculate the probability of two phonetically similar sentences and use this information to make accurate decisions.
 
-The construction of a language model relies on a large **corpus**, which is a collection of numerous sentences forming a text. The first step in building a language model is **tokenization**, where a dictionary is established. Then, each word in the corpus is represented by a corresponding one-hot vector. Additionally, an extra token "EOS" (End of Sentence) is added to denote the end of a sentence. Punctuation can be ignored or included in the dictionary and represented by one-hot vectors.
+The construction of a language model relies on a large **corpus**, which is a collection of numerous sentences forming a text. The first step in building a language model is **tokenization**, where a dictionary is established. Then, each word in the corpus is represented by a corresponding one-hot vector. Additionally, an extra token **"EOS"** (End of Sentence) is added to denote the end of a sentence. Punctuation can be ignored or included in the dictionary and represented by one-hot vectors.
 
-For special words in the corpus, such as names of people or places that may not be included in the dictionary, you can represent them with a UNK (Unique Token) tag instead of explicitly modeling each specific word.
+For special words in the corpus, such as names of people or places that may not be included in the dictionary, you can represent them with a **UNK** (Unique Token) tag instead of explicitly modeling each specific word.
 
 The tokenized training dataset is used to train a Recurrent Neural Network (RNN), as illustrated in the following diagram:
 
@@ -1758,11 +1760,11 @@ In the first time step, both the input $a^{⟨0⟩}$ and $x^{⟨1⟩}$ are zero 
 
 The loss function is defined as:
 
-$$L(\hat y^{⟨t⟩}, y^{⟨t⟩}) = -\sum\_t y\_i^{⟨t⟩} \log \hat y^{⟨t⟩}$$
+$$L(\hat y^{⟨t⟩}, y^{⟨t⟩}) = -\sum_i y_i^{⟨t⟩} \log \hat y_i^{⟨t⟩}$$
 
 And the cost function is:
 
-$$J = \sum\_t L^{⟨t⟩}(\hat y^{⟨t⟩}, y^{⟨t⟩})$$
+$$J = \sum_t L^{⟨t⟩}(\hat y^{⟨t⟩}, y^{⟨t⟩})$$
 
 ## Sampling
 
@@ -1787,8 +1789,16 @@ During backpropagation, as the number of layers increases, the gradients can not
 
 On the other hand, the problem of gradient vanishing is more challenging to tackle. Solutions like **GRUs and LSTMs** have been developed to mitigate the gradient vanishing problem in RNNs.
 
+## Long Short-Term Memory (LSTM) Network
+LSTM usually has two transition states, one is the hidden state $h^{⟨t⟩}$, and the other is the cell state $c^{⟨t⟩}$. The cell state is similar to a conveyor belt, which can be used to transmit information to the next time step. The LSTM cell structure is shown below:
+![Alt text](image-39.png)
+[Detailed explanation](https://www.jianshu.com/p/9dc9f41f0b29)
 
-
+## Gated Recurrent Unit (GRU) Network  
+It combines the forget and input gates into a single “**update gate($z_t$)**”, and it has another gate called **reset gate($r_t$)**. It also merges the cell state and hidden state, and makes some other changes. It will give similar performance but with fewer parameters. The GRU cell structure is shown below:
+![Alt text](image-40.png)  
+In sequence:  
+![Alt text](image-41.png)
 
 # Support Vector Machine
 ## Proof
